@@ -12,7 +12,7 @@
     },
     "autoload": {
         "classmap": [
-            "migrations"
+            "src/migrations"
         ],
         "psr-4": {
             "TypiCMS\\Modules\\Users\\": "src/"
