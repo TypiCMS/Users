@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "typicms/core": "dev-master"
+        "typicms/core": "~1.8.0"
     },
     "autoload": {
         "classmap": [
