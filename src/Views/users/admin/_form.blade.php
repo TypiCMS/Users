@@ -1,5 +1,5 @@
 @section('js')
-    {{ HTML::script('js/admin/checkboxes-permissions.js') }}
+    <script src="{{ asset('js/admin/checkboxes-permissions.js') }}"></script>
 @stop
 
 
