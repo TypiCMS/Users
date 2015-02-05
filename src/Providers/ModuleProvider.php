@@ -29,8 +29,13 @@ class ModuleProvider extends ServiceProvider
 
         // Add dirs
         View::addLocation(__DIR__ . '/../Views');
-        Lang::addNamespace('users', __DIR__ . '/../lang');
-        Config::addNamespace('users', __DIR__ . '/../config');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'users');
+        $this->publishes([
+            __DIR__ . '/../config/' => config_path('typicms/users'),
+        ], 'config');
+        $this->publishes([
+            __DIR__ . '/../migrations/' => base_path('/database/migrations'),
+        ], 'migrations');
 
         // Add user preferences to Config
         $prefs = App::make('TypiCMS\Modules\Users\Repositories\UserInterface')->getPreferences();
@@ -62,10 +67,5 @@ class ModuleProvider extends ServiceProvider
                 $app->make('TypiCMS\Modules\Users\Repositories\UserInterface')
             );
         });
-
-        $app->before(function ($request, $response) {
-            require __DIR__ . '/../breadcrumbs.php';
-        });
-
     }
 }

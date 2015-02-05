@@ -32,7 +32,7 @@ class AdminController extends AdminSimpleController
 
     public function getLogin()
     {
-        $this->layout->content = View::make('users.admin.login');
+        return view('users.admin.login');
     }
 
     public function postLogin()
@@ -73,7 +73,7 @@ class AdminController extends AdminSimpleController
     {
         $this->title['child'] = trans('users::global.New');
         $model = $this->repository->getModel();
-        $this->layout->content = View::make('core::admin.create')
+        return view('core::admin.create')
             ->withModel($model)
             ->with('selectedGroups', array())
             ->with('groups', $this->repository->getGroups());
@@ -88,7 +88,7 @@ class AdminController extends AdminSimpleController
     public function edit(Model $model)
     {
         $this->title['child'] = trans('users::global.Edit');
-        $this->layout->content = View::make('core::admin.edit')
+        return view('core::admin.edit')
             ->withModel($model)
             ->withPermissions($model->getPermissions())
             ->withGroups($this->repository->getGroups())
@@ -104,7 +104,7 @@ class AdminController extends AdminSimpleController
     public function getRegister()
     {
         // Show the register form
-        $this->layout->content = View::make('users.admin.register');
+        return view('users.admin.register');
     }
 
     /**
@@ -165,7 +165,7 @@ class AdminController extends AdminSimpleController
     public function getResetpassword()
     {
         // Show the reset password form
-        $this->layout->content = View::make('users.admin.reset');
+        return view('users.admin.reset');
     }
 
     public function postResetpassword()
@@ -219,7 +219,7 @@ class AdminController extends AdminSimpleController
             $data['id'] = $userId;
             $data['resetCode'] = $resetCode;
 
-            $this->layout->content = View::make('users.admin.newpassword')
+            return view('users.admin.newpassword')
                 ->with($data);
 
         } catch (Exception $e) {
