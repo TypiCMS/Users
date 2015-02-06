@@ -15,8 +15,12 @@
         {!! BootForm::token() !!}
         <h1>@lang('users::global.Log in')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg')->placeholder(trans('validation.attributes.email')) !!}
-        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg')->placeholder(trans('validation.attributes.password')) !!}
+        <div class="form-group">
+            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email')) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
+        </div>
 
         <div class="form-group">
             <span class="help-block">
