@@ -2,22 +2,16 @@
 namespace TypiCMS\Modules\Users\Providers;
 
 use App;
-use Lang;
-use View;
 use Config;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Application;
-
-// Models
+use Illuminate\Support\ServiceProvider;
+use Lang;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\SentryUser;
-
-// Form
 use TypiCMS\Modules\Users\Services\Form\UserForm;
 use TypiCMS\Modules\Users\Services\Form\UserFormLaravelValidator;
-
-// Observers
 use TypiCMS\Observers\FileObserver;
+use View;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -28,7 +22,7 @@ class ModuleProvider extends ServiceProvider
         require __DIR__ . '/../routes.php';
 
         // Add dirs
-        View::addLocation(__DIR__ . '/../Views');
+        View::addNamespace('users', __DIR__ . '/../views/');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'users');
         $this->publishes([
             __DIR__ . '/../config/' => config_path('typicms/users'),

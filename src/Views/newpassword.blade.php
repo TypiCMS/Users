@@ -29,8 +29,8 @@
         @endif
     </div>
 
-    {{ BootForm::hidden('resetCode', $resetCode) }}
-    {{ BootForm::hidden('id', $id) }}
+    {!! BootForm::hidden('resetCode', $resetCode) !!}
+    {!! BootForm::hidden('id', $id) !!}
 
     <div class="form-group form-action">
         {{ Form::button(trans('validation.attributes.modify'), array('class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit')) }}

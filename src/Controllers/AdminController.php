@@ -32,7 +32,7 @@ class AdminController extends AdminSimpleController
 
     public function getLogin()
     {
-        return view('users.admin.login');
+        return view('users::login');
     }
 
     public function postLogin()
@@ -104,7 +104,7 @@ class AdminController extends AdminSimpleController
     public function getRegister()
     {
         // Show the register form
-        return view('users.admin.register');
+        return view('users::register');
     }
 
     /**
@@ -165,7 +165,7 @@ class AdminController extends AdminSimpleController
     public function getResetpassword()
     {
         // Show the reset password form
-        return view('users.admin.reset');
+        return view('users::reset');
     }
 
     public function postResetpassword()
@@ -219,7 +219,7 @@ class AdminController extends AdminSimpleController
             $data['id'] = $userId;
             $data['resetCode'] = $resetCode;
 
-            return view('users.admin.newpassword')
+            return view('users::newpassword')
                 ->with($data);
 
         } catch (Exception $e) {

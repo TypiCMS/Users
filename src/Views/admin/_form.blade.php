@@ -5,8 +5,8 @@
 
 @include('core::admin._buttons-form')
 
-{{ BootForm::hidden('activated') }}
-{{ BootForm::hidden('id'); }}
+{!! BootForm::hidden('activated') !!}
+{!! BootForm::hidden('id') !!}
 
 <div class="row">
 
@@ -43,7 +43,7 @@
 
                 <div class="form-group @if($errors->has('first_name'))has-error @endif">
                     {{ Form::label('first_name', trans('validation.attributes.first_name'), array('class' => 'control-label')) }}
-                    {{ Form::text('first_name', null, array('class' => 'form-control')); }}
+                    {{ Form::text('first_name', null, array('class' => 'form-control')) }}
                     {{ $errors->first('first_name', '<p class="help-block">:message</p>') }}
                 </div>
 
@@ -53,7 +53,7 @@
 
                 <div class="form-group @if($errors->has('last_name'))has-error @endif">
                     {{ Form::label('last_name', trans('validation.attributes.last_name'), array('class' => 'control-label')) }}
-                    {{ Form::text('last_name', null, array('class' => 'form-control')); }}
+                    {{ Form::text('last_name', null, array('class' => 'form-control')) }}
                     {{ $errors->first('last_name', '<p class="help-block">:message</p>') }}
                 </div>
 
@@ -63,7 +63,7 @@
 
         <div class="checkbox">
             <label>
-                {{ BootForm::hidden('activated', 0) }}
+                {!! BootForm::hidden('activated', 0) !!}
                 {{ Form::checkbox('activated', 1, isset($user) && $user->isActivated()) }} Activé
             </label>
         </div>
@@ -77,7 +77,7 @@
                 @foreach ($groups as $group)
                 <div class="checkbox">
                     <label>
-                        {{ BootForm::hidden('groups[' . $group->id . ']', 0) }}
+                        {!! BootForm::hidden('groups[' . $group->id . ']', 0) !!}
                         {{ Form::checkbox('groups[' . $group->id . ']', 1, isset($selectedGroups[$group->id])) }} {{ $group->name }}
                     </label>
                 </div>
@@ -95,7 +95,7 @@
 <label>@lang('users::global.User permissions')</label>
 <div class="checkbox">
     <label>
-        {{ BootForm::hidden('permissions[superuser]', 0) }}
+        {!! BootForm::hidden('permissions[superuser]', 0) !!}
         {{ Form::checkbox('permissions[superuser]', 1, isset($permissions['superuser']) && $permissions['superuser']) }} Superuser ?
     </label>
 </div>
