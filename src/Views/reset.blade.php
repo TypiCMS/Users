@@ -1,3 +1,5 @@
+@extends('core::admin.master')
+
 @section('page-header')
 @stop
 @section('sidebar')
@@ -9,23 +11,20 @@
 
 <div id="reset" class="container-reset container-xs-center">
 
-    {{ Form::open(array('role' => 'form', 'method' => 'post')) }}
+    {!! BootForm::open()->role('form') !!}
+        {!! BootForm::token() !!}
 
         <h1>@lang('users::global.Reset password')</h1>
 
-        <div class="form-group @if($errors->has('email'))has-error @endif">
-            {{ Form::label('email', trans('validation.attributes.email'), array('class' => 'sr-only')) }}
-            {{ Form::email('email', null, array('class' => 'form-control input-lg', 'autofocus', 'placeholder' => trans('validation.attributes.email'))) }}
-            @if($errors->has('email'))
-            <span class="help-block">{{ $errors->first('email') }}</span>
-            @endif
+        <div class="form-group">
+            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email')) !!}
         </div>
 
         <div class="form-group form-action">
-            {{ Form::button(trans('validation.attributes.reset password'), array('class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit')) }}
+            {!! BootForm::submit(trans('validation.attributes.reset password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
-    {{ Form::close() }}
+    {!! BootForm::close() !!}
 
 </div>
 

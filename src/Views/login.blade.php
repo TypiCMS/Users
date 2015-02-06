@@ -13,6 +13,7 @@
 
     {!! BootForm::open()->role('form') !!}
         {!! BootForm::token() !!}
+
         <h1>@lang('users::global.Log in')</h1>
 
         <div class="form-group">
@@ -30,7 +31,6 @@
 
         <div class="form-group">
             {!! BootForm::submit(trans('validation.attributes.log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
-            {{-- Form::button(trans('validation.attributes.log in'), array('class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit')) --}}
         </div>
 
     {!! BootForm::close() !!}

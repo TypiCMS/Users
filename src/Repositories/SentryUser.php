@@ -3,6 +3,7 @@ namespace TypiCMS\Modules\Users\Repositories;
 
 // Part of this code come from https://github.com/brunogaspar/laravel4-starter-kit
 
+use App;
 use Cartalyst\Sentry\Groups\GroupNotFoundException;
 use Cartalyst\Sentry\Sentry;
 use Cartalyst\Sentry\Throttling\UserBannedException;
@@ -14,6 +15,7 @@ use Cartalyst\Sentry\Users\UserExistsException;
 use Cartalyst\Sentry\Users\UserNotActivatedException;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Cartalyst\Sentry\Users\WrongPasswordException;
+use Config;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Message;
@@ -346,8 +348,10 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
             $data['userId'] = $user->getId();
 
             // send email with link to activate.
-            Mail::send('emails.auth.welcome', $data, function (Message $message) use ($data) {
-                $message->to($data['email'])->subject('Welcome to Typi CMS');
+            Mail::send('users::emails.welcome', $data, function (Message $message) use ($data) {
+                $subject  = '[' . Config::get('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
+                $subject .= trans('users::global.Welcome');
+                $message->to($data['email'])->subject($subject);
             });
 
             return true;

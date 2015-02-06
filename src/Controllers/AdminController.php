@@ -185,7 +185,7 @@ class AdminController extends AdminSimpleController
             $data['email'] = $email;
 
             // Email the reset code to the user
-            Mail::send('emails.auth.reset', $data, function (Message $message) use ($data) {
+            Mail::send('users::emails.reset', $data, function (Message $message) use ($data) {
                 $subject  = '[' . Config::get('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
                 $subject .= trans('users::global.Password Reset Confirmation');
                 $message->to($data['email'])->subject($subject);
