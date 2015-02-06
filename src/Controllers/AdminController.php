@@ -73,23 +73,23 @@ class AdminController extends AdminSimpleController
     {
         $this->title['child'] = trans('users::global.New');
         $model = $this->repository->getModel();
+        $groups = $this->repository->getGroups();
+        $selectedGroups = [];
         return view('core::admin.create')
-            ->withModel($model)
-            ->with('selectedGroups', array())
-            ->with('groups', $this->repository->getGroups());
+            ->with(compact('model', 'groups', 'selectedGroups'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Model      $model
+     * @param  $model
      * @return Response
      */
-    public function edit(Model $model)
+    public function edit($model)
     {
         $this->title['child'] = trans('users::global.Edit');
         return view('core::admin.edit')
-            ->withModel($model)
+            ->with(compact('model'))
             ->withPermissions($model->getPermissions())
             ->withGroups($this->repository->getGroups())
             ->with('selectedGroups', $this->repository->getGroups($model));
