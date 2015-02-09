@@ -17,7 +17,7 @@
         <h1>@lang('users::global.Log in')</h1>
 
         <div class="form-group">
-            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email')) !!}
+            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
         </div>
         <div class="form-group">
             {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
