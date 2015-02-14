@@ -7,7 +7,7 @@ Route::model('users', 'TypiCMS\Modules\Users\Models\User');
 Route::group(
     array(
         'before' => 'visitor.mayRegister',
-        'namespace' => 'TypiCMS\Modules\Users\Controllers',
+        'namespace' => 'TypiCMS\Modules\Users\Http\Controllers',
     ),
     function () {
         Route::get('users/register', array('as' => 'register', 'uses' => 'AdminController@getRegister'));

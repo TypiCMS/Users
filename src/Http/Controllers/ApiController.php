@@ -1,8 +1,8 @@
 <?php
-namespace TypiCMS\Modules\Users\Controllers;
+namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Controllers\BaseApiController;
+use TypiCMS\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Users\Repositories\UserInterface as Repository;
 use Response;
 use Sentry;

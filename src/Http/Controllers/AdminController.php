@@ -1,5 +1,5 @@
 <?php
-namespace TypiCMS\Modules\Users\Controllers;
+namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use App;
 use Config;
@@ -10,7 +10,7 @@ use Input;
 use Mail;
 use Notification;
 use Redirect;
-use TypiCMS\Controllers\AdminSimpleController;
+use TypiCMS\Http\Controllers\AdminSimpleController;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 use TypiCMS\Modules\Users\Services\Form\UserForm;
 use View;
