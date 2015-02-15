@@ -3,6 +3,7 @@ namespace TypiCMS\Modules\Users\Services\Form;
 
 use TypiCMS\Services\Form\AbstractForm;
 use TypiCMS\Services\Validation\ValidableInterface;
+use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class UserForm extends AbstractForm

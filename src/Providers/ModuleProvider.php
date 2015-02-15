@@ -8,8 +8,6 @@ use Illuminate\Support\ServiceProvider;
 use Lang;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\SentryUser;
-use TypiCMS\Modules\Users\Services\Form\UserForm;
-use TypiCMS\Modules\Users\Services\Form\UserFormLaravelValidator;
 use TypiCMS\Observers\FileObserver;
 use View;
 
@@ -57,11 +55,5 @@ class ModuleProvider extends ServiceProvider
             );
         });
 
-        $app->bind('TypiCMS\Modules\Users\Services\Form\UserForm', function (Application $app) {
-            return new UserForm(
-                new UserFormLaravelValidator($app['validator']),
-                $app->make('TypiCMS\Modules\Users\Repositories\UserInterface')
-            );
-        });
     }
 }

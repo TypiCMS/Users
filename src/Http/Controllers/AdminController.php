@@ -11,8 +11,8 @@ use Mail;
 use Notification;
 use Redirect;
 use TypiCMS\Http\Controllers\AdminSimpleController;
+use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
-use TypiCMS\Modules\Users\Services\Form\UserForm;
 use View;
 
 class AdminController extends AdminSimpleController
@@ -24,10 +24,9 @@ class AdminController extends AdminSimpleController
      * @param UserInterface $user
      * @param UserForm      $userform
      */
-    public function __construct(UserInterface $user, UserForm $userform)
+    public function __construct(UserInterface $user)
     {
-        parent::__construct($user, $userform);
-        $this->title['parent'] = trans_choice('users::global.users', 2);
+        parent::__construct($user);
     }
 
     public function getLogin()
