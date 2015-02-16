@@ -17,10 +17,10 @@ class ApiController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      * 
-     * @param  Model    $model
+     * @param  $model
      * @return Response
      */
-    public function destroy(Model $model)
+    public function destroy($model)
     {
         if ($model->id == Sentry::getUser()->id) {
             return Response::json([

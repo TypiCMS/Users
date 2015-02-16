@@ -38,7 +38,7 @@
     </label>
 </div>
 
-@if ($groups = Groups::getAll())
+@if ($groups = Groups::getAll() and $groups->count())
 <div class="form-group">
     <label>@lang('validation.attributes.groups')</label>
     @foreach ($groups as $group)
