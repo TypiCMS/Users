@@ -29,6 +29,31 @@ class AdminController extends AdminSimpleController
         parent::__construct($user);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  FormRequest $request
+     * @return Redirect
+     */
+    public function store(FormRequest $request)
+    {
+        $model = $this->repository->create($request->all());
+        return $this->redirect($request, $model);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $model
+     * @param  FormRequest $request
+     * @return Redirect
+     */
+    public function update($model, FormRequest $request)
+    {
+        $this->repository->update($request->all());
+        return $this->redirect($request, $model);
+    }
+
     public function getLogin()
     {
         return view('users::login');
@@ -87,12 +112,10 @@ class AdminController extends AdminSimpleController
     public function edit($model)
     {
         $this->title['child'] = trans('users::global.Edit');
+        $selectedGroups = $this->repository->getGroups($model);
+        $permissions = $model->getPermissions();
         return view('core::admin.edit')
-            ->with(compact('model'))
-            ->withPermissions($model->getPermissions())
-            ->withGroups($this->repository->getGroups())
-            ->with('selectedGroups', $this->repository->getGroups($model));
-
+            ->with(compact('model', 'selectedGroups', 'permissions'));
     }
 
     /**

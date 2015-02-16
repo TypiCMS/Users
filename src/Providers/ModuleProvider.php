@@ -3,6 +3,7 @@ namespace TypiCMS\Modules\Users\Providers;
 
 use App;
 use Config;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Lang;
@@ -29,6 +30,11 @@ class ModuleProvider extends ServiceProvider
         // Add user preferences to Config
         $prefs = App::make('TypiCMS\Modules\Users\Repositories\UserInterface')->getPreferences();
         Config::set('current_user', $prefs);
+
+        AliasLoader::getInstance()->alias(
+            'Users',
+            'TypiCMS\Modules\Users\Facades\Facade'
+        );
 
         // Observers
         User::observe(new FileObserver);

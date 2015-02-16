@@ -8,11 +8,10 @@ class FormRequest extends AbstractFormRequest {
     public function rules()
     {
         $rules = [
-            'email'                 => 'required|email|unique:users',
+            'email'                 => 'required|email|unique:users,email,' . $this->get('id'),
             'first_name'            => 'required',
             'last_name'             => 'required',
-            'password'              => 'required|min:8|confirmed',
-            'password_confirmation' => 'required'
+            'password'              => 'min:8|confirmed',
         ];
         return $rules;
     }
