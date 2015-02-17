@@ -2,7 +2,6 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use App;
-use Config;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Message;
@@ -199,7 +198,7 @@ class AdminController extends AdminSimpleController
 
             // Email the reset code to the user
             Mail::send('users::emails.reset', $data, function (Message $message) use ($data) {
-                $subject  = '[' . Config::get('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
+                $subject  = '[' . config('typicms.' . App::getLocale() . '.website_title') . '] ';
                 $subject .= trans('users::global.Password Reset Confirmation');
                 $message->to($data['email'])->subject($subject);
             });

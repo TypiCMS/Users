@@ -348,7 +348,7 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
 
             // send email with link to activate.
             Mail::send('users::emails.welcome', $data, function (Message $message) use ($data) {
-                $subject  = '[' . config('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
+                $subject  = '[' . config('typicms.' . App::getLocale() . '.website_title') . '] ';
                 $subject .= trans('users::global.Welcome');
                 $message->to($data['email'])->subject($subject);
             });
