@@ -6,10 +6,14 @@
 @stop
 @section('mainClass')
 @stop
+@section('errors')
+@stop
 
 @section('main')
 
 <div id="register" class="container-register container-xs-center">
+
+    @include('core::admin._message', ['closable' => false])
 
     {!! BootForm::open()->role('form') !!}
         {!! BootForm::token() !!}

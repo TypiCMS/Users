@@ -70,10 +70,10 @@ class RouteServiceProvider extends ServiceProvider {
 
             // Set new password
             $router->get(
-                'users/changepassword/{userid}/{resetcode}',
+                'users/changepassword/{id}/{code}',
                 ['as' => 'changepassword', 'uses' => 'AdminController@getChangepassword']
             );
-            $router->post('users/changepassword/{userid}/{resetcode}', 'AdminController@postChangepassword');
+            $router->post('users/changepassword/{id}/{code}', 'AdminController@postChangepassword');
 
             /**
              * Admin routes

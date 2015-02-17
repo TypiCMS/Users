@@ -6,6 +6,8 @@
 @stop
 @section('mainClass')
 @stop
+@section('errors')
+@stop
 
 @section('main')
 
@@ -16,15 +18,15 @@
 
         <h1>@lang('users::global.New password')</h1>
 
-        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg')->autofocus(true) !!}
 
         {!! BootForm::password(trans('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
 
-        {!! BootForm::hidden('resetCode', $resetCode) !!}
-        {!! BootForm::hidden('id', $id) !!}
+        {!! BootForm::hidden('code')->value($code) !!}
+        {!! BootForm::hidden('id')->value($id) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('validation.attributes.modify'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('validation.attributes.Change password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

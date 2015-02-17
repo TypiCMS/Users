@@ -15,7 +15,6 @@ use Cartalyst\Sentry\Users\UserExistsException;
 use Cartalyst\Sentry\Users\UserNotActivatedException;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Cartalyst\Sentry\Users\WrongPasswordException;
-use Config;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Message;
@@ -332,24 +331,24 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
      * @param  array   $input
      * @return boolean
      */
-    public function register(array $input, $noConfirmation = null)
+    public function register(array $input, $activate = false)
     {
 
         try {
             // Let's register a user.
-            $user = $this->sentry->register($input, $noConfirmation);
+            $user = $this->sentry->register($input, $activate);
 
             // Get the activation code & prep data for email
             $data = array();
-            $data['activationCode'] = $user->GetActivationCode();
+            $data['code'] = $user->GetActivationCode();
             $data['email'] = $input['email'];
-            $data['firstName'] = $input['first_name'];
-            $data['lastName'] = $input['last_name'];
-            $data['userId'] = $user->getId();
+            $data['first_name'] = $input['first_name'];
+            $data['last_name'] = $input['last_name'];
+            $data['id'] = $user->getId();
 
             // send email with link to activate.
             Mail::send('users::emails.welcome', $data, function (Message $message) use ($data) {
-                $subject  = '[' . Config::get('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
+                $subject  = '[' . config('typicms.' . App::getLocale() . '.websiteTitle') . '] ';
                 $subject .= trans('users::global.Welcome');
                 $message->to($data['email'])->subject($subject);
             });
@@ -371,16 +370,16 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
     /**
      * Activate a user registration
      *
-     * @param  int     $userId
-     * @param  string  $activationCode
+     * @param  int     $id
+     * @param  string  $code
      * @return boolean
      */
-    public function activate($userId = null, $activationCode = null)
+    public function activate($id = null, $code = null)
     {
         try {
-            $user = $this->sentry->getUserProvider()->findById($userId);
+            $user = $this->sentry->getUserProvider()->findById($id);
 
-            if ($user->attemptActivation($activationCode)) {
+            if ($user->attemptActivation($code)) {
 
                 $userGroup = $this->sentry->findGroupByName('Public');
                 $user->addGroup($userGroup);
