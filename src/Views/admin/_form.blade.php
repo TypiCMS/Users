@@ -33,7 +33,7 @@
 
 <div class="checkbox">
     <label>
-        {!! BootForm::hidden('activated', 0) !!}
+        {!! BootForm::hidden('activated')->value(0) !!}
         <input type="checkbox" name="activated" value="1" @if (isset($model) && $model->isActivated())checked="checked"@endif> Activé
     </label>
 </div>
@@ -44,7 +44,7 @@
     @foreach ($groups as $group)
     <div class="checkbox">
         <label>
-            {!! BootForm::hidden('groups[' . $group->id . ']', 0) !!}
+            {!! BootForm::hidden('groups[' . $group->id . ']')->value(0) !!}
             <input type="checkbox" name="groups[{{ $group->id }}]" value="1" @if (isset($selectedGroups[$group->id]))checked="checked"@endif> {{ $group->name }}
         </label>
     </div>
@@ -55,7 +55,7 @@
 <label>@lang('users::global.User permissions')</label>
 <div class="checkbox">
     <label>
-        {!! BootForm::hidden('permissions[superuser]', 0) !!}
+        {!! BootForm::hidden('permissions[superuser]')->value(0) !!}
         <input type="checkbox" name="permissions[superuser]" value="1" @if (isset($permissions['superuser']) && $permissions['superuser'])checked="checked"@endif> Superuser
     </label>
 </div>
