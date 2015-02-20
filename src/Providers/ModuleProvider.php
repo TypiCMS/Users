@@ -29,7 +29,7 @@ class ModuleProvider extends ServiceProvider
 
         // Add user preferences to Config
         $prefs = App::make('TypiCMS\Modules\Users\Repositories\UserInterface')->getPreferences();
-        Config::set('current_user', $prefs);
+        Config::set('typicms.user', $prefs);
 
         AliasLoader::getInstance()->alias(
             'Users',

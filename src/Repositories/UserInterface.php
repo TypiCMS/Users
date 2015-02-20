@@ -161,6 +161,15 @@ interface UserInterface extends RepositoryInterface
     public function getPreferences();
 
     /**
+     * Current user has access ?
+     *
+     * @param  string|array  $permissions
+     * @param  bool  $all
+     * @return bool
+     */
+    public function hasAccess($permissions, $all = true);
+
+    /**
      * Update a user
      *
      * @param  int     $id

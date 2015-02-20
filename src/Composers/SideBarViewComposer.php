@@ -1,18 +1,27 @@
 <?php
 namespace TypiCMS\Modules\Users\Composers;
 
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Sidebar\SidebarGroup;
+use Maatwebsite\Sidebar\SidebarItem;
+use TypiCMS\Composers\BaseSidebarViewComposer;
 
-class SidebarViewComposer
+class SidebarViewComposer extends BaseSidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->menus['users']->put('users', [
-            'weight' => config('typicms.users.sidebar.weight'),
-            'request' => $view->prefix . '/users*',
-            'route' => 'admin.users.index',
-            'icon-class' => 'icon fa fa-fw fa-user',
-            'title' => 'Users',
-        ]);
+        $view->sidebar->group(trans('global.menus.users'), function (SidebarGroup $group) {
+            $group->id = 'users';
+            $group->weight = 50;
+            $group->addItem(trans('users::global.name'), function (SidebarItem $item) {
+                $item->icon = config('typicms.users.sidebar.icon', 'icon fa fa-fw fa-user');
+                $item->weight = config('typicms.users.sidebar.weight');
+                $item->route('admin.users.index');
+                $item->append('admin.users.create');
+                $item->authorize(
+                    $this->auth->hasAccess('users.index')
+                );
+            });
+        });
     }
 }

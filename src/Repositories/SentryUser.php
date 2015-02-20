@@ -448,6 +448,21 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
+     * Current user has access ?
+     * 
+     * @param  string|array  $permissions
+     * @param  bool  $all
+     * @return bool
+     */
+    public function hasAccess($permissions, $all = true)
+    {
+        if ($user = $this->sentry->getUser()) {
+            return $user->hasAccess($permissions, $all);
+        }
+        return false;
+    }
+
+    /**
      * Update a user
      *
      * @param  int     $id
