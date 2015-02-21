@@ -18,16 +18,18 @@ class ModuleProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'users');
-        $this->publishes([
-            __DIR__ . '/../views' => base_path('resources/views/vendor/users'),
-        ], 'views');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'users');
         $this->mergeConfigFrom(
             __DIR__ . '/../config/config.php', 'typicms.users'
         );
+
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'users');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'users');
+
         $this->publishes([
-            __DIR__ . '/../migrations/' => base_path('/database/migrations'),
+            __DIR__ . '/../views' => base_path('resources/views/vendor/users'),
+        ], 'views');
+        $this->publishes([
+            __DIR__ . '/../database' => base_path('database'),
         ], 'migrations');
 
         // Add user preferences to Config

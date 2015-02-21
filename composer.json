@@ -11,9 +11,6 @@
         "typicms/core": "~1.8.0"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-4": {
             "TypiCMS\\Modules\\Users\\": "src/"
         }
