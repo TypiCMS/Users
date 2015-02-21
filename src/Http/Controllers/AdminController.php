@@ -88,7 +88,6 @@ class AdminController extends AdminSimpleController
      */
     public function create()
     {
-        $this->title['child'] = trans('users::global.New');
         $model = $this->repository->getModel();
         $groups = $this->repository->getGroups();
         $selectedGroups = [];
@@ -104,7 +103,6 @@ class AdminController extends AdminSimpleController
      */
     public function edit($model)
     {
-        $this->title['child'] = trans('users::global.Edit');
         $selectedGroups = $this->repository->getGroups($model);
         $permissions = $model->getPermissions();
         return view('core::admin.edit')
