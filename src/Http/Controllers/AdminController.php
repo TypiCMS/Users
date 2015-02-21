@@ -8,14 +8,14 @@ use Illuminate\Mail\Message;
 use Input;
 use Mail;
 use Redirect;
-use TypiCMS\Http\Controllers\AdminSimpleController;
+use TypiCMS\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestChangePassword;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestResetPassword;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 use View;
 
-class AdminController extends AdminSimpleController
+class AdminController extends BaseAdminController
 {
 
     /**
@@ -78,7 +78,7 @@ class AdminController extends AdminSimpleController
     public function getLogout()
     {
         $this->repository->logout();
-        return Redirect::back();
+        return back();
     }
 
     /**
