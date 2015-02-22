@@ -50,7 +50,7 @@ class AdminController extends BaseAdminController
      *
      * @return Response
      */
-    public function create()
+    public function create($parent = null)
     {
         $model = $this->repository->getModel();
         $groups = $this->repository->getGroups();
@@ -65,7 +65,7 @@ class AdminController extends BaseAdminController
      * @param  $model
      * @return Response
      */
-    public function edit($model)
+    public function edit($model, $child = null)
     {
         $selectedGroups = $this->repository->getGroups($model);
         $permissions = $model->getPermissions();
