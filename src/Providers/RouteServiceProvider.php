@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider {
              */
             $router->group(['prefix' => 'auth'], function (Router $router) {
                 // Registration
-                $router->group(['before' => 'visitor.mayRegister'], function ($router) {
+                $router->group(['middleware' => 'registration'], function ($router) {
                     $router->get('register', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
                     $router->post('register', 'AuthController@postRegister');
                 });
