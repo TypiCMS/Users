@@ -44,36 +44,36 @@ class RouteServiceProvider extends ServiceProvider {
 
             // Registration
             $router->group(['before' => 'visitor.mayRegister'], function ($router) {
-                $router->get('users/register', array('as' => 'register', 'uses' => 'AdminController@getRegister'));
-                $router->post('users/register', 'AdminController@postRegister');
+                $router->get('users/register', array('as' => 'register', 'uses' => 'AuthController@getRegister'));
+                $router->post('users/register', 'AuthController@postRegister');
             });
 
             // Login
-            $router->get('users/login', ['as' => 'login', 'uses' => 'AdminController@getLogin']);
-            $router->post('users/login', 'AdminController@postLogin');
+            $router->get('users/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+            $router->post('users/login', 'AuthController@postLogin');
 
             // Logout
-            $router->get('users/logout', ['as' => 'logout', 'uses' => 'AdminController@getLogout']);
+            $router->get('users/logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
             // Activation
             $router->get(
                 'users/activate/{userid}/{activationCode}',
-                ['as' => 'activate', 'uses' => 'AdminController@getActivate']
+                ['as' => 'activate', 'uses' => 'AuthController@getActivate']
             );
 
             // Request new password
             $router->get(
                 'users/resetpassword',
-                ['as' => 'resetpassword', 'uses' => 'AdminController@getResetpassword']
+                ['as' => 'resetpassword', 'uses' => 'AuthController@getResetpassword']
             );
-            $router->post('users/resetpassword', 'AdminController@postResetpassword');
+            $router->post('users/resetpassword', 'AuthController@postResetpassword');
 
             // Set new password
             $router->get(
                 'users/changepassword/{id}/{code}',
-                ['as' => 'changepassword', 'uses' => 'AdminController@getChangepassword']
+                ['as' => 'changepassword', 'uses' => 'AuthController@getChangepassword']
             );
-            $router->post('users/changepassword/{id}/{code}', 'AdminController@postChangepassword');
+            $router->post('users/changepassword/{id}/{code}', 'AuthController@postChangepassword');
 
             /**
              * Admin routes
