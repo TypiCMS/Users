@@ -41,39 +41,40 @@ class RouteServiceProvider extends ServiceProvider {
             /**
              * Front office routes
              */
+            $router->group(['prefix' => 'auth'], function (Router $router) {
+                // Registration
+                $router->group(['before' => 'visitor.mayRegister'], function ($router) {
+                    $router->get('register', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
+                    $router->post('register', 'AuthController@postRegister');
+                });
 
-            // Registration
-            $router->group(['before' => 'visitor.mayRegister'], function ($router) {
-                $router->get('users/register', array('as' => 'register', 'uses' => 'AuthController@getRegister'));
-                $router->post('users/register', 'AuthController@postRegister');
+                // Login
+                $router->get('login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+                $router->post('login', 'AuthController@postLogin');
+
+                // Logout
+                $router->get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+
+                // Activation
+                $router->get(
+                    'activate/{userid}/{activationCode}',
+                    ['as' => 'activate', 'uses' => 'AuthController@getActivate']
+                );
+
+                // Request new password
+                $router->get(
+                    'resetpassword',
+                    ['as' => 'resetpassword', 'uses' => 'AuthController@getResetpassword']
+                );
+                $router->post('resetpassword', 'AuthController@postResetpassword');
+
+                // Set new password
+                $router->get(
+                    'changepassword/{id}/{code}',
+                    ['as' => 'changepassword', 'uses' => 'AuthController@getChangepassword']
+                );
+                $router->post('changepassword/{id}/{code}', 'AuthController@postChangepassword');
             });
-
-            // Login
-            $router->get('users/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
-            $router->post('users/login', 'AuthController@postLogin');
-
-            // Logout
-            $router->get('users/logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
-
-            // Activation
-            $router->get(
-                'users/activate/{userid}/{activationCode}',
-                ['as' => 'activate', 'uses' => 'AuthController@getActivate']
-            );
-
-            // Request new password
-            $router->get(
-                'users/resetpassword',
-                ['as' => 'resetpassword', 'uses' => 'AuthController@getResetpassword']
-            );
-            $router->post('users/resetpassword', 'AuthController@postResetpassword');
-
-            // Set new password
-            $router->get(
-                'users/changepassword/{id}/{code}',
-                ['as' => 'changepassword', 'uses' => 'AuthController@getChangepassword']
-            );
-            $router->post('users/changepassword/{id}/{code}', 'AuthController@postChangepassword');
 
             /**
              * Admin routes
