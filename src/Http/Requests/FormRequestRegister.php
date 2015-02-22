@@ -3,7 +3,7 @@ namespace TypiCMS\Modules\Users\Http\Requests;
 
 use TypiCMS\Http\Requests\AbstractFormRequest;
 
-class FormRequest extends AbstractFormRequest {
+class FormRequestRegister extends AbstractFormRequest {
 
     public function rules()
     {
@@ -11,7 +11,8 @@ class FormRequest extends AbstractFormRequest {
             'email'                 => 'required|email|unique:users,email,' . $this->get('id'),
             'first_name'            => 'required',
             'last_name'             => 'required',
-            'password'              => 'min:8|confirmed',
+            'password'              => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
         ];
         return $rules;
     }
