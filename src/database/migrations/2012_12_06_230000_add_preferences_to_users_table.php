@@ -14,7 +14,7 @@ class AddPreferencesToUsersTable extends Migration
     {
         Schema::table('users', function(Blueprint $table)
         {
-            $table->text('preferences');
+            $table->text('preferences')->nullable();
         });
     }
 
