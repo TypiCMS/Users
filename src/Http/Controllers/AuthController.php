@@ -9,12 +9,12 @@ use Input;
 use Mail;
 use Redirect;
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Users\Http\Requests\FormRequest;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestChangePassword;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestResetPassword;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
-class AdminController extends Controller
+class AuthController extends Controller
 {
 
     protected $repository;
@@ -66,10 +66,10 @@ class AdminController extends Controller
     /**
      * Register a new user.
      *
-     * @param  FormRequest $request
+     * @param  FormRequestRegister $request
      * @return Response
      */
-    public function postRegister(FormRequest $request)
+    public function postRegister(FormRequestRegister $request)
     {
         // confirmation
         $activate = false;
