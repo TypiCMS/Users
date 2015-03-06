@@ -80,7 +80,7 @@ class RouteServiceProvider extends ServiceProvider {
              * Admin routes
              */
             $router->resource('admin/users', 'AdminController');
-            $router->post('admin/users/current/updatepreferences', 'AdminController@postUpdatePreferences');
+            $router->post('admin/users/current/updatepreferences', ['as' => 'user.updatepreferences', 'uses' => 'AdminController@postUpdatePreferences']);
 
             /**
              * API routes

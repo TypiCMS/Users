@@ -35,10 +35,6 @@ class ModuleProvider extends ServiceProvider
             __DIR__ . '/../../tests' => base_path('tests'),
         ], 'tests');
 
-        // Add user preferences to Config
-        $prefs = App::make('TypiCMS\Modules\Users\Repositories\UserInterface')->getPreferences();
-        Config::set('typicms.user', $prefs);
-
         AliasLoader::getInstance()->alias(
             'Users',
             'TypiCMS\Modules\Users\Facades\Facade'
