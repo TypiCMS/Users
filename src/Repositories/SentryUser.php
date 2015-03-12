@@ -66,7 +66,7 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
      * @param  array    $with Eager load related models
      * @return Collection Object with $items
      */
-    public function getAll(array $with = array(), $all = false)
+    public function all(array $with = array(), $all = false)
     {
         $users = Collection::make($this->sentry->findAllUsers());
 
