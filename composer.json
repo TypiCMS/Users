@@ -15,5 +15,6 @@
             "TypiCMS\\Modules\\Users\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
