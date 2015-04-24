@@ -41,7 +41,7 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
 
     /**
      * Get empty model
-     * 
+     *
      * @return model
      */
     public function getModel()
@@ -51,7 +51,7 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
 
     /**
      * Get table name
-     * 
+     *
      * @return string
      */
     public function getTable()
@@ -449,7 +449,7 @@ class SentryUser extends RepositoriesAbstract implements UserInterface
 
     /**
      * Current user has access ?
-     * 
+     *
      * @param  string|array  $permissions
      * @param  bool  $all
      * @return bool

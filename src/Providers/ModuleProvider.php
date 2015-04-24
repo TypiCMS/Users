@@ -22,6 +22,9 @@ class ModuleProvider extends ServiceProvider
             __DIR__ . '/../config/config.php', 'typicms.users'
         );
 
+        $modules = $this->app['config']['typicms']['modules'];
+        $this->app['config']->set('typicms.modules', array_merge(['users' => []], $modules));
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'users');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'users');
 
