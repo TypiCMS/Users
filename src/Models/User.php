@@ -15,7 +15,7 @@ class User extends SentryUserModel
 
     /**
      * Get back office’s edit url of model
-     * 
+     *
      * @return string|void
      */
     public function editUrl()
@@ -28,8 +28,19 @@ class User extends SentryUserModel
     }
 
     /**
+     * Get front office uri
+     *
+     * @param  string $locale
+     * @return null
+     */
+    public function uri($locale)
+    {
+        return null;
+    }
+
+    /**
      * Get back office’s index of models url
-     * 
+     *
      * @return string|void
      */
     public function indexUrl()
