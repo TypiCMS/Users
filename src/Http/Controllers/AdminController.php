@@ -5,6 +5,7 @@ use Input;
 use Redirect;
 use TypiCMS\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestCreate;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class AdminController extends BaseAdminController
@@ -26,7 +27,7 @@ class AdminController extends BaseAdminController
      * @param  FormRequest $request
      * @return Redirect
      */
-    public function store(FormRequest $request)
+    public function store(FormRequestCreate $request)
     {
         $model = $this->repository->create($request->all());
         return $this->redirect($request, $model);
@@ -75,7 +76,7 @@ class AdminController extends BaseAdminController
 
     /**
      * Update User's preferences
-     * 
+     *
      * @return void
      */
     public function postUpdatePreferences()
