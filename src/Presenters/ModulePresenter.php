@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Users\Presenters;
 
-use TypiCMS\Presenters\Presenter;
+use Laracasts\Presenter\Presenter;
 
 class ModulePresenter extends Presenter
 {
@@ -28,7 +28,7 @@ class ModulePresenter extends Presenter
 
     /**
      * Get title by concatenating first_name and last_name
-     * 
+     *
      * @return string
      */
     public function title()
