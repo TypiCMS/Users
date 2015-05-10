@@ -1,16 +1,16 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use App;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Message;
-use Input;
-use Mail;
-use Redirect;
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestChangePassword;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestResetPassword;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
@@ -93,7 +93,7 @@ class AuthController extends Controller
 
     /**
      * Activate a new User
-     * 
+     *
      * @param  $id       user id
      * @param  $code
      * @return Redirect
@@ -123,7 +123,7 @@ class AuthController extends Controller
 
     /**
      * Reset password
-     * 
+     *
      * @param  FormRequestResetPassword $request
      * @return Redirect
      */
@@ -139,7 +139,7 @@ class AuthController extends Controller
 
             // Email the reset code to the user
             Mail::send('users::emails.reset', $data, function (Message $message) use ($data) {
-                $subject  = '[' . config('typicms.' . App::getLocale() . '.website_title') . '] ';
+                $subject  = '[' . TypiCMS::title() . '] ';
                 $subject .= trans('users::global.Password Reset Confirmation');
                 $message->to($data['email'])->subject($subject);
             });
@@ -160,7 +160,7 @@ class AuthController extends Controller
 
     /**
      * Change User's password view
-     * 
+     *
      * @param  $id         the user id
      * @param  $code
      * @return mixed
@@ -189,7 +189,7 @@ class AuthController extends Controller
 
     /**
      * Change User's password
-     * 
+     *
      * @param  FormRequestChangePassword $request
      * @return Redirect
      */

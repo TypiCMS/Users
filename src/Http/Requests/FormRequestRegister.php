@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Requests;
 
-use TypiCMS\Http\Requests\AbstractFormRequest;
+use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 
 class FormRequestRegister extends AbstractFormRequest {
 

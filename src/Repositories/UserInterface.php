@@ -2,21 +2,21 @@
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Collection;
-use TypiCMS\Repositories\RepositoryInterface;
+use TypiCMS\Modules\Core\Repositories\RepositoryInterface;
 
 interface UserInterface extends RepositoryInterface
 {
 
     /**
      * Get empty model
-     * 
+     *
      * @return model
      */
     public function getModel();
 
     /**
      * Get table name
-     * 
+     *
      * @return string
      */
     public function getTable();

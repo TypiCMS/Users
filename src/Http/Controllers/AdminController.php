@@ -3,7 +3,7 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Input;
 use Redirect;
-use TypiCMS\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestCreate;
 use TypiCMS\Modules\Users\Repositories\UserInterface;

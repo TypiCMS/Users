@@ -1,16 +1,12 @@
 <?php
 namespace TypiCMS\Modules\Users\Providers;
 
-use App;
-use Config;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Lang;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\SentryUser;
-use TypiCMS\Observers\FileObserver;
-use View;
+use TypiCMS\Modules\Core\Observers\FileObserver;
 
 class ModuleProvider extends ServiceProvider
 {

@@ -2,7 +2,7 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Http\Controllers\BaseApiController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Users\Repositories\UserInterface as Repository;
 use Response;
 use Sentry;
@@ -16,7 +16,7 @@ class ApiController extends BaseApiController
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @param  $model
      * @return Response
      */
