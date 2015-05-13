@@ -1,8 +1,8 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Input;
-use Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestCreate;
