@@ -21,6 +21,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     public function create(array $data)
     {
         $userData = array_except($data, ['_method','_token', 'id', 'exit', 'groups', 'password_confirmation']);
+        $userData['password'] = bcrypt($data['password']);
         $userData['permissions'] = $this->permissions($data);
 
         foreach ($userData as $key => $value) {
@@ -50,6 +51,8 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
 
         if (! $userData['password']) {
             $userData = array_except($userData, 'password');
+        } else {
+            $userData['password'] = bcrypt($data['password']);
         }
 
         foreach ($userData as $key => $value) {
@@ -64,6 +67,18 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
 
         return false;
 
+    }
+
+    /**
+     * Find user by token
+     *
+     * @param string $key
+     * @param string $value
+     * @param array  $with
+     */
+    public function byToken($token)
+    {
+        return $this->model->where('token', $token)->first();
     }
 
     /**

@@ -79,7 +79,7 @@ class RegistrationController extends Controller
      */
     public function confirmEmail($token)
     {
-        $user = $this->repository->getFirstBy('token', $token);
+        $user = $this->repository->byToken($token);
 
         if (! $user) {
             abort(404);

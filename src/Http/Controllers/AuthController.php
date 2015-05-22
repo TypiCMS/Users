@@ -4,7 +4,6 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use Exception;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
@@ -12,8 +11,6 @@ use TypiCMS\Modules\Users\Services\Registrar;
 
 class AuthController extends Controller
 {
-
-    use ValidatesRequests;
 
     /**
      * The Guard implementation.
@@ -102,7 +99,7 @@ class AuthController extends Controller
         return [
             'email'     => $request->input('email'),
             'password'  => $request->input('password'),
-            'activated' => true
+            'activated' => 1
         ];
     }
 

@@ -67,16 +67,6 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
     }
 
     /**
-     * Set the password attribute.
-     *
-     * @param string $password
-     */
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
-    /**
      * Confirm the user.
      *
      * @return void
