@@ -27,7 +27,8 @@
             {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
         </div>
 
-        {!! BootForm::checkbox(trans('users::global.Remember me'), 'remember') !!}
+        {{-- BootForm::checkbox(trans('users::global.Remember me'), 'remember') --}}
+        {!! BootForm::hidden('remember') !!}
 
         <div class="form-group">
             <span class="help-block">
