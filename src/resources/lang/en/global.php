@@ -35,6 +35,7 @@ return array(
     'Password Reset Confirmation' => 'Password Reset Confirmation',
     'Account:' => 'Account:',
     'User permissions' => 'User permissions',
+    'Remember me' => 'Remember me',
 
     // messages
     'User not found with email :mail' => 'User not found with email :mail',

@@ -20,7 +20,9 @@
 
         <h1>@lang('users::global.Reset password')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg')->placeholder(trans('validation.attributes.email'))->hideLabel() !!}
+        <div class="form-group">
+            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
+        </div>
 
         <div class="form-group form-action">
             {!! BootForm::submit(trans('validation.attributes.reset password'), 'btn-primary')->addClass('btn-lg btn-block') !!}

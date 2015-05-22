@@ -1,31 +1,47 @@
 <?php
 namespace TypiCMS\Modules\Users\Models;
 
-use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
-use InvalidArgumentException;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Laracasts\Presenter\PresentableTrait;
-use Log;
+use TypiCMS\Modules\Core\Models\Base;
+use TypiCMS\Modules\History\Traits\Historable;
 
-class User extends SentryUserModel
+class User extends Base implements AuthenticatableContract, CanResetPasswordContract
 {
 
+    use Authenticatable;
+    use CanResetPassword;
+    use Historable;
     use PresentableTrait;
 
     protected $presenter = 'TypiCMS\Modules\Users\Presenters\ModulePresenter';
 
     /**
-     * Get back office’s edit url of model
+     * The attributes that are mass assignable.
      *
-     * @return string|void
+     * @var array
      */
-    public function editUrl()
-    {
-        try {
-            return route('admin.' . $this->getTable() . '.edit', $this->id);
-        } catch (InvalidArgumentException $e) {
-            Log::error($e->getMessage());
-        }
-    }
+    protected $fillable = [
+        'email',
+        'first_name',
+        'last_name',
+        'password',
+        'permissions',
+        'preferences',
+    ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     /**
      * Get front office uri
@@ -39,16 +55,76 @@ class User extends SentryUserModel
     }
 
     /**
-     * Get back office’s index of models url
+     * Current user has access ?
      *
-     * @return string|void
+     * @param  string|array  $permissions
+     * @param  bool  $all
+     * @return bool
      */
-    public function indexUrl()
+    public function hasAccess($permissions, $all = true)
     {
-        try {
-            return route('admin.' . $this->getTable() . '.index');
-        } catch (InvalidArgumentException $e) {
-            Log::error($e->getMessage());
+        return true;
+    }
+
+    /**
+     * Set the password attribute.
+     *
+     * @param string $password
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Confirm the user.
+     *
+     * @return void
+     */
+    public function confirmEmail()
+    {
+        $this->activated = true;
+        $this->token = null;
+        $this->save();
+    }
+
+    /**
+     * Boot the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            $user->token = str_random(30);
+        });
+    }
+
+    /**
+     * One user has many groups.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('TypiCMS\Modules\Groups\Models\Group');
+    }
+
+    /**
+     * Mutator for giving permissions.
+     *
+     * @param  mixed  $permissions
+     * @return array  $_permissions
+     */
+    public function getPermissionsAttribute($permissions)
+    {
+        if (! $permissions) {
+            return [];
         }
+        if (is_array($permissions)) {
+            return $permissions;
+        }
+        return json_decode($permissions, true);
     }
 }

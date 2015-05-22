@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPreferencesToUsersTable extends Migration
-{
+class CreatePasswordResetsTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -12,9 +12,10 @@ class AddPreferencesToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table)
-        {
-            $table->text('preferences')->nullable();
+        Schema::create('password_resets', function(Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
         });
     }
 
@@ -25,10 +26,7 @@ class AddPreferencesToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table)
-        {
-            $table->dropColumn('preferences');
-        });
+        Schema::drop('password_resets');
     }
 
 }

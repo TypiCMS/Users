@@ -2,227 +2,108 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Exception;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Mail\Message;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
-use TypiCMS\Modules\Core\Facades\TypiCMS;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestChangePassword;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestResetPassword;
-use TypiCMS\Modules\Users\Repositories\UserInterface;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
+use TypiCMS\Modules\Users\Services\Registrar;
 
 class AuthController extends Controller
 {
 
-    protected $repository;
+    use ValidatesRequests;
 
-    public function __construct(UserInterface $user)
+    /**
+     * The Guard implementation.
+     *
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    protected $auth;
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @param  \Illuminate\Contracts\Auth\Guard  $auth
+     * @param  \TypiCMS\Modules\Users\Services\Registrar  $registrar
+     * @return void
+     */
+    public function __construct(Guard $auth, Registrar $registrar)
     {
-        $this->repository = $user;
+        $this->auth = $auth;
+        $this->registrar = $registrar;
+
+        $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    /**
+     * Show the application login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getLogin()
     {
         return view('users::login');
     }
 
-    public function postLogin()
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  FormRequestLogin $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLogin(FormRequestLogin $request)
     {
-        $credentials = array(
-            'email'    => Input::get('email'),
-            'password' => Input::get('password')
-        );
+        $credentials = $this->getCredentials($request);
 
-        try {
-            $user = $this->repository->authenticate($credentials, false);
-            return Redirect::intended('/');
-        } catch (Exception $e) {
-            return Redirect::route('login')
-                ->withInput()
-                ->with('message', $e->getMessage());
+        if ($this->auth->attempt($credentials, $request->has('remember'))) {
+            return redirect()->intended(url('/'));
         }
+
+        return redirect()
+            ->route('login')
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors([
+                'email' => $this->getFailedLoginMessage(),
+            ]);
     }
 
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getLogout()
     {
-        $this->repository->logout();
-        return back();
+        $this->auth->logout();
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
     /**
-     * Get registration form.
+     * Get the failed login message.
      *
-     * @return Response
+     * @return string
      */
-    public function getRegister()
+    protected function getFailedLoginMessage()
     {
-        // Show the register form
-        return view('users::register');
+        return trans('users::global.User not found');
     }
 
     /**
-     * Register a new user.
+     * Get the login credentials and requirements.
      *
-     * @param  FormRequestRegister $request
-     * @return Response
+     * @param  Request $request
+     * @return array
      */
-    public function postRegister(FormRequestRegister $request)
+    protected function getCredentials(Request $request)
     {
-        // confirmation
-        $activate = false;
-
-        try {
-
-            $input = $request->except('password_confirmation');
-            $this->repository->register($input, $activate);
-            $message = 'Your account has been created, ';
-            $message .= $activate ? 'you can now log in' : 'check your email for the confirmation link' ;
-            return Redirect::route('login')
-                ->with('message', trans('users::global.' . $message) . '.');
-
-        } catch (Exception $e) {
-            return Redirect::route('register')
-                ->with('message', $e->getMessage())
-                ->withInput();
-        }
-
+        return [
+            'email'     => $request->input('email'),
+            'password'  => $request->input('password'),
+            'activated' => true
+        ];
     }
 
-    /**
-     * Activate a new User
-     *
-     * @param  $id       user id
-     * @param  $code
-     * @return Redirect
-     */
-    public function getActivate($id = null, $code = null)
-    {
-        try {
-            $this->repository->activate($id, $code);
-            $message = trans('users::global.Your account has been activated, you can now log in') . '.';
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-        }
-
-        return Redirect::route('login')
-            ->with('message', $message);
-
-    }
-
-    /**
-     * Forgot Password / Reset
-     */
-    public function getResetpassword()
-    {
-        // Show the reset password form
-        return view('users::reset-password');
-    }
-
-    /**
-     * Reset password
-     *
-     * @param  FormRequestResetPassword $request
-     * @return Redirect
-     */
-    public function postResetpassword(FormRequestResetPassword $request)
-    {
-        try {
-            $email = Input::get('email');
-            $user = $this->repository->findUserByLogin($email);
-            $data = array();
-            $data['code'] = $this->repository->getResetPasswordCode($user);
-            $data['id'] = $this->repository->getId($user);
-            $data['email'] = $email;
-
-            // Email the reset code to the user
-            Mail::send('users::emails.reset', $data, function (Message $message) use ($data) {
-                $subject  = '[' . TypiCMS::title() . '] ';
-                $subject .= trans('users::global.Password Reset Confirmation');
-                $message->to($data['email'])->subject($subject);
-            });
-
-            $message = trans('users::global.An email was sent with password reset information') . '.';
-
-            return Redirect::route('login')
-                ->with('message', $message);
-
-        } catch (Exception $e) {
-
-            return Redirect::route('resetpassword')
-                ->withInput()
-                ->with('message', $e->getMessage());
-        }
-
-    }
-
-    /**
-     * Change User's password view
-     *
-     * @param  $id         the user id
-     * @param  $code
-     * @return mixed
-     */
-    public function getChangepassword($id = null, $code = null)
-    {
-        try {
-            // Find the user
-            $user = $this->repository->byId($id);
-            if (! $this->repository->checkResetPasswordCode($user, $code)) {
-                $message = trans('users::global.This password reset token is invalid') . '.';
-                return Redirect::route('login')
-                    ->with(compact('message'));
-            }
-
-            return view('users::change-password')
-                ->with(compact('id', 'code'));
-
-        } catch (Exception $e) {
-            $message = trans('users::global.User does not exist') . '.';
-            return Redirect::route('login')
-                ->with(compact('message'));
-        }
-
-    }
-
-    /**
-     * Change User's password
-     *
-     * @param  FormRequestChangePassword $request
-     * @return Redirect
-     */
-    public function postChangepassword(FormRequestChangePassword $request)
-    {
-        $input = $request->all();
-
-        try {
-
-            // Find the user
-            $user = $this->repository->byId($input['id']);
-
-            if ($this->repository->checkResetPasswordCode($user, $input['code'])) {
-                // Attempt to reset the user password
-                if ($this->repository->attemptResetPassword($user, $input['code'], $input['password'])) {
-
-                    $message = trans('users::global.Your password has been changed') . '.';
-                    return Redirect::route('login')
-                        ->with(compact('message'));
-
-                } else {
-                    // Password reset failed
-                    $message = trans('users::global.There was a problem, please contact the system administrator') . '.';
-                }
-            } else {
-                $message = trans('users::global.This password reset token is invalid') . '.';
-            }
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-        }
-
-        return Redirect::route('login')
-            ->with(compact('message'));
-
-    }
 }

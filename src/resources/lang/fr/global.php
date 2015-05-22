@@ -38,6 +38,7 @@ return array(
     'Password Reset Confirmation' => 'Confirmation pour la réinitialisation de votre mot de passe',
     'Account:' => 'Compte&nbsp;:',
     'User permissions' => 'Permissions de l’utilisateur',
+    'Remember me' => 'Se souvenir',
 
     // messages
     'User not found with email :mail' => 'L’adresse :mail n’a pas été trouvée',

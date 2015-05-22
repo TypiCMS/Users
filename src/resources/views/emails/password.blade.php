@@ -10,10 +10,10 @@
 
         <p>
             @lang('users::global.To reset your password'),
-            <a href="{{ route('changepassword', array('id' => $id, urlencode($code))) }}">@lang('users::global.click here').</a></p>
+            <a href="{{ route('changepassword', $token) }}">@lang('users::global.click here').</a></p>
         <p>
             @lang('users::global.Or point your browser to this address:') <br />
-            {{ route('changepassword', array('id' => $id, urlencode($code))) }}
+            {{ route('changepassword', $token) }}
         </p>
         <p>@lang('users::global.Thank you')</p>
     </body>

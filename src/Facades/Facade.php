@@ -12,6 +12,6 @@ class Facade extends MainFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'TypiCMS\Modules\Users\Repositories\SentryUser';
+        return 'TypiCMS\Modules\Users\Repositories\EloquentUser';
     }
 }

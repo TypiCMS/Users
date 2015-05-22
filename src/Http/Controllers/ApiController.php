@@ -2,10 +2,10 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Users\Repositories\UserInterface as Repository;
-use Response;
-use Sentry;
 
 class ApiController extends BaseApiController
 {
@@ -22,7 +22,7 @@ class ApiController extends BaseApiController
      */
     public function destroy($model)
     {
-        if ($model->id == Sentry::getUser()->id) {
+        if ($model->id == Auth::user()->id) {
             return Response::json([
                 'error'   => true,
                 'message' => 'Connected user can not be deleted.'

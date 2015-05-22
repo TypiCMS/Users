@@ -42,11 +42,11 @@ class RouteServiceProvider extends ServiceProvider {
              * Front office routes
              */
             $router->group(['prefix' => 'auth'], function (Router $router) {
+
                 // Registration
-                $router->group(['middleware' => 'registration'], function ($router) {
-                    $router->get('register', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
-                    $router->post('register', 'AuthController@postRegister');
-                });
+                $router->get('register', ['as' => 'register', 'uses' => 'RegistrationController@getRegister']);
+                $router->post('register', 'RegistrationController@postRegister');
+                $router->get('activate/{token}', ['as' => 'activate', 'uses' => 'RegistrationController@confirmEmail']);
 
                 // Login
                 $router->get('login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
@@ -55,25 +55,19 @@ class RouteServiceProvider extends ServiceProvider {
                 // Logout
                 $router->get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
-                // Activation
-                $router->get(
-                    'activate/{userid}/{activationCode}',
-                    ['as' => 'activate', 'uses' => 'AuthController@getActivate']
-                );
-
                 // Request new password
                 $router->get(
                     'resetpassword',
-                    ['as' => 'resetpassword', 'uses' => 'AuthController@getResetpassword']
+                    ['as' => 'resetpassword', 'uses' => 'PasswordController@getEmail']
                 );
-                $router->post('resetpassword', 'AuthController@postResetpassword');
+                $router->post('resetpassword', 'PasswordController@postEmail');
 
                 // Set new password
                 $router->get(
-                    'changepassword/{id}/{code}',
-                    ['as' => 'changepassword', 'uses' => 'AuthController@getChangepassword']
+                    'changepassword/{token}',
+                    ['as' => 'changepassword', 'uses' => 'PasswordController@getReset']
                 );
-                $router->post('changepassword/{id}/{code}', 'AuthController@postChangepassword');
+                $router->post('changepassword/{token}', 'PasswordController@postReset');
             });
 
             /**

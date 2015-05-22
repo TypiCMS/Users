@@ -4,9 +4,9 @@ namespace TypiCMS\Modules\Users\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\SentryUser;
 use TypiCMS\Modules\Core\Observers\FileObserver;
+use TypiCMS\Modules\Users\Models\User;
+use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -59,9 +59,7 @@ class ModuleProvider extends ServiceProvider
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Users\Composers\SidebarViewComposer');
 
         $app->bind('TypiCMS\Modules\Users\Repositories\UserInterface', function (Application $app) {
-            return new SentryUser(
-                $app['sentry']
-            );
+            return new EloquentUser(new User);
         });
 
     }

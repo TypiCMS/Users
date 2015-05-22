@@ -54,10 +54,9 @@ class AdminController extends BaseAdminController
     public function create($parent = null)
     {
         $model = $this->repository->getModel();
-        $groups = $this->repository->getGroups();
         $selectedGroups = [];
         return view('core::admin.create')
-            ->with(compact('model', 'groups', 'selectedGroups'));
+            ->with(compact('model', 'selectedGroups'));
     }
 
     /**
@@ -68,10 +67,10 @@ class AdminController extends BaseAdminController
      */
     public function edit($model, $child = null)
     {
-        $selectedGroups = $this->repository->getGroups($model);
-        $permissions = $model->getPermissions();
+        $permissions = $model->permissions;
+        $selectedGroups = $model->groups->getDictionary();
         return view('core::admin.edit')
-            ->with(compact('model', 'selectedGroups', 'permissions'));
+            ->with(compact('model', 'permissions', 'selectedGroups'));
     }
 
     /**
