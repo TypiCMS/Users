@@ -21,14 +21,14 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     public function create(array $data)
     {
         $userData = array_except($data, ['_method','_token', 'id', 'exit', 'groups', 'password_confirmation']);
-        $userData['permissions'] = json_encode($data['permissions']);
+        $userData['permissions'] = $this->permissions($data);
 
         foreach ($userData as $key => $value) {
             $this->model->$key = $value;
         }
 
         if ($this->model->save()) {
-            $this->sync($this->model, $data['groups']);
+            $this->syncGroups($this->model, $data);
             return $this->model;
         }
 
@@ -46,7 +46,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         $user = $this->model->find($data['id']);
 
         $userData = array_except($data, ['_method', '_token', 'exit', 'groups', 'password_confirmation']);
-        $userData['permissions'] = json_encode($data['permissions']);
+        $userData['permissions'] = $this->permissions($data);
 
         if (! $userData['password']) {
             $userData = array_except($userData, 'password');
@@ -56,7 +56,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
             $user->$key = $value;
         }
 
-        $this->sync($user, $data['groups']);
+        $this->syncGroups($user, $data);
 
         if ($user->save()) {
             return true;
@@ -73,8 +73,11 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      * @param  array $groups
      * @return void
      */
-    private function sync($user, $groups)
+    private function syncGroups($user, $data)
     {
+        if (! isset($data['groups'])) {
+            return;
+        }
         $array = [];
         foreach ($groups as $id => $value) {
             if ($value) {
@@ -84,6 +87,19 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         $user->groups()->sync($array);
     }
 
+    /**
+     * get extract and encode permissions from array
+     *
+     * @param  array $data
+     * @return string|null
+     */
+    private function permissions($data)
+    {
+        if (isset($data['permissions'])) {
+            return json_encode($data['permissions']);
+        }
+        return null;
+    }
     /**
      * Update current user preferences
      *
