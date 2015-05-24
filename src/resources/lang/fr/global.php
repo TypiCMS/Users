@@ -54,4 +54,5 @@ return array(
     'There was a problem activating this account' => 'L’activation de ce compte utilisateur a échoué',
     'User does not exist' => 'Cet utilisateur n’existe pas',
     'You have already activated this account' => 'Cet utilisateur est déjà activé',
+    'Your Password Reset Link' => 'Votre lien de réinitialisation de mot de passe',
 );

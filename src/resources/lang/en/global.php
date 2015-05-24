@@ -51,4 +51,5 @@ return array(
     'There was a problem activating this account' => 'There was a problem activating this account',
     'User does not exist' => 'User does not exist',
     'You have already activated this account' => 'You have already activated this account',
+    'Your Password Reset Link' => 'Your Password Reset Link',
 );
