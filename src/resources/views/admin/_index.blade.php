@@ -38,7 +38,7 @@
                     <td>@{{ model.last_name }}</td>
                     <td>@{{ model.email }}</td>
                     <td>@{{ model.activated }}</td>
-                    <td>@{{ model.permissions.superuser }}</td>
+                    <td>@{{ model.superuser }}</td>
                 </tr>
             </tbody>
             <tfoot>
