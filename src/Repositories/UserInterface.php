@@ -49,8 +49,7 @@ interface UserInterface extends RepositoryInterface
      * Current user has access ?
      *
      * @param  string|array  $permissions
-     * @param  bool  $all
      * @return bool
      */
-    public function hasAccess($permissions, $all = true);
+    public function hasAccess($permissions);
 }

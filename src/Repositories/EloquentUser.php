@@ -1,8 +1,9 @@
 <?php
 namespace TypiCMS\Modules\Users\Repositories;
 
-use TypiCMS\Modules\Users\Models\User;
+use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Users\Models\User;
 
 class EloquentUser extends RepositoriesAbstract implements UserInterface
 {
@@ -94,7 +95,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
             return;
         }
         $array = [];
-        foreach ($groups as $id => $value) {
+        foreach ($data['groups'] as $id => $value) {
             if ($value) {
                 $array[] = $id;
             }
@@ -158,13 +159,12 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      * Current user has access ?
      *
      * @param  string|array  $permissions
-     * @param  bool  $all
      * @return bool
      */
-    public function hasAccess($permissions, $all = true)
+    public function hasAccess($permissions)
     {
-        if ($user = $this->model) {
-            return $user->hasAccess($permissions, $all);
+        if ($user = Request::user()) {
+            return $user->hasAccess($permissions);
         }
         return false;
     }
