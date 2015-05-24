@@ -31,12 +31,8 @@
     </div>
 </div>
 
-<div class="checkbox">
-    <label>
-        {!! BootForm::hidden('activated')->value(0) !!}
-        <input type="checkbox" name="activated" value="1" @if (isset($model) && $model->isActivated())checked="checked"@endif> Activé
-    </label>
-</div>
+{!! BootForm::hidden('activated')->value(0) !!}
+{!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
 
 @if ($groups = Groups::all() and $groups->count())
 <div class="form-group">
@@ -53,10 +49,7 @@
 @endif
 
 <label>@lang('users::global.User permissions')</label>
-<div class="checkbox">
-    <label>
-        {!! BootForm::hidden('permissions[superuser]')->value(0) !!}
-        <input type="checkbox" name="permissions[superuser]" value="1" @if (isset($permissions['superuser']) && $permissions['superuser'])checked="checked"@endif> Superuser
-    </label>
-</div>
+{!! BootForm::hidden('superuser')->value(0) !!}
+{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
+
 @include('core::admin._permissions-form')
