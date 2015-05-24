@@ -13,7 +13,7 @@ class ModulePresenter extends Presenter
      */
     public function activated()
     {
-        return $this->entity->isActivated() ? trans('global.Yes') : trans('global.No') ;
+        return $this->entity->activated ? trans('global.Yes') : trans('global.No') ;
     }
 
     /**
@@ -23,7 +23,7 @@ class ModulePresenter extends Presenter
      */
     public function superUser()
     {
-        return $this->entity->isSuperUser() ? trans('global.Yes') : trans('global.No') ;
+        return $this->entity->superuser ? trans('global.Yes') : trans('global.No') ;
     }
 
     /**
