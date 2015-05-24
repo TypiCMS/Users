@@ -24,10 +24,10 @@
             {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
         </div>
         <div class="form-group">
-            {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password'))->autofocus(true) !!}
+            {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
         </div>
         <div class="form-group">
-            {!! Form::password('password_confirmation')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password_confirmation'))->autofocus(true) !!}
+            {!! Form::password('password_confirmation')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password_confirmation')) !!}
         </div>
 
         {!! BootForm::hidden('token')->value($token) !!}
