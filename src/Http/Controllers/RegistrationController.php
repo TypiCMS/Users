@@ -3,7 +3,6 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
@@ -13,8 +12,6 @@ use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class RegistrationController extends Controller
 {
-
-    use ValidatesRequests;
 
     /**
      * The Guard implementation.
