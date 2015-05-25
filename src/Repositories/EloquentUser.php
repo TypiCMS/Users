@@ -21,17 +21,19 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      */
     public function create(array $data)
     {
+        $model = $this->model;
+
         $userData = array_except($data, ['_method','_token', 'id', 'exit', 'groups', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
         $userData['permissions'] = $this->permissions($data);
 
         foreach ($userData as $key => $value) {
-            $this->model->$key = $value;
+            $model->$key = $value;
         }
 
-        if ($this->model->save()) {
-            $this->syncGroups($this->model, $data);
-            return $this->model;
+        if ($model->save()) {
+            $this->syncGroups($model, $data);
+            return $model;
         }
 
         return false;
@@ -116,6 +118,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         }
         return null;
     }
+
     /**
      * Update current user preferences
      *
