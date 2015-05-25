@@ -122,6 +122,17 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
     }
 
     /**
+     * Is the user in group ?
+     *
+     * @param  [type] $group [description]
+     * @return [type]        [description]
+     */
+    public function inGroup($group)
+    {
+        return in_array($group, $this->groups->lists('name'));
+    }
+
+    /**
      * Confirm the user.
      *
      * @return void
