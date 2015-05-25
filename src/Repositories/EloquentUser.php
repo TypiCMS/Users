@@ -25,7 +25,6 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
 
         $userData = array_except($data, ['_method','_token', 'id', 'exit', 'groups', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
-        $userData['permissions'] = $this->permissions($data);
 
         foreach ($userData as $key => $value) {
             $model->$key = $value;
@@ -50,7 +49,6 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         $user = $this->model->find($data['id']);
 
         $userData = array_except($data, ['_method', '_token', 'exit', 'groups', 'password_confirmation']);
-        $userData['permissions'] = $this->permissions($data);
 
         if (! $userData['password']) {
             $userData = array_except($userData, 'password');
@@ -106,56 +104,15 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * get extract and encode permissions from array
-     *
-     * @param  array $data
-     * @return string|null
-     */
-    private function permissions($data)
-    {
-        if (isset($data['permissions'])) {
-            return json_encode($data['permissions']);
-        }
-        return null;
-    }
-
-    /**
      * Update current user preferences
      *
      * @return mixed
      */
     public function updatePreferences(array $data)
     {
-        $user = $this->model;
-
-        // get preferences of current user
-        $prefs = $user->preferences;
-
-        // convert to array
-        $prefsArray = (array) json_decode($prefs, true);
-
-        // add data
-        $prefsArray = array_merge($prefsArray, $data);
-
-        // convert to json
-        $prefs = json_encode($prefsArray);
-
-        // save preferences
-        $user->preferences = $prefs;
+        $user = Request::user();
+        $user->preferences = array_merge($user->preferences, $data);
         $user->save();
-    }
-
-    /**
-     * Get current user preferences
-     *
-     * @return array
-     */
-    public function getPreferences()
-    {
-        if ($this->model) {
-            return json_decode($this->model->preferences, true);
-        }
-        return [];
     }
 
     /**

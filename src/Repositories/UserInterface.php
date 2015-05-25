@@ -39,13 +39,6 @@ interface UserInterface extends RepositoryInterface
     public function updatePreferences(array $data);
 
     /**
-     * Get current user preferences
-     *
-     * @return array
-     */
-    public function getPreferences();
-
-    /**
      * Current user has access ?
      *
      * @param  string|array  $permissions
