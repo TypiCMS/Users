@@ -44,6 +44,16 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'permissions' => 'array',
+        'preferences' => 'array',
+    ];
+
+    /**
      * Get front office uri
      *
      * @param  string $locale
@@ -165,22 +175,5 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
     public function groups()
     {
         return $this->belongsToMany('TypiCMS\Modules\Groups\Models\Group');
-    }
-
-    /**
-     * Mutator for giving permissions.
-     *
-     * @param  mixed  $permissions
-     * @return array  $_permissions
-     */
-    public function getPermissionsAttribute($permissions)
-    {
-        if (! $permissions) {
-            return [];
-        }
-        if (is_array($permissions)) {
-            return $permissions;
-        }
-        return json_decode($permissions, true);
     }
 }
