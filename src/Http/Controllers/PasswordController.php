@@ -28,21 +28,21 @@ class PasswordController extends Controller
         $this->middleware('guest');
     }
 
-	/**
-	 * Display the form to request a password reset link.
-	 *
-	 * @return Response
-	 */
-	public function getEmail()
-	{
-		return view('users::password');
-	}
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Support\Facades\Response
+     */
+    public function getEmail()
+    {
+        return view('users::password');
+    }
 
     /**
      * Send a reset link to the given user.
      *
      * @param  FormRequestEmail  $request
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function postEmail(FormRequestEmail $request)
     {
@@ -60,26 +60,26 @@ class PasswordController extends Controller
         }
     }
 
-	/**
-	 * Display the password reset view for the given token.
-	 *
-	 * @param  string  $token
-	 * @return Response
-	 */
-	public function getReset($token = null)
-	{
-		if (is_null($token)) {
-			throw new NotFoundHttpException;
-		}
+    /**
+     * Display the password reset view for the given token.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Support\Facades\Response
+     */
+    public function getReset($token = null)
+    {
+        if (is_null($token)) {
+            throw new NotFoundHttpException;
+        }
 
-		return view('users::reset')->with(compact('token'));
-	}
+        return view('users::reset')->with(compact('token'));
+    }
 
     /**
      * Reset the given user's password.
      *
      * @param  FormRequestPassword  $request
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function postReset(FormRequestPassword $request)
     {
