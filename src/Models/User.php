@@ -130,7 +130,7 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
      */
     public function inGroup($group)
     {
-        return in_array($group, $this->groups->lists('name'));
+        return in_array($group, $this->groups->lists('name')->all());
     }
 
     /**
