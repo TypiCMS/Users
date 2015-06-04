@@ -1,7 +1,6 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -13,24 +12,15 @@ use TypiCMS\Modules\Users\Repositories\UserInterface;
 class RegistrationController extends Controller
 {
 
-    /**
-     * The Guard implementation.
-     *
-     * @var \Illuminate\Contracts\Auth\Guard
-     */
-    protected $auth;
-
     protected $repository;
 
     /**
      * Create a new registration controller instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Guard  $auth
      * @return void
      */
-    public function __construct(Guard $auth, UserInterface $user)
+    public function __construct(UserInterface $user)
     {
-        $this->auth = $auth;
         $this->repository = $user;
 
         $this->middleware('guest');

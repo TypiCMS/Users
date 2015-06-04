@@ -1,31 +1,21 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
 
 class AuthController extends Controller
 {
 
     /**
-     * The Guard implementation.
-     *
-     * @var \Illuminate\Contracts\Auth\Guard
-     */
-    protected $auth;
-
-    /**
      * Create a new authentication controller instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Guard  $auth
      * @return void
      */
-    public function __construct(Guard $auth)
+    public function __construct()
     {
-        $this->auth = $auth;
-
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -49,7 +39,7 @@ class AuthController extends Controller
     {
         $credentials = $this->getCredentials($request);
 
-        if ($this->auth->attempt($credentials, $request->has('remember'))) {
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             return redirect()->intended(url('/'));
         }
 
@@ -68,7 +58,7 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        $this->auth->logout();
+        Auth::logout();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
