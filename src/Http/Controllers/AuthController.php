@@ -1,13 +1,10 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Exception;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
-use TypiCMS\Modules\Users\Services\Registrar;
 
 class AuthController extends Controller
 {
@@ -23,13 +20,11 @@ class AuthController extends Controller
      * Create a new authentication controller instance.
      *
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
-     * @param  \TypiCMS\Modules\Users\Services\Registrar  $registrar
      * @return void
      */
-    public function __construct(Guard $auth, Registrar $registrar)
+    public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        $this->registrar = $registrar;
 
         $this->middleware('guest', ['except' => 'getLogout']);
     }
