@@ -111,7 +111,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     public function updatePreferences(array $data)
     {
         $user = Request::user();
-        $user->preferences = array_merge($user->preferences, $data);
+        $user->preferences = array_merge((array) $user->preferences, $data);
         $user->save();
     }
 
