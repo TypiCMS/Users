@@ -128,8 +128,11 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
      * @param  [type] $group [description]
      * @return [type]        [description]
      */
-    public function inGroup($group)
+    public function hasRole($group)
     {
+        if ($this->superuser) {
+            return true;
+        }
         return in_array($group, $this->groups->lists('name')->all());
     }
 
