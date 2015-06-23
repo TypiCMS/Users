@@ -1,5 +1,7 @@
 @extends('core::admin.master')
 
+@section('title', trans('users::global.Log in'))
+
 @section('page-header')
 @stop
 @section('sidebar')
