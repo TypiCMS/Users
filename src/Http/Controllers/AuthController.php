@@ -1,12 +1,12 @@
 <?php
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
 use TypiCMS\Modules\Users\Models\User;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends Controller
 {
