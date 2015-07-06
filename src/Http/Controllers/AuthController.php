@@ -6,9 +6,12 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
 use TypiCMS\Modules\Users\Models\User;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends Controller
 {
+
+    use ThrottlesLogins;
 
     /**
      * Create a new authentication controller instance.
@@ -38,11 +41,18 @@ class AuthController extends Controller
      */
     public function postLogin(FormRequestLogin $request)
     {
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
         $credentials = $this->getCredentials($request);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            return redirect()->intended(url('/'));
+            return $this->handleUserWasAuthenticated($request);
         }
+
+        $this->incrementLoginAttempts($request);
 
         $user = User::where('email', $credentials['email'])->first();
         if (! $user) {
@@ -59,6 +69,24 @@ class AuthController extends Controller
             ->withErrors([
                 'email' => $message,
             ]);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $throttles
+     * @return \Illuminate\Http\Response
+     */
+    protected function handleUserWasAuthenticated(Request $request)
+    {
+        $this->clearLoginAttempts($request);
+
+        if (method_exists($this, 'authenticated')) {
+            return $this->authenticated($request, Auth::user());
+        }
+
+        return redirect()->intended(url('/'));
     }
 
     /**
@@ -86,6 +114,26 @@ class AuthController extends Controller
             'password'  => $request->input('password'),
             'activated' => 1
         ];
+    }
+
+    /**
+     * Get the path to the login route.
+     *
+     * @return string
+     */
+    public function loginPath()
+    {
+        return property_exists($this, 'loginPath') ? $this->loginPath : '/auth/login';
+    }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function loginUsername()
+    {
+        return property_exists($this, 'username') ? $this->username : 'email';
     }
 
 }
