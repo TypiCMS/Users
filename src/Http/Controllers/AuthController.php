@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestLogin;
+use TypiCMS\Modules\Users\Models\User;
 
 class AuthController extends Controller
 {
@@ -43,11 +44,20 @@ class AuthController extends Controller
             return redirect()->intended(url('/'));
         }
 
+        $user = User::where('email', $credentials['email'])->first();
+        if (! $user) {
+            $message = trans('users::global.User does not exist');
+        } elseif (! $user->activated) {
+            $message = trans('users::global.User not activated');
+        } else {
+            $message = trans('users::global.Wrong password, try again');
+        }
+
         return redirect()
             ->route('login')
             ->withInput($request->only('email', 'remember'))
             ->withErrors([
-                'email' => $this->getFailedLoginMessage(),
+                'email' => $message,
             ]);
     }
 
@@ -61,16 +71,6 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
-    }
-
-    /**
-     * Get the failed login message.
-     *
-     * @return string
-     */
-    protected function getFailedLoginMessage()
-    {
-        return trans('users::global.User not found');
     }
 
     /**
