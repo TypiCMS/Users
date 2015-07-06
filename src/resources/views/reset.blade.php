@@ -18,7 +18,6 @@
     @include('core::admin._message', ['closable' => false])
 
     {!! BootForm::open()->role('form') !!}
-        {!! BootForm::token() !!}
 
         <h1>@lang('users::global.New password')</h1>
 
