@@ -19,8 +19,10 @@ return array(
     'Your account has been created, you can now log in' => 'Your account has been created, you can now log in.',
     'Your account has been created, check your email for the confirmation link' =>
         'Your account has been created, check your email for the confirmation link.',
-    'Your account has been activated, you can now log in' => 'Your account has been activated, you can now log in.',
-    'An email was sent with password reset information' => 'An email was sent with password reset information.',
+    'Your account has been activated, you can now log in' =>
+        'Your account has been activated, you can now log in.',
+    'An email was sent with password reset information' =>
+        'An email was sent with password reset information.',
     'Your password has been changed' => 'Your password has been changed.',
     'There was a problem, please contact the system administrator' =>
         'There was a problem, please contact the system administrator.',
@@ -30,7 +32,8 @@ return array(
     'To reset your password' => 'To reset your password',
     'click here' => 'click here',
     'Or point your browser to this address:' => 'Or point your browser to this address:',
-    'To reset your password, complete this form:' => 'To reset your password, complete this form:',
+    'To reset your password, complete this form:' =>
+        'To reset your password, complete this form:',
     'To activate your account' => 'To activate your account',
     'Password Reset Confirmation' => 'Password Reset Confirmation',
     'Account:' => 'Account:',
