@@ -9,7 +9,7 @@
 
     <div class="table-responsive">
 
-        <table st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-condensed table-main">
+        <table st-persist="usersTable" st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-condensed table-main">
             <thead>
                 <tr>
                     <th class="delete"></th>
