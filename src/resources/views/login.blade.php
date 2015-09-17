@@ -17,7 +17,7 @@
 
     @include('core::admin._message', ['closable' => false])
 
-    {!! BootForm::open()->role('form') !!}
+    {!! BootForm::open() !!}
 
         <h1>@lang('users::global.Log in')</h1>
 
