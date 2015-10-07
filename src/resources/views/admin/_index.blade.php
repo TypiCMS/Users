@@ -5,7 +5,7 @@
         <span>@{{ models.length }} @choice('users::global.users', 2)</span>
     </h1>
 
-    <div class="btn-toolbar" role="toolbar" ng-include="'/views/partials/btnLocales.html'"></div>
+    @include('core::admin._tabs-lang-list')
 
     <div class="table-responsive">
 
