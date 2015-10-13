@@ -62,7 +62,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      * @param  string $locale
      * @return null
      */
-    public function uri($locale)
+    public function uri($locale = null)
     {
         return null;
     }
