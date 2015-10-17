@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\Request;
@@ -7,16 +8,16 @@ use TypiCMS\Modules\Users\Models\User;
 
 class EloquentUser extends RepositoriesAbstract implements UserInterface
 {
-
     public function __construct(User $model)
     {
         $this->model = $model;
     }
 
     /**
-     * Create a new model
+     * Create a new model.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return mixed Model or false on error during save
      */
     public function create(array $data)
@@ -32,6 +33,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
 
         if ($model->save()) {
             $this->syncGroups($model, $data);
+
             return $model;
         }
 
@@ -39,10 +41,11 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * Update an existing model
+     * Update an existing model.
      *
-     * @param  array  $data
-     * @return boolean
+     * @param array $data
+     *
+     * @return bool
      */
     public function update(array $data)
     {
@@ -67,11 +70,10 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         }
 
         return false;
-
     }
 
     /**
-     * Find user by token
+     * Find user by token.
      *
      * @param string $key
      * @param string $value
@@ -83,10 +85,11 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * Sync groups
+     * Sync groups.
      *
-     * @param  Model $user
-     * @param  array $groups
+     * @param Model $user
+     * @param array $groups
+     *
      * @return void
      */
     private function syncGroups($user, $data)
@@ -104,7 +107,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * Update current user preferences
+     * Update current user preferences.
      *
      * @return mixed
      */
@@ -118,7 +121,8 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     /**
      * Current user has access ?
      *
-     * @param  string|array  $permissions
+     * @param string|array $permissions
+     *
      * @return bool
      */
     public function hasAccess($permissions)
@@ -126,6 +130,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         if ($user = Request::user()) {
             return $user->hasAccess($permissions);
         }
+
         return false;
     }
 }

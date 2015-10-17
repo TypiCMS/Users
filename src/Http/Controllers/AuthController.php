@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -10,7 +11,6 @@ use TypiCMS\Modules\Users\Models\User;
 
 class AuthController extends Controller
 {
-
     use ThrottlesLogins;
 
     /**
@@ -36,12 +36,12 @@ class AuthController extends Controller
     /**
      * Handle a login request to the application.
      *
-     * @param  FormRequestLogin $request
+     * @param FormRequestLogin $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function postLogin(FormRequestLogin $request)
     {
-
         if ($this->hasTooManyLoginAttempts($request)) {
             return $this->sendLockoutResponse($request);
         }
@@ -74,8 +74,9 @@ class AuthController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  bool  $throttles
+     * @param \Illuminate\Http\Request $request
+     * @param bool                     $throttles
+     *
      * @return \Illuminate\Http\Response
      */
     protected function handleUserWasAuthenticated(Request $request)
@@ -104,7 +105,8 @@ class AuthController extends Controller
     /**
      * Get the login credentials and requirements.
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return array
      */
     protected function getCredentials(Request $request)
@@ -112,7 +114,7 @@ class AuthController extends Controller
         return [
             'email'     => $request->input('email'),
             'password'  => $request->input('password'),
-            'activated' => 1
+            'activated' => 1,
         ];
     }
 
@@ -135,5 +137,4 @@ class AuthController extends Controller
     {
         return property_exists($this, 'username') ? $this->username : 'email';
     }
-
 }

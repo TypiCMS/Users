@@ -1,8 +1,8 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
@@ -11,7 +11,6 @@ use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class RegistrationController extends Controller
 {
-
     protected $repository;
 
     /**
@@ -40,8 +39,9 @@ class RegistrationController extends Controller
     /**
      * Perform the registration.
      *
-     * @param  FormRequestCreate $request
-     * @param  Mailer $mailer
+     * @param FormRequestCreate $request
+     * @param Mailer            $mailer
+     *
      * @return \Redirect
      */
     public function postRegister(FormRequestCreate $request, Mailer $mailer)
@@ -49,7 +49,7 @@ class RegistrationController extends Controller
         $user = $this->repository->create($request->all());
 
         $mailer->send('users::emails.welcome', compact('user'), function (Message $message) use ($user) {
-            $subject  = '[' . TypiCMS::title() . '] ' . trans('users::global.Welcome');
+            $subject = '['.TypiCMS::title().'] '.trans('users::global.Welcome');
             $message->to($user->email)->subject($subject);
         });
 
@@ -61,7 +61,8 @@ class RegistrationController extends Controller
     /**
      * Confirm a user’s email address.
      *
-     * @param  string $token
+     * @param string $token
+     *
      * @return mixed
      */
     public function confirmEmail($token)
