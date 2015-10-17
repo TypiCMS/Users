@@ -55,9 +55,9 @@ class AuthController extends Controller
         $this->incrementLoginAttempts($request);
 
         $user = User::where('email', $credentials['email'])->first();
-        if (! $user) {
+        if (!$user) {
             $message = trans('users::global.User does not exist');
-        } elseif (! $user->activated) {
+        } elseif (!$user->activated) {
             $message = trans('users::global.User not activated');
         } else {
             $message = trans('users::global.Wrong password, try again');

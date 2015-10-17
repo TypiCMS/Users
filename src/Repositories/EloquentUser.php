@@ -50,7 +50,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
 
         $userData = array_except($data, ['_method', '_token', 'exit', 'groups', 'password_confirmation']);
 
-        if (! $userData['password']) {
+        if (!$userData['password']) {
             $userData = array_except($userData, 'password');
         } else {
             $userData['password'] = bcrypt($data['password']);
@@ -91,7 +91,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      */
     private function syncGroups($user, $data)
     {
-        if (! isset($data['groups'])) {
+        if (!isset($data['groups'])) {
             return;
         }
         $array = [];

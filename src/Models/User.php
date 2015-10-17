@@ -74,7 +74,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      */
     public function getMergedPermissions()
     {
-        if (! $this->mergedPermissions) {
+        if (!$this->mergedPermissions) {
             $permissions = [];
             foreach ($this->groups as $group) {
                 $permissions = array_merge($permissions, (array) $group->permissions);
@@ -107,7 +107,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function hasPermission($permissions)
     {
         $mergedPermissions = $this->getMergedPermissions();
-        if (! is_array($permissions)) {
+        if (!is_array($permissions)) {
             $permissions = (array) $permissions;
         }
         foreach ($permissions as $permission) {

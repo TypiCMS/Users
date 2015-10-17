@@ -68,7 +68,7 @@ class RegistrationController extends Controller
     {
         $user = $this->repository->byToken($token);
 
-        if (! $user) {
+        if (!$user) {
             abort(404);
         }
 
