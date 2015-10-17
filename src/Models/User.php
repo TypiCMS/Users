@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Models;
 
 use Illuminate\Auth\Authenticatable;
@@ -13,7 +14,6 @@ use TypiCMS\Modules\History\Traits\Historable;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
@@ -57,14 +57,15 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     ];
 
     /**
-     * Get front office uri
+     * Get front office uri.
      *
-     * @param  string $locale
+     * @param string $locale
+     *
      * @return null
      */
     public function uri($locale = null)
     {
-        return null;
+        return;
     }
 
     /**
@@ -81,13 +82,15 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             }
             $this->mergedPermissions = array_merge($permissions, (array) $this->permissions);
         }
+
         return $this->mergedPermissions;
     }
 
     /**
      * See if a user has access to the passed permission(s).
      *
-     * @param  string|array  $permissions
+     * @param string|array $permissions
+     *
      * @return bool
      */
     public function hasAccess($permissions)
@@ -95,13 +98,15 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         if ($this->superuser) {
             return true;
         }
+
         return $this->hasPermission($permissions);
     }
 
     /**
      * See if a user has access to the passed permission(s).
      *
-     * @param  string|array  $permissions
+     * @param string|array $permissions
+     *
      * @return bool
      */
     public function hasPermission($permissions)
@@ -122,20 +127,23 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
                 return false;
             }
         }
+
         return true;
     }
 
     /**
      * Is the user in group ?
      *
-     * @param  [type] $group [description]
-     * @return [type]        [description]
+     * @param [type] $group [description]
+     *
+     * @return [type] [description]
      */
     public function hasRole($group)
     {
         if ($this->superuser) {
             return true;
         }
+
         return in_array($group, $this->groups->lists('name')->all());
     }
 

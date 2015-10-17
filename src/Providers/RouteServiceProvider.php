@@ -1,12 +1,12 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Providers;
 
-use Config;
-use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 
-class RouteServiceProvider extends ServiceProvider {
-
+class RouteServiceProvider extends ServiceProvider
+{
     /**
      * This namespace is applied to the controller routes in your routes file.
      *
@@ -19,7 +19,8 @@ class RouteServiceProvider extends ServiceProvider {
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function boot(Router $router)
@@ -32,13 +33,14 @@ class RouteServiceProvider extends ServiceProvider {
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function map(Router $router)
     {
-        $router->group(['namespace' => $this->namespace], function(Router $router) {
-            /**
+        $router->group(['namespace' => $this->namespace], function (Router $router) {
+            /*
              * Front office routes
              */
             $router->group(['prefix' => 'auth'], function (Router $router) {
@@ -70,17 +72,16 @@ class RouteServiceProvider extends ServiceProvider {
                 $router->post('changepassword/{token}', 'PasswordController@postReset');
             });
 
-            /**
+            /*
              * Admin routes
              */
             $router->resource('admin/users', 'AdminController');
             $router->post('admin/users/current/updatepreferences', ['as' => 'user.updatepreferences', 'uses' => 'AdminController@postUpdatePreferences']);
 
-            /**
+            /*
              * API routes
              */
             $router->resource('api/users', 'ApiController');
         });
     }
-
 }

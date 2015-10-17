@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,8 @@ class ApiController extends BaseApiController
     public function store()
     {
         $model = $this->repository->create(Input::all());
-        $error = $model ? false : true ;
+        $error = $model ? false : true;
+
         return response()->json([
             'error' => $error,
             'model' => $model,
@@ -33,11 +35,13 @@ class ApiController extends BaseApiController
      * Update the specified resource in storage.
      *
      * @param  $model
-     * @return boolean
+     *
+     * @return bool
      */
     public function update($model)
     {
-        $error = $this->repository->update(Input::all()) ? false : true ;
+        $error = $this->repository->update(Input::all()) ? false : true;
+
         return response()->json([
             'error' => $error,
         ], 200);
@@ -47,6 +51,7 @@ class ApiController extends BaseApiController
      * Remove the specified resource from storage.
      *
      * @param  $model
+     *
      * @return \Illuminate\Support\Facades\Response
      */
     public function destroy($model)
@@ -54,9 +59,10 @@ class ApiController extends BaseApiController
         if ($model->id == Auth::user()->id) {
             return response()->json([
                 'error'   => true,
-                'message' => 'Connected user can not be deleted.'
+                'message' => 'Connected user can not be deleted.',
             ], 403);
         }
+
         return parent::destroy($model);
     }
 }

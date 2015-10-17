@@ -1,7 +1,7 @@
 <?php
+
 class UsersControllerTest extends TestCase
 {
-
     public function testAdminIndex()
     {
         $response = $this->call('GET', 'admin/users');
@@ -19,28 +19,27 @@ class UsersControllerTest extends TestCase
     public function testStoreSuccess()
     {
         $input = [
-            'email' => 'test@test.com',
-            'first_name' => 'test',
-            'last_name' => 'test',
-            'password' => 'testtest',
+            'email'                 => 'test@test.com',
+            'first_name'            => 'test',
+            'last_name'             => 'test',
+            'password'              => 'testtest',
             'password_confirmation' => 'testtest',
         ];
         $this->call('POST', 'admin/users', $input);
-        $this->assertRedirectedToRoute('admin.users.edit', array('id' => 2));
+        $this->assertRedirectedToRoute('admin.users.edit', ['id' => 2]);
     }
 
     public function testStoreSuccessWithRedirectToList()
     {
         $input = [
-            'email' => 'test@test.com',
-            'first_name' => 'test',
-            'last_name' => 'test',
-            'password' => 'testtest',
+            'email'                 => 'test@test.com',
+            'first_name'            => 'test',
+            'last_name'             => 'test',
+            'password'              => 'testtest',
             'password_confirmation' => 'testtest',
-            'exit' => true,
+            'exit'                  => true,
         ];
         $this->call('POST', 'admin/users', $input);
         $this->assertRedirectedToRoute('admin.users.index');
     }
-
 }

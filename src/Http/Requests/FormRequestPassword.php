@@ -1,10 +1,11 @@
 <?php
+
 namespace TypiCMS\Modules\Users\Http\Requests;
 
 use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 
-class FormRequestPassword extends AbstractFormRequest {
-
+class FormRequestPassword extends AbstractFormRequest
+{
     public function rules()
     {
         $rules = [
@@ -12,6 +13,7 @@ class FormRequestPassword extends AbstractFormRequest {
             'email'    => 'required|email',
             'password' => 'required|confirmed',
         ];
+
         return $rules;
     }
 }
