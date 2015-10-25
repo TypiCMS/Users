@@ -40,7 +40,7 @@ class RegistrationController extends Controller
      * Perform the registration.
      *
      * @param FormRequestRegister $request
-     * @param Mailer            $mailer
+     * @param Mailer              $mailer
      *
      * @return \Redirect
      */
