@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestCreate;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class AdminController extends BaseAdminController
@@ -28,7 +27,7 @@ class AdminController extends BaseAdminController
      *
      * @return Redirect
      */
-    public function store(FormRequestCreate $request)
+    public function store(FormRequest $request)
     {
         $model = $this->repository->create($request->all());
 
