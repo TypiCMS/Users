@@ -4,7 +4,7 @@ namespace TypiCMS\Modules\Users\Http\Requests;
 
 use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 
-class FormRequestCreate extends AbstractFormRequest
+class FormRequestRegister extends AbstractFormRequest
 {
     public function rules()
     {

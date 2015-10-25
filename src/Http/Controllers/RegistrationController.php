@@ -6,7 +6,7 @@ use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
-use TypiCMS\Modules\Users\Http\Requests\FormRequestCreate;
+use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class RegistrationController extends Controller
@@ -39,12 +39,12 @@ class RegistrationController extends Controller
     /**
      * Perform the registration.
      *
-     * @param FormRequestCreate $request
+     * @param FormRequestRegister $request
      * @param Mailer            $mailer
      *
      * @return \Redirect
      */
-    public function postRegister(FormRequestCreate $request, Mailer $mailer)
+    public function postRegister(FormRequestRegister $request, Mailer $mailer)
     {
         $user = $this->repository->create($request->all());
 
