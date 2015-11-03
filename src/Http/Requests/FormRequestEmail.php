@@ -9,7 +9,7 @@ class FormRequestEmail extends AbstractFormRequest
     public function rules()
     {
         $rules = [
-            'email' => 'required|email',
+            'email' => 'required|email|max:255',
         ];
 
         return $rules;
