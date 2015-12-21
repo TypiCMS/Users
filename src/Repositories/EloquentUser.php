@@ -24,7 +24,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     {
         $model = $this->model;
 
-        $userData = array_except($data, ['_method','_token', 'id', 'exit', 'groups', 'password_confirmation']);
+        $userData = array_except($data, ['_method', '_token', 'id', 'exit', 'groups', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
 
         foreach ($userData as $key => $value) {
