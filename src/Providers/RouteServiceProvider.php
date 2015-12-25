@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Front office routes
              */
-            $router->group(['prefix' => 'auth'], function (Router $router) {
+            $router->group(['prefix' => 'auth', 'middleware' => 'web'], function (Router $router) {
 
                 // Registration
                 $router->get('register', ['as' => 'register', 'uses' => 'RegistrationController@getRegister']);
