@@ -8,11 +8,9 @@ class FormRequestLogin extends AbstractFormRequest
 {
     public function rules()
     {
-        $rules = [
+        return [
             'email'      => 'required|email|max:255',
             'password'   => 'required|max:255',
         ];
-
-        return $rules;
     }
 }
