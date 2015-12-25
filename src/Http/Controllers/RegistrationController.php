@@ -23,7 +23,7 @@ class RegistrationController extends Controller
         $this->repository = $user;
 
         $this->middleware('guest');
-        $this->middleware('registration');
+        $this->middleware('registrationAllowed');
     }
 
     /**
