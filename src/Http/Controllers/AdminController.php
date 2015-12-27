@@ -2,7 +2,7 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
@@ -86,7 +86,7 @@ class AdminController extends BaseAdminController
      */
     public function postUpdatePreferences()
     {
-        $input = Input::all();
+        $input = Request::all();
         $this->repository->updatePreferences($input);
     }
 }
