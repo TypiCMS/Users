@@ -4,7 +4,9 @@
         <meta charset="utf-8">
     </head>
     <body>
-        {!! TypiCMS::logo() !!}
+        @if (TypiCMS::hasLogo())
+            @include('core::public._logo')
+        @endif
 
         <h2>@lang('users::global.Welcome') {{ $user->first_name }} {{ $user->last_name }}</h2>
 

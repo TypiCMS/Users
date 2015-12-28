@@ -4,7 +4,9 @@
         <meta charset="utf-8">
     </head>
     <body>
-        {!! TypiCMS::logo() !!}
+        @if (TypiCMS::hasLogo())
+            @include('core::public._logo')
+        @endif
 
         <h2>@lang('users::global.Reset password')</h2>
 
