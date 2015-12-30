@@ -53,7 +53,7 @@ class ApiController extends BaseApiController
      *
      * @param \TypiCMS\Modules\Users\Models\User $user
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
     {

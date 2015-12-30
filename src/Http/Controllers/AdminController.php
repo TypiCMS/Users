@@ -2,19 +2,14 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
+use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\UserInterface;
 
 class AdminController extends BaseAdminController
 {
-    /**
-     * __construct.
-     *
-     * @param UserInterface $user
-     */
     public function __construct(UserInterface $user)
     {
         parent::__construct($user);
@@ -23,9 +18,9 @@ class AdminController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param FormRequest $request
+     * @param \TypiCMS\Modules\Users\Http\Requests\FormRequest $request
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(FormRequest $request)
     {
@@ -37,12 +32,12 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  $model
-     * @param FormRequest $request
+     * @param \TypiCMS\Modules\Users\Models\User               $model
+     * @param \TypiCMS\Modules\Users\Http\Requests\FormRequest $request
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($model, FormRequest $request)
+    public function update(User $user, FormRequest $request)
     {
         $this->repository->update($request->all());
 
@@ -50,11 +45,11 @@ class AdminController extends BaseAdminController
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create form for a new resource.
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\View\View
      */
-    public function create($parent = null)
+    public function create()
     {
         $model = $this->repository->getModel();
         $selectedGroups = [];
@@ -64,19 +59,23 @@ class AdminController extends BaseAdminController
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit form for the specified resource.
      *
-     * @param  $model
+     * @param \TypiCMS\Modules\Users\Models\User $user
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\View\View
      */
-    public function edit($model, $child = null)
+    public function edit(User $user)
     {
-        $permissions = $model->permissions;
-        $selectedGroups = $model->groups->getDictionary();
+        $permissions = $user->permissions;
+        $selectedGroups = $user->groups->getDictionary();
 
         return view('core::admin.edit')
-            ->with(compact('model', 'permissions', 'selectedGroups'));
+            ->with([
+                'model' => $user,
+                'permissions' => $permissions,
+                'selectedGroups' => $selectedGroups,
+            ]);
     }
 
     /**
@@ -86,7 +85,6 @@ class AdminController extends BaseAdminController
      */
     public function postUpdatePreferences()
     {
-        $input = Request::all();
-        $this->repository->updatePreferences($input);
+        $this->repository->updatePreferences(Request::all());
     }
 }
