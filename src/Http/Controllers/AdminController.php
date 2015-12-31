@@ -23,9 +23,10 @@ class AdminController extends BaseAdminController
     public function create()
     {
         $model = $this->repository->getModel();
+        $selectedGroups = [];
 
         return view('core::admin.create')
-            ->with(compact('model'));
+            ->with(compact('model', 'selectedGroups'));
     }
 
     /**
@@ -37,8 +38,15 @@ class AdminController extends BaseAdminController
      */
     public function edit(User $user)
     {
+        $permissions = $user->permissions;
+        $selectedGroups = $user->groups->getDictionary();
+
         return view('core::admin.edit')
-            ->with(['model' => $user]);
+            ->with([
+                'model'          => $user,
+                'permissions'    => $permissions,
+                'selectedGroups' => $selectedGroups,
+            ]);
     }
 
     /**
@@ -68,40 +76,6 @@ class AdminController extends BaseAdminController
         $this->repository->update($request->all());
 
         return $this->redirect($request, $model);
-    }
-
-    /**
-     * Create form for a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        $model = $this->repository->getModel();
-        $selectedGroups = [];
-
-        return view('core::admin.create')
-            ->with(compact('model', 'selectedGroups'));
-    }
-
-    /**
-     * Edit form for the specified resource.
-     *
-     * @param \TypiCMS\Modules\Users\Models\User $user
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(User $user)
-    {
-        $permissions = $user->permissions;
-        $selectedGroups = $user->groups->getDictionary();
-
-        return view('core::admin.edit')
-            ->with([
-                'model'          => $user,
-                'permissions'    => $permissions,
-                'selectedGroups' => $selectedGroups,
-            ]);
     }
 
     /**
