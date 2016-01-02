@@ -17,20 +17,6 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'TypiCMS\Modules\Users\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    public function boot(Router $router)
-    {
-        parent::boot($router);
-
-        $router->model('users', 'TypiCMS\Modules\Users\Models\User');
-    }
-
-    /**
      * Define the routes for the application.
      *
      * @param \Illuminate\Routing\Router $router
@@ -75,13 +61,19 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Admin routes
              */
-            $router->resource('admin/users', 'AdminController');
+            $router->get('admin/users', ['as' => 'admin.users.index', 'uses' => 'AdminController@index']);
+            $router->get('admin/users/create', ['as' => 'admin.users.create', 'uses' => 'AdminController@create']);
+            $router->get('admin/users/{user}/edit', ['as' => 'admin.users.edit', 'uses' => 'AdminController@edit']);
+            $router->post('admin/users', ['as' => 'admin.users.store', 'uses' => 'AdminController@store']);
+            $router->put('admin/users/{user}', ['as' => 'admin.users.update', 'uses' => 'AdminController@update']);
             $router->post('admin/users/current/updatepreferences', ['as' => 'user.updatepreferences', 'uses' => 'AdminController@postUpdatePreferences']);
 
             /*
              * API routes
              */
-            $router->resource('api/users', 'ApiController');
+            $router->get('api/users', ['as' => 'api.users.index', 'uses' => 'ApiController@index']);
+            $router->put('api/users/{user}', ['as' => 'api.users.update', 'uses' => 'ApiController@update']);
+            $router->delete('api/users/{user}', ['as' => 'api.users.destroy', 'uses' => 'ApiController@destroy']);
         });
     }
 }

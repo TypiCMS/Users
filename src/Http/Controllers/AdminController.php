@@ -66,7 +66,7 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Users\Models\User               $model
+     * @param \TypiCMS\Modules\Users\Models\User               $user
      * @param \TypiCMS\Modules\Users\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -75,7 +75,7 @@ class AdminController extends BaseAdminController
     {
         $this->repository->update($request->all());
 
-        return $this->redirect($request, $model);
+        return $this->redirect($request, $user);
     }
 
     /**
