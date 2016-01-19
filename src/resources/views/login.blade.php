@@ -3,13 +3,13 @@
 @section('title', trans('users::global.Log in'))
 
 @section('page-header')
-@stop
+@endsection
 @section('sidebar')
-@stop
+@endsection
 @section('mainClass')
-@stop
+@endsection
 @section('errors')
-@stop
+@endsection
 
 @section('main')
 
@@ -45,4 +45,4 @@
 
 </div>
 
-@stop
+@endsection
