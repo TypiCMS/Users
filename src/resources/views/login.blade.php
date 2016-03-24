@@ -28,13 +28,14 @@
             {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
         </div>
 
-        {{-- BootForm::checkbox(trans('users::global.Remember me'), 'remember') --}}
-        {!! BootForm::hidden('remember') !!}
-
         <div class="form-group">
             <span class="help-block">
                 <a href="{{ route('resetpassword') }}">@lang('users::global.Forgot your password?')</a>
             </span>
+        </div>
+
+        <div class="form-group">
+            {!! BootForm::checkbox(trans('users::global.Remember me'), 'remember') !!}
         </div>
 
         <div class="form-group">
