@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->boolean('superuser')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->text('permissions')->nullable();
             $table->text('preferences')->nullable();
             $table->string('token')->nullable();
             $table->rememberToken();

@@ -39,13 +39,4 @@ interface UserInterface extends RepositoryInterface
      * @return mixed
      */
     public function updatePreferences(array $data);
-
-    /**
-     * Current user has access ?
-     *
-     * @param string|array $permissions
-     *
-     * @return bool
-     */
-    public function hasAccess($permissions);
 }

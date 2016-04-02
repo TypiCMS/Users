@@ -24,7 +24,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     {
         $model = $this->model;
 
-        $userData = array_except($data, ['_method', '_token', 'id', 'exit', 'groups', 'password_confirmation']);
+        $userData = array_except($data, ['_method', '_token', 'id', 'exit', 'roles', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
 
         foreach ($userData as $key => $value) {
@@ -32,7 +32,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         }
 
         if ($model->save()) {
-            $this->syncGroups($model, $data);
+            $this->syncRoles($model, $data);
 
             return $model;
         }
@@ -51,7 +51,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     {
         $user = $this->model->find($data['id']);
 
-        $userData = array_except($data, ['_method', '_token', 'exit', 'groups', 'password_confirmation']);
+        $userData = array_except($data, ['_method', '_token', 'exit', 'roles', 'password_confirmation']);
 
         if (!$userData['password']) {
             $userData = array_except($userData, 'password');
@@ -63,7 +63,7 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
             $user->$key = $value;
         }
 
-        $this->syncGroups($user, $data);
+        $this->syncRoles($user, $data);
 
         if ($user->save()) {
             return true;
@@ -85,25 +85,25 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     }
 
     /**
-     * Sync groups.
+     * Sync roles.
      *
      * @param Model $user
-     * @param array $groups
+     * @param array $roles
      *
      * @return void
      */
-    private function syncGroups($user, $data)
+    private function syncRoles($user, $data)
     {
-        if (!isset($data['groups'])) {
+        if (!isset($data['roles'])) {
             return;
         }
         $array = [];
-        foreach ($data['groups'] as $id => $value) {
+        foreach ($data['roles'] as $id => $value) {
             if ($value) {
                 $array[] = $id;
             }
         }
-        $user->groups()->sync($array);
+        $user->roles()->sync($array);
     }
 
     /**
@@ -116,21 +116,5 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
         $user = Request::user();
         $user->preferences = array_merge((array) $user->preferences, $data);
         $user->save();
-    }
-
-    /**
-     * Current user has access ?
-     *
-     * @param string|array $permissions
-     *
-     * @return bool
-     */
-    public function hasAccess($permissions)
-    {
-        if ($user = Request::user()) {
-            return $user->hasAccess($permissions);
-        }
-
-        return false;
     }
 }

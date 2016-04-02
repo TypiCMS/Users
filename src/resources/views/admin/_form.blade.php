@@ -34,14 +34,14 @@
 {!! BootForm::hidden('activated')->value(0) !!}
 {!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
 
-@if ($groups = Groups::all() and $groups->count())
+@if ($roles = Roles::all() and $roles->count())
 <div class="form-group">
-    <label>@lang('validation.attributes.groups')</label>
-    @foreach ($groups as $group)
+    <label>@lang('validation.attributes.roles')</label>
+    @foreach ($roles as $role)
     <div class="checkbox">
         <label>
-            {!! BootForm::hidden('groups[' . $group->id . ']')->value(0) !!}
-            <input type="checkbox" name="groups[{{ $group->id }}]" value="1" @if (isset($selectedGroups[$group->id]))checked="checked"@endif> {{ $group->name }}
+            {!! BootForm::hidden('roles['.$role->id.']')->value(0) !!}
+            <input type="checkbox" name="roles[{{ $role->id }}]" value="1" @if (isset($selectedRoles[$role->id]))checked="checked"@endif> {{ $role->name }}
         </label>
     </div>
     @endforeach

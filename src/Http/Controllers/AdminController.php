@@ -23,10 +23,10 @@ class AdminController extends BaseAdminController
     public function create()
     {
         $model = $this->repository->getModel();
-        $selectedGroups = [];
+        $selectedRoles = [];
 
         return view('core::admin.create')
-            ->with(compact('model', 'selectedGroups'));
+            ->with(compact('model', 'selectedRoles'));
     }
 
     /**
@@ -39,13 +39,13 @@ class AdminController extends BaseAdminController
     public function edit(User $user)
     {
         $permissions = $user->permissions;
-        $selectedGroups = $user->groups->getDictionary();
+        $selectedRoles = $user->roles->getDictionary();
 
         return view('core::admin.edit')
             ->with([
-                'model'          => $user,
-                'permissions'    => $permissions,
-                'selectedGroups' => $selectedGroups,
+                'model'         => $user,
+                'permissions'   => $permissions,
+                'selectedRoles' => $selectedRoles,
             ]);
     }
 
