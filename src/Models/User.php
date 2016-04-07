@@ -119,5 +119,4 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         }
         $this->permissions()->sync($permissionIds);
     }
-
 }
