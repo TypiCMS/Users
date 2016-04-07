@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\Request;
-use Spatie\Permission\Contracts\Permission;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
 use TypiCMS\Modules\Users\Models\User;
 
