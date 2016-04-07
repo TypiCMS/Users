@@ -23,10 +23,11 @@ class AdminController extends BaseAdminController
     public function create()
     {
         $model = $this->repository->getModel();
+        $permissions = [];
         $selectedRoles = [];
 
         return view('core::admin.create')
-            ->with(compact('model', 'selectedRoles'));
+            ->with(compact('model', 'permissions', 'selectedRoles'));
     }
 
     /**
@@ -38,7 +39,7 @@ class AdminController extends BaseAdminController
      */
     public function edit(User $user)
     {
-        $permissions = $user->permissions;
+        $permissions = $user->permissions->pluck('name')->all();
         $selectedRoles = $user->roles->getDictionary();
 
         return view('core::admin.edit')
