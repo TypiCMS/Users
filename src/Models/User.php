@@ -92,4 +92,14 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             $user->token = str_random(30);
         });
     }
+
+    /**
+     * Check if the user is a superuser.
+     *
+     * @return bool
+     */
+    public function isSuperUser()
+    {
+        return (bool) $this->superuser;
+    }
 }
