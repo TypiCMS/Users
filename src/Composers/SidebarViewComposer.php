@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Users\Composers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Sidebar\SidebarGroup;
 use Maatwebsite\Sidebar\SidebarItem;
 
@@ -19,7 +20,7 @@ class SidebarViewComposer
                 $item->route('admin::index-users');
                 $item->append('admin::create-users');
                 $item->authorize(
-                    auth()->user()->can('index-users')
+                    Gate::allows('index-users')
                 );
             });
         });
