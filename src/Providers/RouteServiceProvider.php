@@ -60,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('admin/users/{user}/edit', 'AdminController@edit')->name('admin::edit-users');
             $router->post('admin/users', 'AdminController@store')->name('admin::store-users');
             $router->put('admin/users/{user}', 'AdminController@update')->name('admin::update-users');
-            $router->post('admin/users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('user.updatepreferences');
+            $router->post('admin/users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences');
 
             /*
              * API routes
