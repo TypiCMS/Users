@@ -35,8 +35,7 @@
     @foreach ($roles as $role)
     <div class="checkbox">
         <label>
-            {!! BootForm::hidden('roles['.$role->id.']')->value(0) !!}
-            <input type="checkbox" name="roles[{{ $role->id }}]" value="1" @if (isset($selectedRoles[$role->id]))checked="checked"@endif> {{ $role->name }}
+            <input type="checkbox" name="roles[]" value="{{ $role->id }}" @if (in_array($role->id, $selectedRoles))checked="checked"@endif> {{ $role->name }}
         </label>
     </div>
     @endforeach

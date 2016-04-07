@@ -40,7 +40,7 @@ class AdminController extends BaseAdminController
     public function edit(User $user)
     {
         $permissions = $user->permissions->pluck('name')->all();
-        $selectedRoles = $user->roles->getDictionary();
+        $selectedRoles = $user->roles->pluck('id')->all();
 
         return view('core::admin.edit')
             ->with([
@@ -59,9 +59,9 @@ class AdminController extends BaseAdminController
      */
     public function store(FormRequest $request)
     {
-        $model = $this->repository->create($request->all());
+        $user = $this->repository->create($request->all());
 
-        return $this->redirect($request, $model);
+        return $this->redirect($request, $user);
     }
 
     /**

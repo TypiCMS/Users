@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\Request;
+use Spatie\Permission\Contracts\Permission;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
 use TypiCMS\Modules\Users\Models\User;
 
@@ -22,19 +23,18 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
      */
     public function create(array $data)
     {
-        $model = $this->model;
-
-        $userData = array_except($data, ['_method', '_token', 'id', 'exit', 'roles', 'password_confirmation']);
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
 
-        foreach ($userData as $key => $value) {
-            $model->$key = $value;
-        }
+        $user = $this->model->fill($userData);
 
-        if ($model->save()) {
-            $this->syncRoles($model, $data);
+        if ($user->save()) {
+            $roles = isset($data['roles']) ? $data['roles'] : [];
+            $permissions = isset($data['permissions']) ? $data['permissions'] : [];
+            $user->roles()->sync($roles);
+            $user->syncPermissions($permissions);
 
-            return $model;
+            return $user;
         }
 
         return false;
@@ -51,19 +51,20 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     {
         $user = $this->model->find($data['id']);
 
-        $userData = array_except($data, ['_method', '_token', 'exit', 'roles', 'password_confirmation']);
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
 
-        if (!$userData['password']) {
+        if ($userData['password'] === '') {
             $userData = array_except($userData, 'password');
         } else {
             $userData['password'] = bcrypt($data['password']);
         }
 
-        foreach ($userData as $key => $value) {
-            $user->$key = $value;
-        }
+        $user->fill($userData);
 
-        $this->syncRoles($user, $data);
+        $roles = isset($data['roles']) ? $data['roles'] : [];
+        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
+        $user->roles()->sync($roles);
+        $user->syncPermissions($permissions);
 
         if ($user->save()) {
             return true;
@@ -82,28 +83,6 @@ class EloquentUser extends RepositoriesAbstract implements UserInterface
     public function byToken($token)
     {
         return $this->model->where('token', $token)->first();
-    }
-
-    /**
-     * Sync roles.
-     *
-     * @param Model $user
-     * @param array $roles
-     *
-     * @return void
-     */
-    private function syncRoles($user, $data)
-    {
-        if (!isset($data['roles'])) {
-            return;
-        }
-        $array = [];
-        foreach ($data['roles'] as $id => $value) {
-            if ($value) {
-                $array[] = $id;
-            }
-        }
-        $user->roles()->sync($array);
     }
 
     /**
