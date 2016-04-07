@@ -18,7 +18,7 @@ class SidebarViewComposer
                 $item->icon = config('typicms.users.sidebar.icon', 'icon fa fa-fw fa-user');
                 $item->weight = config('typicms.users.sidebar.weight');
                 $item->route('admin::index-users');
-                $item->append('admin::create-users');
+                $item->append('admin::create-user');
                 $item->authorize(
                     Gate::allows('index-users')
                 );

@@ -56,18 +56,18 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->get('admin/users', 'AdminController@index')->name('admin::index-users');
-            $router->get('admin/users/create', 'AdminController@create')->name('admin::create-users');
-            $router->get('admin/users/{user}/edit', 'AdminController@edit')->name('admin::edit-users');
-            $router->post('admin/users', 'AdminController@store')->name('admin::store-users');
-            $router->put('admin/users/{user}', 'AdminController@update')->name('admin::update-users');
+            $router->get('admin/users/create', 'AdminController@create')->name('admin::create-user');
+            $router->get('admin/users/{user}/edit', 'AdminController@edit')->name('admin::edit-user');
+            $router->post('admin/users', 'AdminController@store')->name('admin::store-user');
+            $router->put('admin/users/{user}', 'AdminController@update')->name('admin::update-user');
             $router->post('admin/users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences');
 
             /*
              * API routes
              */
             $router->get('api/users', 'ApiController@index')->name('api::index-users');
-            $router->put('api/users/{user}', 'ApiController@update')->name('api::update-users');
-            $router->delete('api/users/{user}', 'ApiController@destroy')->name('api::destroy-users');
+            $router->put('api/users/{user}', 'ApiController@update')->name('api::update-user');
+            $router->delete('api/users/{user}', 'ApiController@destroy')->name('api::destroy-user');
         });
     }
 }
