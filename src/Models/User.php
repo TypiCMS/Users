@@ -35,6 +35,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         'first_name',
         'last_name',
         'password',
+        'activated',
         'superuser',
         'preferences',
     ];
