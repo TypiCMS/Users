@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
@@ -102,4 +103,21 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     {
         return (bool) $this->superuser;
     }
+
+    /**
+     * Sync permissions.
+     *
+     * @param array $permissions
+     *
+     * @return null
+     */
+    public function syncPermissions($permissions)
+    {
+        $permissionIds = [];
+        foreach ($permissions as $name) {
+            $permissionIds[] = Permission::firstOrCreate(['name' => $name])->id;
+        }
+        $this->permissions()->sync($permissionIds);
+    }
+
 }
