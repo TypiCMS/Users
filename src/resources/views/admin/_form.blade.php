@@ -26,8 +26,12 @@
     </div>
 </div>
 
+<div class="form-group">
 {!! BootForm::hidden('activated')->value(0) !!}
+{!! BootForm::hidden('superuser')->value(0) !!}
 {!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
+{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
+</div>
 
 @if ($roles = Roles::all() and $roles->count())
 <div class="form-group">
@@ -43,7 +47,4 @@
 @endif
 
 <label>@lang('users::global.User permissions')</label>
-{!! BootForm::hidden('superuser')->value(0) !!}
-{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
-
 @include('core::admin._permissions-form')
