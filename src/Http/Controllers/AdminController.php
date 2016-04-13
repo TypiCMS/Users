@@ -52,8 +52,8 @@ class AdminController extends BaseAdminController
      */
     public function edit(User $user)
     {
-        $permissions = $user->permissions->pluck('name')->all();
-        $selectedRoles = $user->roles->pluck('id')->all();
+        $permissions = $user->permissions()->pluck('name')->all();
+        $selectedRoles = $user->roles()->pluck('id')->all();
 
         return view('users::admin.edit')
             ->with([
