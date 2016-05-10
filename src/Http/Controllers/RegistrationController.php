@@ -16,7 +16,7 @@ class RegistrationController extends Controller
     /**
      * Create a new registration controller instance.
      *
-     * @return void
+     * @return null
      */
     public function __construct(UserInterface $user)
     {

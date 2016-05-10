@@ -69,7 +69,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     /**
      * Confirm the user.
      *
-     * @return void
+     * @return null
      */
     public function confirmEmail()
     {
@@ -81,7 +81,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     /**
      * Boot the model.
      *
-     * @return void
+     * @return null
      */
     public static function boot()
     {

@@ -95,7 +95,7 @@ class AdminController extends BaseAdminController
     /**
      * Update User's preferences.
      *
-     * @return void
+     * @return null
      */
     public function postUpdatePreferences()
     {

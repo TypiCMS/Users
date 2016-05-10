@@ -16,7 +16,7 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
-     * @return void
+     * @return null
      */
     public function __construct()
     {
