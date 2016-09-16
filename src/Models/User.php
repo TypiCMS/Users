@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,6 +22,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use CanResetPassword;
     use HasRoles;
     use Historable;
+    use Notifiable;
     use PresentableTrait;
 
     protected $presenter = 'TypiCMS\Modules\Users\Presenters\ModulePresenter';
