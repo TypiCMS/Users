@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\UserInterface;
+use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(UserInterface $user)
+    public function __construct(EloquentUser $user)
     {
         parent::__construct($user);
     }

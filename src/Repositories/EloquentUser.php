@@ -3,15 +3,14 @@
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\EloquentRepository;
 use TypiCMS\Modules\Users\Models\User;
 
-class EloquentUser extends RepositoriesAbstract implements UserInterface
+class EloquentUser extends EloquentRepository
 {
-    public function __construct(User $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'users';
+
+    protected $model = User::class;
 
     /**
      * Create a new model.

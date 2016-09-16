@@ -53,8 +53,6 @@ class ModuleProvider extends ServiceProvider
          */
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Users\Composers\SidebarViewComposer');
 
-        $app->bind('TypiCMS\Modules\Users\Repositories\UserInterface', function (Application $app) {
-            return new EloquentUser(new User());
-        });
+        $app->bind('Users', EloquentUser::class);
     }
 }

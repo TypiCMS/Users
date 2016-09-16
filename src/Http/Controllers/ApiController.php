@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\UserInterface as Repository;
+use TypiCMS\Modules\Users\Repositories\EloquentUser as Repository;
 
 class ApiController extends BaseApiController
 {

@@ -7,7 +7,7 @@ use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
-use TypiCMS\Modules\Users\Repositories\UserInterface;
+use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class RegistrationController extends Controller
 {
@@ -18,7 +18,7 @@ class RegistrationController extends Controller
      *
      * @return null
      */
-    public function __construct(UserInterface $user)
+    public function __construct(EloquentUser $user)
     {
         $this->repository = $user;
 
