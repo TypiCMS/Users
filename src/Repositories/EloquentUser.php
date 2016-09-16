@@ -19,7 +19,7 @@ class EloquentUser extends EloquentRepository
      *
      * @return mixed Model or false on error during save
      */
-    public function create(array $data)
+    public function create(array $data = [])
     {
         $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
@@ -45,7 +45,7 @@ class EloquentUser extends EloquentRepository
      *
      * @return bool
      */
-    public function update(array $data)
+    public function update($id, array $data = [])
     {
         $user = $this->model->find($data['id']);
 
