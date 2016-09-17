@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Users\Providers;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Users\Models\User;
