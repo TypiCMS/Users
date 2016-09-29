@@ -5,7 +5,6 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Mail;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Notifications\UserRegistered;
