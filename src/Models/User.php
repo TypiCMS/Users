@@ -14,6 +14,7 @@ use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Users\Notifications\ResetPassword;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -137,5 +138,16 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
         }
         $this->permissions()->sync($permissionIds);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

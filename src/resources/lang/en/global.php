@@ -7,12 +7,12 @@ return [
     'Edit' => 'Edit user',
     'Back' => 'Back to users',
     'Register' => 'Register',
-    'Reset password' => 'Reset password',
+    'Reset Password' => 'Reset Password',
     'email' => 'Email',
     'Log in' => 'Log in',
     'Log out' => 'Log out',
     'Profile' => 'Profile',
-    'Change password' => 'Change password',
+    'Change Password' => 'Change Password',
     'Forgot your password?' => 'Forgot your password?',
     'New password' => 'New password',
     'Welcome' => 'Welcome',
@@ -25,4 +25,7 @@ return [
     'Send password reset link' => 'Send password reset link',
     'Activate my account' => 'Activate my account',
     'Your account has been created, now you need to activate it.' => 'Your account has been created, now you need to activate it.',
+    'You are receiving this email because we received a password reset request for your account.' => 'You are receiving this email because we received a password reset request for your account.',
+    'If you did not request a password reset, no further action is required.' => 'If you did not request a password reset, no further action is required.',
+
 ];

@@ -27,7 +27,7 @@
         {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('users::global.Change password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('users::global.Change Password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}
