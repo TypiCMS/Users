@@ -33,7 +33,7 @@
 {!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
 </div>
 
-@if ($roles = Roles::all() and $roles->count())
+@if ($roles = Roles::findAll() and $roles->count())
 <div class="form-group">
     <label>@lang('validation.attributes.roles')</label>
     @foreach ($roles as $role)
