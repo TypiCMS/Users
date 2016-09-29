@@ -23,4 +23,6 @@ return [
     'Password Reset Confirmation' => 'Password Reset Confirmation',
     'User permissions' => 'User permissions',
     'Send password reset link' => 'Send password reset link',
+    'Activate my account' => 'Activate my account',
+    'Your account has been created, now you need to activate it.' => 'Your account has been created, now you need to activate it.',
 ];

@@ -23,4 +23,6 @@ return [
     'Password Reset Confirmation' => 'Confirmation pour la réinitialisation de votre mot de passe',
     'User permissions' => 'Permissions de l’utilisateur',
     'Send password reset link' => 'Envoyer le lien de réinitialisation',
+    'Activate my account' => 'Activer mon compte',
+    'Your account has been created, now you need to activate it.' => 'Votre compte a été créé, vous devez maintenant l’activer.',
 ];
