@@ -15,7 +15,7 @@
 
 <div id="register" class="container-register container-xs-center">
 
-    @include('core::admin._message', ['closable' => false])
+    @include('users::_status', ['closable' => false])
 
     {!! BootForm::open() !!}
 

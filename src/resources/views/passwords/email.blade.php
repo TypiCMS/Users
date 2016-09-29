@@ -15,18 +15,16 @@
 
 <div id="reset" class="container-reset container-xs-center">
 
-    @include('core::admin._message', ['closable' => false])
+    @include('users::_status', ['closable' => false])
 
-    {!! BootForm::open() !!}
+    {!! BootForm::open()->action(url('password/email')) !!}
 
         <h1>@lang('users::global.Reset password')</h1>
 
-        <div class="form-group">
-            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
-        </div>
+        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('form-control input-lg')->autofocus(true) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('validation.attributes.reset password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('validation.attributes.Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

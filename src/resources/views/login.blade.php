@@ -15,18 +15,14 @@
 
 <div id="login" class="container-login container-xs-center">
 
-    @include('core::admin._message', ['closable' => false])
+    @include('users::_status', ['closable' => false])
 
     {!! BootForm::open() !!}
 
         <h1>@lang('users::global.Log in')</h1>
 
-        <div class="form-group">
-            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
-        </div>
+        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
 
         <div class="form-group">
             {!! BootForm::checkbox(trans('users::global.Remember me'), 'remember') !!}
