@@ -3,7 +3,7 @@
 namespace TypiCMS\Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\EloquentRepository;
+use TypiCMS\Modules\Core\Repositories\EloquentRepository;
 use TypiCMS\Modules\Users\Models\User;
 
 class EloquentUser extends EloquentRepository
