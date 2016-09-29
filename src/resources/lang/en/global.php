@@ -8,7 +8,6 @@ return [
     'Back' => 'Back to users',
     'Register' => 'Register',
     'Reset Password' => 'Reset Password',
-    'email' => 'Email',
     'Log in' => 'Log in',
     'Log out' => 'Log out',
     'Profile' => 'Profile',

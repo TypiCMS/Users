@@ -8,7 +8,6 @@ return [
     'Back' => 'Retour à la liste des utilisateurs',
     'Register' => 'Créer un compte',
     'Reset Password' => 'Réinitialiser le mot de passe',
-    'email' => 'Email addr',
     'Log in' => 'Connexion',
     'Log out' => 'Déconnexion',
     'Profile' => 'Profil',
