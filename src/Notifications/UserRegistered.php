@@ -50,7 +50,6 @@ class UserRegistered extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage())
-                    ->line(trans('users::global.Welcome').' '.$this->user->first_name.' '.$this->user->last_name)
                     ->line(trans('users::global.Your account has been created, now you need to activate it.'))
                     ->action(trans('users::global.Activate my account'), route('activate', $this->user->token));
     }
