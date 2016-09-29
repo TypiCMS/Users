@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Users\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
@@ -25,30 +26,31 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         Route::group(['namespace' => $this->namespace], function (Router $router) {
+
             /*
              * Front office routes
              */
-            $router->group(['prefix' => 'auth', 'middleware' => 'web'], function (Router $router) {
+            $router->group(['middleware' => 'web'], function (Router $router) {
 
                 // Registration
-                $router->get('register', 'RegistrationController@getRegister')->name('register');
-                $router->post('register', 'RegistrationController@postRegister');
-                $router->get('activate/{token}', 'RegistrationController@confirmEmail')->name('activate');
+                $router->get('register', 'RegisterController@showRegistrationForm')->name('register');
+                $router->post('register', 'RegisterController@register');
+                $router->get('activate/{token}', 'RegisterController@activate')->name('activate');
 
                 // Login
-                $router->get('login', 'AuthController@getLogin')->name('login');
-                $router->post('login', 'AuthController@postLogin');
+                $router->get('login', 'LoginController@showLoginForm')->name('login');
+                $router->post('login', 'LoginController@login');
 
                 // Logout
-                $router->get('logout', 'AuthController@getLogout')->name('logout');
+                $router->get('logout', 'LoginController@logout')->name('logout');
 
                 // Request new password
-                $router->get('resetpassword', 'PasswordController@getEmail')->name('resetpassword');
-                $router->post('resetpassword', 'PasswordController@postEmail');
+                $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('resetpassword');
+                $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
 
                 // Set new password
-                $router->get('changepassword/{token}', 'PasswordController@getReset')->name('changepassword');
-                $router->post('changepassword/{token}', 'PasswordController@postReset');
+                $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('changepassword');
+                $router->post('password/reset', 'ResetPasswordController@reset');
             });
 
             /*
