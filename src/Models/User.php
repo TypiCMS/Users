@@ -32,13 +32,17 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      *
      * @var array
      */
-    protected $guarded = [
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
         'password',
-        'remember_token',
+        'activated',
+        'superuser',
     ];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
@@ -73,7 +77,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      *
      * @return null
      */
-    public function confirmEmail()
+    public function activate()
     {
         $this->activated = true;
         $this->token = null;
