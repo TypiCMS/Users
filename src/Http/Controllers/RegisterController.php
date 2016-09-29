@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Mail\UserRegistered;
 use TypiCMS\Modules\Users\Models\User;
@@ -56,7 +55,6 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param \Illuminate\Http\Request  $request
      * @param \TypiCMS\Modules\Users\Http\Requests\FormRequestRegister $request
      *
      * @return \Illuminate\Http\Response
