@@ -28,7 +28,7 @@
         {!! BootForm::password(trans('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('validation.attributes.register'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('users::global.Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

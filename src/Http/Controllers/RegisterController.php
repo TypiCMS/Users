@@ -7,8 +7,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Mail;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
-use TypiCMS\Modules\Users\Mail\UserRegistered;
 use TypiCMS\Modules\Users\Models\User;
+use TypiCMS\Modules\Users\Notifications\UserRegistered;
 
 class RegisterController extends Controller
 {
@@ -65,11 +65,11 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        Mail::to($user->email)->send(new UserRegistered($user));
+        $user->notify(new UserRegistered($user));
 
         return redirect()
             ->back()
-            ->with('status', trans('users::global.Your account has been created, check your email for the confirmation link'));
+            ->with('status', trans('users::global.Your account has been created, check your email for the activation link'));
     }
 
     /**

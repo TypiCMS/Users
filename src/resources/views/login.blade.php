@@ -25,11 +25,11 @@
         {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
 
         <div class="form-group">
-            {!! BootForm::checkbox(trans('users::global.Remember me'), 'remember') !!}
+            {!! BootForm::checkbox(trans('validation.attributes.remember'), 'remember') !!}
         </div>
 
         <div class="form-group">
-            {!! BootForm::submit(trans('validation.attributes.log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('users::global.Log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
         <div class="form-group">

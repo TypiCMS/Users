@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -20,6 +21,13 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords;
+
+    /**
+     * Where to redirect users after reset.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -46,5 +54,20 @@ class ResetPasswordController extends Controller
         return view('users::passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
+     */
+    protected function resetPassword($user, $password)
+    {
+        $user->forceFill([
+            'password' => bcrypt($password),
+            'remember_token' => Str::random(60),
+        ])->save();
     }
 }

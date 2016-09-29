@@ -24,7 +24,7 @@
         {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('form-control input-lg')->autofocus(true) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('validation.attributes.Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(trans('users::global.Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}
