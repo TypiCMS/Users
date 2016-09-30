@@ -24,7 +24,7 @@ class EloquentUser extends EloquentRepository
         $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = bcrypt($data['password']);
 
-        $user = $this->model->fill($userData);
+        $user = $this->createModel()->fill($userData);
 
         if ($user->save()) {
             $roles = isset($data['roles']) ? $data['roles'] : [];
@@ -47,7 +47,7 @@ class EloquentUser extends EloquentRepository
      */
     public function update($id, array $data = [])
     {
-        $user = $this->model->find($data['id']);
+        $user = $this->find($data['id']);
 
         $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
 
@@ -80,7 +80,7 @@ class EloquentUser extends EloquentRepository
      */
     public function byToken($token)
     {
-        return $this->model->where('token', $token)->first();
+        return $this->where('token', $token)->first();
     }
 
     /**
