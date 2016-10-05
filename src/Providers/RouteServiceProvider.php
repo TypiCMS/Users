@@ -62,15 +62,8 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('users', 'AdminController@store')->name('admin::store-user');
                 $router->put('users/{user}', 'AdminController@update')->name('admin::update-user');
                 $router->post('users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences');
-            });
-
-            /*
-             * API routes
-             */
-            $router->group(['middleware' => 'api', 'prefix' => 'api'], function (Router $router) {
-                $router->get('users', 'ApiController@index')->name('api::index-users');
-                $router->put('users/{user}', 'ApiController@update')->name('api::update-user');
-                $router->delete('users/{user}', 'ApiController@destroy')->name('api::destroy-user');
+                $router->patch('users/{user}', 'AdminController@ajaxUpdate');
+                $router->delete('users/{user}', 'AdminController@destroy')->name('admin::destroy-user');
             });
         });
     }

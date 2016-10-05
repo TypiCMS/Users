@@ -87,7 +87,7 @@ class AdminController extends BaseAdminController
      */
     public function update(User $user, FormRequest $request)
     {
-        $this->repository->update(request('id'), $request->all());
+        $this->repository->update($request->id, $request->all());
 
         return $this->redirect($request, $user);
     }
@@ -100,5 +100,21 @@ class AdminController extends BaseAdminController
     public function postUpdatePreferences()
     {
         $this->repository->updatePreferences(Request::all());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Users\Models\User $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(User $user)
+    {
+        $deleted = $this->repository->delete($user);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }
