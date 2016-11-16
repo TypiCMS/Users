@@ -39,7 +39,7 @@
     @foreach ($roles as $role)
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="roles[]" value="{{ $role->id }}" @if (in_array($role->id, $selectedRoles))checked="checked"@endif> {{ $role->name }}
+            {!! Form::checkbox('roles[]', $role->id) !!} {{ $role->name }}
         </label>
     </div>
     @endforeach
