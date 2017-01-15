@@ -53,18 +53,4 @@ class UserRegistered extends Notification
                     ->line(trans('users::global.Your account has been created, now you need to activate it.'))
                     ->action(trans('users::global.Activate my account'), route('activate', $this->user->token));
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }
