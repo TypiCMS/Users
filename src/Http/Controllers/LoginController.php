@@ -52,7 +52,8 @@ class LoginController extends Controller
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request)
@@ -82,13 +83,15 @@ class LoginController extends Controller
     /**
      * Get the needed authorization credentials from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     protected function credentials(Request $request)
     {
         $credentials = $request->only($this->username(), 'password');
         $credentials['activated'] = 1;
+
         return $credentials;
     }
 }
