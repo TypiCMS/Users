@@ -47,7 +47,6 @@ class RouteServiceProvider extends ServiceProvider
                 $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('resetpassword');
                 $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
 
-
                 // Set new password
                 $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('changepassword');
                 $router->post('password/reset', 'ResetPasswordController@reset');
