@@ -2,7 +2,6 @@
 
 {!! BootForm::hidden('id') !!}
 
-
 <div class="row">
     <div class="col-sm-6">
         {!! BootForm::email(trans('validation.attributes.email'), 'email')->autocomplete('off') !!}
