@@ -59,7 +59,7 @@ class ApiController extends BaseApiController
     {
         if ($user->id == Auth::user()->id) {
             return response()->json([
-                'error'   => true,
+                'error' => true,
                 'message' => 'Connected user can not be deleted.',
             ], 403);
         }
