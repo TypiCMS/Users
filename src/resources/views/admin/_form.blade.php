@@ -4,33 +4,33 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->autocomplete('off') !!}
+        {!! BootForm::email(__('validation.attributes.email'), 'email')->autocomplete('off') !!}
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::password(trans('validation.attributes.password'), 'password') !!}
+        {!! BootForm::password(__('validation.attributes.password'), 'password') !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::password(trans('validation.attributes.password_confirmation'), 'password_confirmation') !!}
+        {!! BootForm::password(__('validation.attributes.password_confirmation'), 'password_confirmation') !!}
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.first_name'), 'first_name') !!}
+        {!! BootForm::text(__('validation.attributes.first_name'), 'first_name') !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.last_name'), 'last_name') !!}
+        {!! BootForm::text(__('validation.attributes.last_name'), 'last_name') !!}
     </div>
 </div>
 
 <div class="form-group">
 {!! BootForm::hidden('activated')->value(0) !!}
 {!! BootForm::hidden('superuser')->value(0) !!}
-{!! BootForm::checkbox(trans('validation.attributes.activated'), 'activated') !!}
-{!! BootForm::checkbox(trans('validation.attributes.superuser'), 'superuser') !!}
+{!! BootForm::checkbox(__('validation.attributes.activated'), 'activated') !!}
+{!! BootForm::checkbox(__('validation.attributes.superuser'), 'superuser') !!}
 </div>
 
 @if ($roles = Roles::findAll() and $roles->count())

@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.name'))
+@section('title', __('users::global.name'))
 
 @section('main')
 
@@ -21,11 +21,11 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="first_name" class="first_name st-sort">{{ trans('validation.attributes.first_name') }}</th>
-                    <th st-sort="last_name" class="last_name st-sort">{{ trans('validation.attributes.last_name') }}</th>
-                    <th st-sort="email" class="email st-sort">{{ trans('validation.attributes.email') }}</th>
-                    <th st-sort="activated" class="activated st-sort">{{ trans('validation.attributes.activated') }}</th>
-                    <th st-sort="superuser" class="superuser st-sort">{{ trans('validation.attributes.superuser') }}</th>
+                    <th st-sort="first_name" class="first_name st-sort">{{ __('validation.attributes.first_name') }}</th>
+                    <th st-sort="last_name" class="last_name st-sort">{{ __('validation.attributes.last_name') }}</th>
+                    <th st-sort="email" class="email st-sort">{{ __('validation.attributes.email') }}</th>
+                    <th st-sort="activated" class="activated st-sort">{{ __('validation.attributes.activated') }}</th>
+                    <th st-sort="superuser" class="superuser st-sort">{{ __('validation.attributes.superuser') }}</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>

@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.Reset Password'))
+@section('title', __('users::global.Reset Password'))
 
 @section('page-header')
 @endsection
@@ -21,10 +21,10 @@
 
         <h1>@lang('users::global.Reset Password')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('form-control input-lg')->autofocus(true) !!}
+        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('form-control input-lg')->autofocus(true) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('users::global.Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('users::global.Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.New password'))
+@section('title', __('users::global.New password'))
 
 @section('page-header')
 @endsection
@@ -21,13 +21,13 @@
 
         <h1>@lang('users::global.New password')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
-        {!! BootForm::password(trans('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
+        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::password(__('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
         {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('users::global.Change Password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('users::global.Change Password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

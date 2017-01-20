@@ -11,10 +11,10 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->sidebar->group(trans('global.menus.users'), function (SidebarGroup $group) {
+        $view->sidebar->group(__('global.menus.users'), function (SidebarGroup $group) {
             $group->id = 'users';
             $group->weight = 50;
-            $group->addItem(trans('users::global.name'), function (SidebarItem $item) {
+            $group->addItem(__('users::global.name'), function (SidebarItem $item) {
                 $item->id = 'users';
                 $item->icon = config('typicms.users.sidebar.icon', 'icon fa fa-fw fa-user');
                 $item->weight = config('typicms.users.sidebar.weight');

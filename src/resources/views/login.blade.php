@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.Log in'))
+@section('title', __('users::global.Log in'))
 
 @section('page-header')
 @endsection
@@ -21,15 +21,15 @@
 
         <h1>@lang('users::global.Log in')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
 
         <div class="form-group">
-            {!! BootForm::checkbox(trans('validation.attributes.remember'), 'remember') !!}
+            {!! BootForm::checkbox(__('validation.attributes.remember'), 'remember') !!}
         </div>
 
         <div class="form-group">
-            {!! BootForm::submit(trans('users::global.Log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('users::global.Log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
         <div class="form-group">

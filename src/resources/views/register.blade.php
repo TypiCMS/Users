@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.Register'))
+@section('title', __('users::global.Register'))
 
 @section('page-header')
 @endsection
@@ -21,14 +21,14 @@
 
         <h1>@lang('users::global.Register')</h1>
 
-        {!! BootForm::email(trans('validation.attributes.email'), 'email')->addClass('input-lg') !!}
-        {!! BootForm::text(trans('validation.attributes.first_name'), 'first_name')->addClass('input-lg') !!}
-        {!! BootForm::text(trans('validation.attributes.last_name'), 'last_name')->addClass('input-lg') !!}
-        {!! BootForm::password(trans('validation.attributes.password'), 'password')->addClass('input-lg') !!}
-        {!! BootForm::password(trans('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
+        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg') !!}
+        {!! BootForm::text(__('validation.attributes.first_name'), 'first_name')->addClass('input-lg') !!}
+        {!! BootForm::text(__('validation.attributes.last_name'), 'last_name')->addClass('input-lg') !!}
+        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::password(__('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(trans('users::global.Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('users::global.Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}
