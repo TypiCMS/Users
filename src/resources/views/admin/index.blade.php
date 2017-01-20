@@ -21,11 +21,11 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="first_name" class="first_name st-sort">{{ __('validation.attributes.first_name') }}</th>
-                    <th st-sort="last_name" class="last_name st-sort">{{ __('validation.attributes.last_name') }}</th>
-                    <th st-sort="email" class="email st-sort">{{ __('validation.attributes.email') }}</th>
-                    <th st-sort="activated" class="activated st-sort">{{ __('validation.attributes.activated') }}</th>
-                    <th st-sort="superuser" class="superuser st-sort">{{ __('validation.attributes.superuser') }}</th>
+                    <th st-sort="first_name" class="first_name st-sort">{{ __('First name') }}</th>
+                    <th st-sort="last_name" class="last_name st-sort">{{ __('Last name') }}</th>
+                    <th st-sort="email" class="email st-sort">{{ __('Email') }}</th>
+                    <th st-sort="activated" class="activated st-sort">{{ __('Activated') }}</th>
+                    <th st-sort="superuser" class="superuser st-sort">{{ __('Superuser') }}</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>

@@ -21,11 +21,11 @@
 
         <h1>@lang('users::global.Register')</h1>
 
-        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg') !!}
-        {!! BootForm::text(__('validation.attributes.first_name'), 'first_name')->addClass('input-lg') !!}
-        {!! BootForm::text(__('validation.attributes.last_name'), 'last_name')->addClass('input-lg') !!}
-        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
-        {!! BootForm::password(__('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg') !!}
+        {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg') !!}
+        {!! BootForm::text(__('Last name'), 'last_name')->addClass('input-lg') !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg') !!}
 
         <div class="form-group form-action">
             {!! BootForm::submit(__('users::global.Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}

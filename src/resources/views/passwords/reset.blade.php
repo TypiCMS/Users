@@ -21,9 +21,9 @@
 
         <h1>@lang('users::global.New password')</h1>
 
-        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
-        {!! BootForm::password(__('validation.attributes.password_confirmation'), 'password_confirmation')->addClass('input-lg') !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg') !!}
         {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">

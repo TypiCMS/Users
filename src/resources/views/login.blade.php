@@ -21,11 +21,11 @@
 
         <h1>@lang('users::global.Log in')</h1>
 
-        {!! BootForm::email(__('validation.attributes.email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(__('validation.attributes.password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
 
         <div class="form-group">
-            {!! BootForm::checkbox(__('validation.attributes.remember'), 'remember') !!}
+            {!! BootForm::checkbox(__('Remember'), 'remember') !!}
         </div>
 
         <div class="form-group">
