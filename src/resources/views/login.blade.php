@@ -11,7 +11,7 @@
 @section('errors')
 @endsection
 
-@section('main')
+@section('content')
 
 <div id="login" class="container-login container-xs-center">
 
@@ -21,7 +21,7 @@
 
         <h1>@lang('users::global.Log in')</h1>
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
+        {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
 
         <div class="form-group">

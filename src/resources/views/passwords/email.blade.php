@@ -11,7 +11,7 @@
 @section('errors')
 @endsection
 
-@section('main')
+@section('content')
 
 <div id="reset" class="container-reset container-xs-center">
 

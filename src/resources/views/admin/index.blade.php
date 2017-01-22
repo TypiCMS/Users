@@ -2,7 +2,7 @@
 
 @section('title', __('users::global.name'))
 
-@section('main')
+@section('content')
 
 <div ng-app="typicms" ng-cloak ng-controller="ListController">
 

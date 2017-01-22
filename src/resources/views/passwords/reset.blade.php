@@ -11,7 +11,7 @@
 @section('errors')
 @endsection
 
-@section('main')
+@section('content')
 
 <div id="login" class="container-newpassword container-xs-center">
 

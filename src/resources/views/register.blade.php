@@ -11,7 +11,7 @@
 @section('errors')
 @endsection
 
-@section('main')
+@section('content')
 
 <div id="register" class="container-register container-xs-center">
 
