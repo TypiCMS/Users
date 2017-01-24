@@ -21,11 +21,11 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="first_name" class="first_name st-sort">{{ __('First name') }}</th>
-                    <th st-sort="last_name" class="last_name st-sort">{{ __('Last name') }}</th>
-                    <th st-sort="email" class="email st-sort">{{ __('Email') }}</th>
-                    <th st-sort="activated" class="activated st-sort">{{ __('Activated') }}</th>
-                    <th st-sort="superuser" class="superuser st-sort">{{ __('Superuser') }}</th>
+                    <th st-sort="first_name" class="first_name st-sort">@lang('First name')</th>
+                    <th st-sort="last_name" class="last_name st-sort">@lang('Last name')</th>
+                    <th st-sort="email" class="email st-sort">@lang('Email')</th>
+                    <th st-sort="activated" class="activated st-sort">@lang('Activated')</th>
+                    <th st-sort="superuser" class="superuser st-sort">@lang('Superuser')</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
