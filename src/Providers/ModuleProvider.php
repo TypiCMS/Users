@@ -5,6 +5,8 @@ namespace TypiCMS\Modules\Users\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Observers\FileObserver;
+use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
+use TypiCMS\Modules\Users\Facades\Users;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
@@ -29,10 +31,7 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
 
-        AliasLoader::getInstance()->alias(
-            'Users',
-            'TypiCMS\Modules\Users\Facades\Users'
-        );
+        AliasLoader::getInstance()->alias('Users', Users::class);
 
         // Observers
         User::observe(new FileObserver());
@@ -45,12 +44,12 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Users\Providers\RouteServiceProvider');
+        $app->register(RouteServiceProvider::class);
 
         /*
          * Sidebar view composer
          */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Users\Composers\SidebarViewComposer');
+        $app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
 
         $app->bind('Users', EloquentUser::class);
     }
