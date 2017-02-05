@@ -34,8 +34,8 @@ return [
     'Password Reset Confirmation'                                               => 'Bevestiging wijziging wachtwoord',
     'Account:'                                                                  => 'Account',
     'User permissions'                                                          => 'Toestemming van de gebruiker',
-    'Remember me'                                                               => 'Mijn gegevens onthouden',    
-    
+    'Remember me'                                                               => 'Mijn gegevens onthouden',
+
     // messages
     'User not found with email :mail'             => 'Gebruiker niet gevonden met email :mail',
     'User not found with id :id'                  => 'Gebruiker niet gevonden met id :id',
