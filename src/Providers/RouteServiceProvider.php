@@ -62,8 +62,8 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('users', 'AdminController@store')->name('admin::store-user');
                 $router->put('users/{user}', 'AdminController@update')->name('admin::update-user');
                 $router->post('users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences');
-                $router->patch('users/{user}', 'AdminController@ajaxUpdate');
-                $router->delete('users/{user}', 'AdminController@destroy')->name('admin::destroy-user');
+                $router->patch('users/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-user');
+                $router->delete('users/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-user');
             });
         });
     }
