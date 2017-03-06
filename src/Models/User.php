@@ -15,6 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Users\Notifications\ResetPassword;
+use TypiCMS\Modules\Users\Presenters\ModulePresenter;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -26,7 +27,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use Notifiable;
     use PresentableTrait;
 
-    protected $presenter = 'TypiCMS\Modules\Users\Presenters\ModulePresenter';
+    protected $presenter = ModulePresenter::class;
 
     /**
      * The attributes that are mass assignable.
