@@ -4,7 +4,6 @@ namespace TypiCMS\Modules\Users\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Users\Facades\Users;
 use TypiCMS\Modules\Users\Models\User;
@@ -32,9 +31,6 @@ class ModuleProvider extends ServiceProvider
         ], 'migrations');
 
         AliasLoader::getInstance()->alias('Users', Users::class);
-
-        // Observers
-        User::observe(new FileObserver());
     }
 
     public function register()
