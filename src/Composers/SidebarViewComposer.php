@@ -11,7 +11,7 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->sidebar->group(__('global.menus.users'), function (SidebarGroup $group) {
+        $view->sidebar->group(__('Users and roles'), function (SidebarGroup $group) {
             $group->id = 'users';
             $group->weight = 50;
             $group->addItem(__('users::global.name'), function (SidebarItem $item) {
