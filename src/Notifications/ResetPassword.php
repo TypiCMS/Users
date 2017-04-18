@@ -48,8 +48,8 @@ class ResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage())
-            ->line(__('users::global.You are receiving this email because we received a password reset request for your account.'))
-            ->action(__('users::global.Reset Password'), url('password/reset', $this->token))
-            ->line(__('users::global.If you did not request a password reset, no further action is required.'));
+            ->line(__('You are receiving this email because we received a password reset request for your account.'))
+            ->action(__('Reset Password'), url('password/reset', $this->token))
+            ->line(__('If you did not request a password reset, no further action is required.'));
     }
 }

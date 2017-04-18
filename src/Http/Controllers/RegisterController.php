@@ -68,7 +68,7 @@ class RegisterController extends Controller
 
         return redirect()
             ->back()
-            ->with('status', __('users::global.Your account has been created, check your email for the activation link'));
+            ->with('status', __('Your account has been created, check your email for the activation link'));
     }
 
     /**
@@ -103,6 +103,6 @@ class RegisterController extends Controller
 
         return redirect()
             ->route('login')
-            ->with('status', __('users::global.Your account has been activated, you can now log in'));
+            ->with('status', __('Your account has been activated, you can now log in'));
     }
 }

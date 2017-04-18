@@ -47,5 +47,5 @@
 </div>
 @endif
 
-<label>@lang('users::global.User permissions')</label>
+<label>{{ __('User permissions') }}</label>
 @include('core::admin._permissions-form')
