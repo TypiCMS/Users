@@ -56,14 +56,14 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
-                $router->get('users', 'AdminController@index')->name('admin::index-users');
-                $router->get('users/create', 'AdminController@create')->name('admin::create-user');
-                $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user');
-                $router->post('users', 'AdminController@store')->name('admin::store-user');
-                $router->put('users/{user}', 'AdminController@update')->name('admin::update-user');
-                $router->post('users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences');
-                $router->patch('users/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-user-ajax');
-                $router->delete('users/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-user');
+                $router->get('users', 'AdminController@index')->name('admin::index-users')->middleware('can:see-all-users');
+                $router->get('users/create', 'AdminController@create')->name('admin::create-user')->middleware('can:create-user');
+                $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update-user');
+                $router->post('users', 'AdminController@store')->name('admin::store-user')->middleware('can:create-user');
+                $router->put('users/{user}', 'AdminController@update')->name('admin::update-user')->middleware('can:update-user');
+                $router->post('users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences')->middleware('can:update-preferences');
+                $router->patch('users/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-user-ajax')->middleware('can:update-user');
+                $router->delete('users/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-user')->middleware('can:delete-user');
             });
         });
     }

@@ -11,6 +11,9 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
+        if (Gate::denies('see-all-users')) {
+            return;
+        }
         $view->sidebar->group(__('Users and roles'), function (SidebarGroup $group) {
             $group->id = 'users';
             $group->weight = 50;
@@ -20,9 +23,6 @@ class SidebarViewComposer
                 $item->weight = config('typicms.users.sidebar.weight');
                 $item->route('admin::index-users');
                 $item->append('admin::create-user');
-                $item->authorize(
-                    Gate::allows('index-users')
-                );
             });
         });
     }
