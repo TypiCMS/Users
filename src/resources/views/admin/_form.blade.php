@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::email(__('Email'), 'email')->autocomplete('off') !!}
+        {!! BootForm::email(__('Email'), 'email')->autocomplete('off')->required() !!}
     </div>
 </div>
 
@@ -20,10 +20,10 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(__('First name'), 'first_name') !!}
+        {!! BootForm::text(__('First name'), 'first_name')->required() !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(__('Last name'), 'last_name') !!}
+        {!! BootForm::text(__('Last name'), 'last_name')->required() !!}
     </div>
 </div>
 
