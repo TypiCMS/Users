@@ -19,10 +19,14 @@
 
     {!! BootForm::open() !!}
 
+        @if (TypiCMS::hasLogo())
+            @include('core::public._logo')
+        @endif
+
         <h1>{{ __('Log in') }}</h1>
 
-        {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
+        {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
 
         <div class="form-group">
             {!! BootForm::checkbox(__('Remember'), 'remember') !!}

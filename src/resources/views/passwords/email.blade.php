@@ -21,7 +21,7 @@
 
         <h1>{{ __('Reset Password') }}</h1>
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('form-control input-lg')->autofocus(true) !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control input-lg')->autofocus(true)->required() !!}
 
         <div class="form-group form-action">
             {!! BootForm::submit(__('Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}

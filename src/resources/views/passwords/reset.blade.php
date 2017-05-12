@@ -21,9 +21,9 @@
 
         <h1>{{ __('New password') }}</h1>
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true) !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg') !!}
-        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg') !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg')->required() !!}
         {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">
