@@ -14,12 +14,10 @@ class EloquentUser extends EloquentRepository
     /**
      * Find user by token.
      *
-     * @param string $key
-     * @param string $value
-     * @param array  $with
+     * @param string $token
      */
     public function byToken($token)
     {
-        return $this->where('token', $token)->first();
+        return $this->createModel()->where('token', $token)->first();
     }
 }
