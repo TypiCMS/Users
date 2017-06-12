@@ -30,6 +30,11 @@ class ModuleProvider extends ServiceProvider
         ], 'views');
 
         AliasLoader::getInstance()->alias('Users', Users::class);
+
+        /*
+         * Sidebar view composer
+         */
+        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
     }
 
     public function register()
@@ -41,10 +46,6 @@ class ModuleProvider extends ServiceProvider
          */
         $app->register(RouteServiceProvider::class);
 
-        /*
-         * Sidebar view composer
-         */
-        $app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
 
         $app->bind('Users', EloquentUser::class);
     }
