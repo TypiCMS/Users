@@ -46,7 +46,6 @@ class ModuleProvider extends ServiceProvider
          */
         $app->register(RouteServiceProvider::class);
 
-
         $app->bind('Users', EloquentUser::class);
     }
 }
