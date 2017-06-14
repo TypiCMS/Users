@@ -13,17 +13,15 @@
 
 @section('content')
 
-<div id="register" class="container-register container-xs-center">
+<div id="register" class="container-register small-container">
 
-    @include('users::_status', ['closable' => false])
+    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open() !!}
+    {!! BootForm::open()->addClass('small-container-form') !!}
 
-        @if (TypiCMS::hasLogo())
-            @include('core::public._logo')
-        @endif
+        @include('users::_status', ['closable' => false])
 
-        <h1>{{ __('Register') }}</h1>
+        <h1 class="small-container-title">{{ __('Register') }}</h1>
 
         {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->required() !!}
         {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}

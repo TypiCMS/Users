@@ -13,13 +13,15 @@
 
 @section('content')
 
-<div id="login" class="container-newpassword container-xs-center">
+<div id="login" class="container-newpassword small-container">
 
-    @include('users::_status', ['closable' => false])
+    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open()->action(url('password/reset')) !!}
+    {!! BootForm::open()->action(url('password/reset'))->addClass('small-container-form') !!}
 
-        <h1>{{ __('New password') }}</h1>
+        @include('users::_status', ['closable' => false])
+
+        <h1 class="small-container-title">{{ __('New password') }}</h1>
 
         {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}

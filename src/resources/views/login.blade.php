@@ -13,17 +13,15 @@
 
 @section('content')
 
-<div id="login" class="container-login container-xs-center">
+<div id="login" class="container-login small-container">
 
-    @include('users::_status', ['closable' => false])
+    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open() !!}
+    {!! BootForm::open()->addClass('small-container-form') !!}
 
-        @if (TypiCMS::hasLogo())
-            @include('core::public._logo')
-        @endif
+        @include('users::_status', ['closable' => false])
 
-        <h1>{{ __('Log in') }}</h1>
+        <h1 class="small-container-title">{{ __('Log in') }}</h1>
 
         {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
