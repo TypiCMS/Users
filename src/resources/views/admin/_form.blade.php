@@ -20,10 +20,10 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(__('First name'), 'first_name')->required() !!}
+        {!! BootForm::text(__('First name'), 'first_name')->required() !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(__('Last name'), 'last_name')->required() !!}
+        {!! BootForm::text(__('Last name'), 'last_name')->required() !!}
     </div>
 </div>
 

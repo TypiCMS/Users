@@ -24,8 +24,8 @@
         <h1 class="small-container-title">{{ __('Register') }}</h1>
 
         {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('Last name'), 'last_name')->addClass('input-lg')->required() !!}
+        {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}
+        {!! BootForm::text(__('Last name'), 'last_name')->addClass('input-lg')->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
         {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg')->required() !!}
 
