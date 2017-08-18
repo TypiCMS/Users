@@ -1,6 +1,7 @@
 @extends('core::admin.master')
 
 @section('title', __('Reset Password'))
+@section('bodyClass', 'gray-background')
 
 @section('page-header')
 @endsection
