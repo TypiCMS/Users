@@ -8,11 +8,14 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Users\Notifications\ResetPassword;
+use TypiCMS\Modules\Users\Presenters\ModulePresenter;
 
 class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -21,9 +24,10 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     use CanResetPassword;
     use HasRoles;
     use Historable;
+    use Notifiable;
     use PresentableTrait;
 
-    protected $presenter = 'TypiCMS\Modules\Users\Presenters\ModulePresenter';
+    protected $presenter = ModulePresenter::class;
 
     /**
      * The attributes that are mass assignable.
@@ -31,17 +35,16 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      * @var array
      */
     protected $fillable = [
-        'email',
         'first_name',
         'last_name',
+        'email',
         'password',
         'activated',
         'superuser',
-        'preferences',
     ];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
@@ -74,9 +77,9 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     /**
      * Confirm the user.
      *
-     * @return void
+     * @return null
      */
-    public function confirmEmail()
+    public function activate()
     {
         $this->activated = true;
         $this->token = null;
@@ -86,7 +89,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     /**
      * Boot the model.
      *
-     * @return void
+     * @return null
      */
     public static function boot()
     {
@@ -136,5 +139,17 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
             $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
         }
         $this->permissions()->sync($permissionIds);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param string $token
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

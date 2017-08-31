@@ -9,8 +9,8 @@ class FormRequestLogin extends AbstractFormRequest
     public function rules()
     {
         return [
-            'email'      => 'required|email|max:255',
-            'password'   => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|max:255',
         ];
     }
 }

@@ -2,15 +2,14 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\UserInterface;
+use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(UserInterface $user)
+    public function __construct(EloquentUser $user)
     {
         parent::__construct($user);
     }
@@ -22,7 +21,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->all([], true);
+        $models = $this->repository->findAll();
         app('JavaScript')->put('models', $models);
 
         return view('users::admin.index');
@@ -35,7 +34,7 @@ class AdminController extends BaseAdminController
      */
     public function create()
     {
-        $model = $this->repository->getModel();
+        $model = $this->repository->createModel();
         $model->permissions = [];
         $model->roles = [];
 
@@ -68,7 +67,19 @@ class AdminController extends BaseAdminController
      */
     public function store(FormRequest $request)
     {
-        $user = $this->repository->create($request->all());
+        $data = $request->all();
+
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
+        $userData['password'] = bcrypt($data['password']);
+
+        $user = $this->repository->create($userData);
+
+        if ($user) {
+            $roles = $data['roles'] ?? [];
+            $user->roles()->sync($roles);
+            $permissions = $data['permissions'] ?? [];
+            $user->syncPermissions($permissions);
+        }
 
         return $this->redirect($request, $user);
     }
@@ -83,7 +94,22 @@ class AdminController extends BaseAdminController
      */
     public function update(User $user, FormRequest $request)
     {
-        $this->repository->update($request->all());
+        $data = $request->all();
+
+        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
+
+        if (!isset($userData['password']) || $userData['password'] === '') {
+            $userData = array_except($userData, 'password');
+        } else {
+            $userData['password'] = bcrypt($data['password']);
+        }
+
+        $roles = $data['roles'] ?? [];
+        $permissions = $data['permissions'] ?? [];
+        $user->roles()->sync($roles);
+        $user->syncPermissions($permissions);
+
+        $this->repository->update($user->id, $userData);
 
         return $this->redirect($request, $user);
     }
@@ -91,10 +117,28 @@ class AdminController extends BaseAdminController
     /**
      * Update User's preferences.
      *
-     * @return void
+     * @return null
      */
     public function postUpdatePreferences()
     {
-        $this->repository->updatePreferences(Request::all());
+        $user = auth()->user();
+        $user->preferences = array_merge((array) $user->preferences, request()->all());
+        $user->save();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Users\Models\User $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(User $user)
+    {
+        $deleted = $this->repository->delete($user);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }

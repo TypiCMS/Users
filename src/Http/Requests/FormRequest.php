@@ -9,10 +9,10 @@ class FormRequest extends AbstractFormRequest
     public function rules()
     {
         $rules = [
-            'email'      => 'required|email|max:255|unique:users,email,'.$this->id,
+            'email' => 'required|email|max:255|unique:users,email,'.$this->id,
             'first_name' => 'required|max:255',
-            'last_name'  => 'required|max:255',
-            'password'   => 'min:8|max:255|confirmed',
+            'last_name' => 'required|max:255',
+            'password' => 'nullable|min:8|max:255|confirmed',
         ];
 
         return $rules;

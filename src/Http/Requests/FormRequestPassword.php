@@ -9,8 +9,8 @@ class FormRequestPassword extends AbstractFormRequest
     public function rules()
     {
         $rules = [
-            'token'    => 'required',
-            'email'    => 'required|email|max:255',
+            'token' => 'required',
+            'email' => 'required|email|max:255',
             'password' => 'required|confirmed|max:255',
         ];
 

@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', __('Register'))
+@section('title', __('New password'))
 @section('bodyClass', 'gray-background')
 
 @section('page-header')
@@ -14,24 +14,23 @@
 
 @section('content')
 
-<div id="register" class="container-register small-container">
+<div id="login" class="container-newpassword small-container">
 
     @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open()->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(url('password/reset'))->addClass('small-container-form') !!}
 
         @include('users::_status', ['closable' => false])
 
-        <h1 class="small-container-title">{{ __('Register') }}</h1>
+        <h1 class="small-container-title">{{ __('New password') }}</h1>
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('Last name'), 'last_name')->addClass('input-lg')->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
         {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg')->required() !!}
+        {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(__('Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('Change Password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

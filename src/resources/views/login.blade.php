@@ -1,6 +1,7 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.Log in'))
+@section('title', __('Log in'))
+@section('bodyClass', 'gray-background')
 
 @section('page-header')
 @endsection
@@ -11,38 +12,40 @@
 @section('errors')
 @endsection
 
-@section('main')
+@section('content')
 
-<div id="login" class="container-login container-xs-center">
+<div id="login" class="container-login small-container">
 
-    @include('core::admin._message', ['closable' => false])
+    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open() !!}
+    {!! BootForm::open()->addClass('small-container-form') !!}
 
-        <h1>@lang('users::global.Log in')</h1>
+        @include('users::_status', ['closable' => false])
 
-        <div class="form-group">
-            {!! Form::email('email')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.email'))->autofocus(true) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::password('password')->addClass('form-control input-lg')->placeholder(trans('validation.attributes.password')) !!}
-        </div>
+        <h1 class="small-container-title">{{ __('Log in') }}</h1>
+
+        {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
 
         <div class="form-group">
-            {!! BootForm::checkbox(trans('users::global.Remember me'), 'remember') !!}
+            {!! BootForm::checkbox(__('Remember'), 'remember') !!}
         </div>
 
         <div class="form-group">
-            {!! BootForm::submit(trans('validation.attributes.log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('Log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
         <div class="form-group">
             <span class="help-block">
-                <a href="{{ route('resetpassword') }}">@lang('users::global.Forgot your password?')</a>
+                <a href="{{ route('resetpassword') }}">{{ __('Forgot your password?') }}</a>
             </span>
         </div>
 
     {!! BootForm::close() !!}
+
+    <p class="small-container-back-to-website">
+        <a class="small-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to website') }}</a>
+    </p>
 
 </div>
 

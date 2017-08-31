@@ -1,19 +1,18 @@
 @extends('core::admin.master')
 
-@section('title', trans('users::global.name'))
+@section('title', __('Users'))
 
-@section('main')
+@section('content')
 
-<div ng-app="typicms" ng-cloak ng-controller="ListController">
+<div ng-cloak ng-controller="ListController">
 
     @include('core::admin._button-create', ['module' => 'users'])
 
-    <h1>
-        <span>@{{ models.length }} @choice('users::global.users', 2)</span>
-    </h1>
+    <h1>@lang('Users')</h1>
 
     <div class="btn-toolbar">
-        @include('core::admin._lang-switcher')
+        @include('core::admin._button-select')
+        @include('core::admin._button-actions', ['only' => ['delete']])
     </div>
 
     <div class="table-responsive">
@@ -23,23 +22,25 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="first_name" class="first_name st-sort">{{ trans('validation.attributes.first_name') }}</th>
-                    <th st-sort="last_name" class="last_name st-sort">{{ trans('validation.attributes.last_name') }}</th>
-                    <th st-sort="email" class="email st-sort">{{ trans('validation.attributes.email') }}</th>
-                    <th st-sort="activated" class="activated st-sort">{{ trans('validation.attributes.activated') }}</th>
-                    <th st-sort="superuser" class="superuser st-sort">{{ trans('validation.attributes.superuser') }}</th>
+                    <th st-sort="first_name" class="first_name st-sort">{{ __('First name') }}</th>
+                    <th st-sort="last_name" class="last_name st-sort">{{ __('Last name') }}</th>
+                    <th st-sort="email" class="email st-sort">{{ __('Email') }}</th>
+                    <th st-sort="activated" class="activated st-sort">{{ __('Activated') }}</th>
+                    <th st-sort="superuser" class="superuser st-sort">{{ __('Superuser') }}</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="3">
-                        <input st-search class="form-control input-sm" placeholder="@lang('global.Search')…" type="text">
+                        <input st-search class="form-control input-sm" placeholder="@lang('Filter')…" type="text">
                     </td>
                 </tr>
             </thead>
 
             <tbody>
                 <tr ng-repeat="model in displayedModels">
-                    <td typi-btn-delete action="delete(model, model.first_name + ' ' + model.last_name)"></td>
+                    <td>
+                        <input type="checkbox" checklist-model="checked.models" checklist-value="model">
+                    </td>
                     <td>
                         @include('core::admin._button-edit', ['module' => 'users'])
                     </td>
