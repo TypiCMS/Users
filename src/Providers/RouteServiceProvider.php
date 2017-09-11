@@ -41,7 +41,7 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('login', 'LoginController@login');
 
                 // Logout
-                $router->get('logout', 'LoginController@logout')->name('logout');
+                $router->post('logout', 'LoginController@logout')->name('logout');
 
                 // Request new password
                 $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('resetpassword');
