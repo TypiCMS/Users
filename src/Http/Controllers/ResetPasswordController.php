@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
@@ -67,7 +68,7 @@ class ResetPasswordController extends Controller
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password' => bcrypt($password),
+            'password' => Hash::make($password),
             'remember_token' => Str::random(60),
         ])->save();
     }
