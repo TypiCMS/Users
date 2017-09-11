@@ -18,7 +18,7 @@
 
     @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open()->action(url('password/email'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route('password.email'))->addClass('small-container-form') !!}
 
         @include('users::_status', ['closable' => false])
 

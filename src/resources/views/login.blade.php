@@ -37,7 +37,7 @@
 
         <div class="form-group">
             <span class="help-block">
-                <a href="{{ route('resetpassword') }}">{{ __('Forgot your password?') }}</a>
+                <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
             </span>
         </div>
 

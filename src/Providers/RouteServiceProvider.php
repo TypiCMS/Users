@@ -44,11 +44,11 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('logout', 'LoginController@logout')->name('logout');
 
                 // Request new password
-                $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('resetpassword');
-                $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+                $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+                $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 
                 // Set new password
-                $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('changepassword');
+                $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
                 $router->post('password/reset', 'ResetPasswordController@reset');
             });
 

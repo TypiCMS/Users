@@ -18,7 +18,7 @@
 
     @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
 
-    {!! BootForm::open()->action(url('password/reset'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route('password.request'))->addClass('small-container-form') !!}
 
         @include('users::_status', ['closable' => false])
 
