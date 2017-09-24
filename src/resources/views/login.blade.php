@@ -1,7 +1,7 @@
 @extends('core::admin.master')
 
 @section('title', __('Log in'))
-@section('bodyClass', 'gray-background')
+@section('bodyClass', 'auth-background')
 
 @section('page-header')
 @endsection
