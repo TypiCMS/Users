@@ -20,9 +20,9 @@
 
     {!! BootForm::open()->action(route('password.request'))->addClass('small-container-form') !!}
 
-        @include('users::_status', ['closable' => false])
-
         <h1 class="small-container-title">{{ __('New password') }}</h1>
+
+        @include('users::_status', ['closable' => false])
 
         {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}

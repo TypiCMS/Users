@@ -20,9 +20,9 @@
 
     {!! BootForm::open()->addClass('small-container-form') !!}
 
-        @include('users::_status', ['closable' => false])
-
         <h1 class="small-container-title">{{ __('Log in') }}</h1>
+
+        @include('users::_status', ['closable' => false])
 
         {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}

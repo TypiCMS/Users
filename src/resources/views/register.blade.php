@@ -20,9 +20,9 @@
 
     {!! BootForm::open()->addClass('small-container-form') !!}
 
-        @include('users::_status', ['closable' => false])
-
         <h1 class="small-container-title">{{ __('Register') }}</h1>
+
+        @include('users::_status', ['closable' => false])
 
         {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->required() !!}
         {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}

@@ -20,9 +20,9 @@
 
     {!! BootForm::open()->action(route('password.email'))->addClass('small-container-form') !!}
 
-        @include('users::_status', ['closable' => false])
-
         <h1 class="small-container-title">{{ __('Reset Password') }}</h1>
+
+        @include('users::_status', ['closable' => false])
 
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control input-lg')->autofocus(true)->required() !!}
 
