@@ -16,7 +16,7 @@
 
 <div id="reset" class="container-reset small-container">
 
-    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
+    @include('users::_logo')
 
     {!! BootForm::open()->action(route('password.email'))->addClass('small-container-form') !!}
 

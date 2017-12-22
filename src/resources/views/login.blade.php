@@ -16,7 +16,7 @@
 
 <div id="login" class="container-login small-container">
 
-    @includeWhen(TypiCMS::hasLogo(), 'users::_logo')
+    @include('users::_logo')
 
     {!! BootForm::open()->addClass('small-container-form') !!}
 
