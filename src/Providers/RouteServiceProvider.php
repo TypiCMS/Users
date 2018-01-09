@@ -24,12 +24,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::group(['namespace' => $this->namespace], function (Router $router) {
+        Route::namespace($this->namespace)->group(function (Router $router) {
 
             /*
              * Front office routes
              */
-            $router->group(['middleware' => 'web'], function (Router $router) {
+            $router->middleware('web')->group(function (Router $router) {
 
                 // Registration
                 $router->get('register', 'RegisterController@showRegistrationForm')->name('register');
@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Admin routes
              */
-            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
+            $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
                 $router->get('users', 'AdminController@index')->name('admin::index-users')->middleware('can:see-all-users');
                 $router->get('users/create', 'AdminController@create')->name('admin::create-user')->middleware('can:create-user');
                 $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update-user');
