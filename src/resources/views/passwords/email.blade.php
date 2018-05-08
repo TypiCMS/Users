@@ -24,7 +24,7 @@
 
         @include('users::_status', ['closable' => false])
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('form-control input-lg')->autofocus(true)->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control form-control-lg')->autofocus(true)->required() !!}
 
         <div class="form-group form-action">
             {!! BootForm::submit(__('Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}

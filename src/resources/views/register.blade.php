@@ -24,11 +24,11 @@
 
         @include('users::_status', ['closable' => false])
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('First name'), 'first_name')->addClass('input-lg')->required() !!}
-        {!! BootForm::text(__('Last name'), 'last_name')->addClass('input-lg')->required() !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
-        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('input-lg')->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::text(__('First name'), 'first_name')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::text(__('Last name'), 'last_name')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required() !!}
 
         <div class="form-group form-action">
             {!! BootForm::submit(__('Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}

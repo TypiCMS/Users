@@ -24,8 +24,8 @@
 
         @include('users::_status', ['closable' => false])
 
-        {!! BootForm::email(('Email'), 'email')->addClass('input-lg')->autofocus(true)->required() !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('input-lg')->required() !!}
+        {!! BootForm::email(('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required() !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
 
         <div class="form-group">
             {!! BootForm::checkbox(__('Remember'), 'remember') !!}
@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            <span class="help-block">
+            <span class="form-text">
                 <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
             </span>
         </div>
