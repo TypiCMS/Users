@@ -31,7 +31,7 @@
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="3">
-                        <input st-search class="form-control input-sm" placeholder="@lang('Filter')…" type="text">
+                        <input st-search class="form-control form-control-sm" placeholder="@lang('Filter')…" type="text">
                     </td>
                 </tr>
             </thead>

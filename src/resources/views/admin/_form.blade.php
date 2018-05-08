@@ -38,10 +38,9 @@
 <div class="form-group">
     <label>{{ __('Roles') }}</label>
     @foreach ($roles as $role)
-    <div class="checkbox">
-        <label>
-            {!! Form::checkbox('roles[]', $role->id) !!} {{ $role->name }}
-        </label>
+    <div class="form-check">
+        {!! Form::checkbox('roles[]', $role->id)->addClass('form-check-input')->id('role-'.$role->name) !!}
+        <label class="form-check-label" for="{{ 'role-'.$role->name }}">{{ $role->name }}</label>
     </div>
     @endforeach
 </div>
