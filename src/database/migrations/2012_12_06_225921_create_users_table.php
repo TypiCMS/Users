@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->text('preferences')->nullable();
             $table->string('token')->nullable();
+            $table->uuid('api_token')->unique();
             $table->rememberToken();
             $table->timestamps();
         });

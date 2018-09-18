@@ -41,6 +41,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         'password',
         'activated',
         'superuser',
+        'api_token',
     ];
 
     /**
