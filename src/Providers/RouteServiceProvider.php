@@ -61,9 +61,18 @@ class RouteServiceProvider extends ServiceProvider
                 $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update-user');
                 $router->post('users', 'AdminController@store')->name('admin::store-user')->middleware('can:create-user');
                 $router->put('users/{user}', 'AdminController@update')->name('admin::update-user')->middleware('can:update-user');
-                $router->post('users/current/updatepreferences', 'AdminController@postUpdatePreferences')->name('admin::update-preferences')->middleware('can:update-preferences');
-                $router->patch('users/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-user-ajax')->middleware('can:update-user');
-                $router->delete('users/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-user')->middleware('can:delete-user');
+            });
+
+            /*
+             * API routes
+             */
+            $router->middleware('api')->prefix('api')->group(function (Router $router) {
+                $router->middleware('auth:api')->group(function (Router $router) {
+                    $router->get('users', 'ApiController@index')->name('api::index-users')->middleware('can:see-all-users');
+                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->name('api::update-preferences')->middleware('can:update-preferences');
+                    $router->patch('users/{user}', 'ApiController@updatePartial')->name('api::update-user')->middleware('can:update-user');
+                    $router->delete('users/{user}', 'ApiController@destroy')->name('api::destroy-user')->middleware('can:delete-user');
+                });
             });
         });
     }

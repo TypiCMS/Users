@@ -23,9 +23,6 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->findAll();
-        app('JavaScript')->put('models', $models);
-
         return view('users::admin.index');
     }
 
@@ -115,33 +112,5 @@ class AdminController extends BaseAdminController
         $this->repository->update($user->id, $userData);
 
         return $this->redirect($request, $user);
-    }
-
-    /**
-     * Update User's preferences.
-     *
-     * @return null
-     */
-    public function postUpdatePreferences()
-    {
-        $user = auth()->user();
-        $user->preferences = array_merge((array) $user->preferences, request()->all());
-        $user->save();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \TypiCMS\Modules\Users\Models\User $user
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(User $user)
-    {
-        $deleted = $this->repository->delete($user);
-
-        return response()->json([
-            'error' => !$deleted,
-        ]);
     }
 }
