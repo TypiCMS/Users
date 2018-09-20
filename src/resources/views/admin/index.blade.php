@@ -3,6 +3,7 @@
 @section('title', __('Users'))
 
 @section('content')
+
 <item-list
     url-base="{{ route('api::index-users') }}"
     locale="{{ config('typicms.content_locale') }}"
