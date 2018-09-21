@@ -5,7 +5,7 @@
 @section('content')
 
 <item-list
-    url-base="{{ route('api::index-users') }}"
+    url-base="/api/users"
     locale="{{ config('typicms.content_locale') }}"
     fields="id,first_name,last_name,email,activated,superuser"
     table="users"

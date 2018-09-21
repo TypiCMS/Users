@@ -68,10 +68,10 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('users', 'ApiController@index')->name('api::index-users')->middleware('can:see-all-users');
-                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->name('api::update-preferences')->middleware('can:update-preferences');
-                    $router->patch('users/{user}', 'ApiController@updatePartial')->name('api::update-user')->middleware('can:update-user');
-                    $router->delete('users/{user}', 'ApiController@destroy')->name('api::destroy-user')->middleware('can:delete-user');
+                    $router->get('users', 'ApiController@index')->middleware('can:see-all-users');
+                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->middleware('can:update-preferences');
+                    $router->patch('users/{user}', 'ApiController@updatePartial')->middleware('can:update-user');
+                    $router->delete('users/{user}', 'ApiController@destroy')->middleware('can:delete-user');
                 });
             });
         });
