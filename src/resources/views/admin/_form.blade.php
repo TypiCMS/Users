@@ -34,7 +34,7 @@
 {!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
 </div>
 
-@if ($roles = Roles::findAll() and $roles->count())
+@if ($roles = Roles::findAll() and $roles->count() > 0)
 <div class="form-group">
     <label>{{ __('Roles') }}</label>
     @foreach ($roles as $role)
