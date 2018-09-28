@@ -17,10 +17,10 @@ class ApiController extends BaseApiController
 
     public function index(Request $request)
     {
-        $models = QueryBuilder::for(User::class)
+        $data = QueryBuilder::for(User::class)
             ->paginate($request->input('per_page'));
 
-        return $models;
+        return $data;
     }
 
     public function updatePreferences(Request $request)
