@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
@@ -97,6 +98,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         parent::boot();
         static::creating(function ($user) {
             $user->token = str_random(30);
+            $user->api_token = Str::uuid();
         });
     }
 

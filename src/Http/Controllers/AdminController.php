@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
@@ -70,7 +69,6 @@ class AdminController extends BaseAdminController
 
         $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = Hash::make($data['password']);
-        $userData['api_token'] = Str::uuid();
 
         $user = $this->repository->create($userData);
 
