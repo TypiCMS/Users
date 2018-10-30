@@ -11,7 +11,7 @@
     table="users"
     title="users"
     :publishable="false"
-    :searchable="['first_name','last_name','email']"
+    :searchable="['first_name,last_name,email']"
     :sorting="['first_name']">
 
     <template slot="add-button">
