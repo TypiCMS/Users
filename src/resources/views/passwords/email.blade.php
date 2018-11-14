@@ -22,7 +22,7 @@
 
         <h1 class="small-container-title">{{ __('Reset Password') }}</h1>
 
-        @include('users::_status', ['closable' => false])
+        @include('users::_status')
 
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control form-control-lg')->autofocus(true)->required() !!}
 

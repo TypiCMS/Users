@@ -22,7 +22,7 @@
 
         <h1 class="small-container-title">{{ __('Register') }}</h1>
 
-        @include('users::_status', ['closable' => false])
+        @include('users::_status')
 
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->required() !!}
         {!! BootForm::text(__('First name'), 'first_name')->addClass('form-control-lg')->required() !!}
