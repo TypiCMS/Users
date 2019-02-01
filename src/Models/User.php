@@ -97,7 +97,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     {
         parent::boot();
         static::creating(function ($user) {
-            $user->token = str_random(30);
+            $user->token = Str::random(30);
             $user->api_token = Str::uuid();
         });
     }

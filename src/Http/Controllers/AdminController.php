@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
@@ -67,7 +68,7 @@ class AdminController extends BaseAdminController
     {
         $data = $request->all();
 
-        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
+        $userData = Arr::except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = Hash::make($data['password']);
 
         $user = $this->repository->create($userData);
@@ -94,10 +95,10 @@ class AdminController extends BaseAdminController
     {
         $data = $request->all();
 
-        $userData = array_except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
+        $userData = Arr::except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
 
         if (!isset($userData['password']) || $userData['password'] === '') {
-            $userData = array_except($userData, 'password');
+            $userData = Arr::except($userData, 'password');
         } else {
             $userData['password'] = Hash::make($data['password']);
         }
