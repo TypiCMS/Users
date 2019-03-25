@@ -113,22 +113,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     }
 
     /**
-     * Sync roles.
-     *
-     * @param array $permissions
-     *
-     * @return null
-     */
-    public function syncRoles(array $roles)
-    {
-        $permissionIds = [];
-        foreach ($permissions as $name) {
-            $permissionIds[] = app(Permission::class)->firstOrCreate(['name' => $name])->id;
-        }
-        $this->permissions()->sync($permissionIds);
-    }
-
-    /**
      * Sync permissions.
      *
      * @param array $permissions
