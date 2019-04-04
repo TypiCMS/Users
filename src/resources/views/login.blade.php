@@ -24,7 +24,7 @@
 
         @include('users::_status')
 
-        {!! BootForm::email(('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required() !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
 
         <div class="form-group">
