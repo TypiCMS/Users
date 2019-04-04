@@ -44,7 +44,7 @@
     {!! BootForm::close() !!}
 
     <p class="small-container-back-to-website">
-        <a class="small-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to website') }}</a>
+        <a class="small-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
     </p>
 
 </div>
