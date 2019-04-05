@@ -37,7 +37,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('verify');
+        $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -54,24 +54,5 @@ class VerificationController extends Controller
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
                         : view('users::verify');
-    }
-
-    /**
-     * Mark the authenticated user's email address as verified.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function verify(Request $request)
-    {
-        if ($user = User::find($request->route('id'))) {
-            $user->markEmailAsVerified();
-            event(new Verified($user));
-        }
-
-        return redirect($this->redirectPath())->with('verified', true);
     }
 }
