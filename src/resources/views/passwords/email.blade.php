@@ -18,7 +18,7 @@
 
     @include('users::_logo')
 
-    {!! BootForm::open()->action(route('password.email'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route(app()->getLocale().'::password.email'))->addClass('small-container-form') !!}
 
         <h1 class="small-container-title">{{ __('Reset Password') }}</h1>
 
@@ -27,7 +27,7 @@
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control form-control-lg')->autofocus(true)->required() !!}
 
         <div class="form-group form-action">
-            {!! BootForm::submit(__('Send password reset link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('Send Password Reset Link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
     {!! BootForm::close() !!}

@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Notifications\UserRegistered;
 
 class RegisterController extends Controller
 {
@@ -65,11 +64,11 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        $user->notify(new UserRegistered($user));
+        $this->guard()->login($user);
 
         return redirect()
             ->back()
-            ->with('status', __('Your account has been created, check your email for the activation link'));
+            ->with('status', __('Your account has been created, check your email for the verification link'));
     }
 
     /**
@@ -87,23 +86,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    /**
-     * Confirm a user’s email address.
-     *
-     * @param string $token
-     *
-     * @return mixed
-     */
-    public function activate($token)
-    {
-        $user = User::where('token', $token)->firstOrFail();
-
-        $user->activate();
-
-        return redirect()
-            ->route('login')
-            ->with('status', __('Your account has been activated, you can now log in'));
     }
 }

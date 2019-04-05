@@ -3,10 +3,12 @@
 namespace TypiCMS\Modules\Users\Models;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -16,15 +18,17 @@ use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Users\Notifications\ResetPassword;
+use TypiCMS\Modules\Users\Notifications\VerifyEmail;
 use TypiCMS\Modules\Users\Presenters\ModulePresenter;
 
-class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, MustVerifyEmailContract
 {
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
     use HasRoles;
     use Historable;
+    use MustVerifyEmail;
     use Notifiable;
     use PresentableTrait;
 
@@ -77,18 +81,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     }
 
     /**
-     * Confirm the user.
-     *
-     * @return null
-     */
-    public function activate()
-    {
-        $this->activated = true;
-        $this->token = null;
-        $this->save();
-    }
-
-    /**
      * Boot the model.
      *
      * @return null
@@ -97,7 +89,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     {
         parent::boot();
         static::creating(function ($user) {
-            $user->token = Str::random(30);
             $user->api_token = Str::uuid();
         });
     }
@@ -138,5 +129,15 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
     }
 }

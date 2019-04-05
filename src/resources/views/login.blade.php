@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', __('Log in'))
+@section('title', __('Login'))
 @section('bodyClass', 'auth-background')
 
 @section('page-header')
@@ -20,7 +20,7 @@
 
     {!! BootForm::open()->addClass('small-container-form') !!}
 
-        <h1 class="small-container-title">{{ __('Log in') }}</h1>
+        <h1 class="small-container-title">{{ __('Login') }}</h1>
 
         @include('users::_status')
 
@@ -28,16 +28,16 @@
         {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
 
         <div class="form-group">
-            {!! BootForm::checkbox(__('Remember'), 'remember') !!}
+            {!! BootForm::checkbox(__('Remember Me'), 'remember') !!}
         </div>
 
         <div class="form-group">
-            {!! BootForm::submit(__('Log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+            {!! BootForm::submit(__('Login'), 'btn-primary')->addClass('btn-lg btn-block') !!}
         </div>
 
         <div class="form-group">
             <span class="form-text">
-                <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+                <a href="{{ route(app()->getLocale().'::password.request') }}">{{ __('Forgot Your Password?') }}</a>
             </span>
         </div>
 

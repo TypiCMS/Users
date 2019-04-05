@@ -18,7 +18,7 @@
 
     @include('users::_logo')
 
-    {!! BootForm::open()->action(route('password.request'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route(app()->getLocale().'::password.request'))->addClass('small-container-form') !!}
 
         <h1 class="small-container-title">{{ __('New password') }}</h1>
 

@@ -30,26 +30,28 @@ class RouteServiceProvider extends ServiceProvider
              * Front office routes
              */
             $router->middleware('web')->group(function (Router $router) {
-
-                // Registration
-                $router->get('register', 'RegisterController@showRegistrationForm')->name('register');
-                $router->post('register', 'RegisterController@register');
-                $router->get('activate/{token}', 'RegisterController@activate')->name('activate');
-
-                // Login
-                $router->get('login', 'LoginController@showLoginForm')->name('login');
-                $router->post('login', 'LoginController@login');
-
-                // Logout
-                $router->post('logout', 'LoginController@logout')->name('logout');
-
-                // Request new password
-                $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
-                $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-
-                // Set new password
-                $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
-                $router->post('password/reset', 'ResetPasswordController@reset');
+                foreach (locales() as $lang) {
+                    if (config('typicms.register')) {
+                        // Registration
+                        $router->get($lang.'/register', 'RegisterController@showRegistrationForm')->name($lang.'::register');
+                        $router->post($lang.'/register', 'RegisterController@register');
+                        // Verify
+                        $router->get($lang.'/email/verify', 'VerificationController@show')->name($lang.'::verification.notice');
+                        $router->get($lang.'/email/verify/{id}', 'VerificationController@verify')->name($lang.'::verification.verify');
+                        $router->get($lang.'/email/resend', 'VerificationController@resend')->name($lang.'::verification.resend');
+                    }
+                    // Login
+                    $router->get($lang.'/login', 'LoginController@showLoginForm')->name($lang.'::login');
+                    $router->post($lang.'/login', 'LoginController@login');
+                    // Request new password
+                    $router->get($lang.'/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name($lang.'::password.request');
+                    $router->post($lang.'/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name($lang.'::password.email');
+                    // Set new password
+                    $router->get($lang.'/password/reset/{token}', 'ResetPasswordController@showResetForm')->name($lang.'::password.reset');
+                    $router->post($lang.'/password/reset', 'ResetPasswordController@reset');
+                    // Logout
+                    $router->post($lang.'/logout', 'LoginController@logout')->name($lang.'::logout');
+                }
             });
 
             /*
