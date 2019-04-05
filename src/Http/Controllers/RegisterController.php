@@ -64,8 +64,6 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        $this->guard()->login($user);
-
         return redirect()
             ->back()
             ->with('status', __('Your account has been created, check your email for the verification link.'));
