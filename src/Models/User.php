@@ -138,6 +138,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail);
+        $this->notify(new VerifyEmail());
     }
 }
