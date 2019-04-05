@@ -43,6 +43,12 @@
 
     {!! BootForm::close() !!}
 
+    @if (config('typicms.register'))
+    <p class="alert alert-warning alert-not-a-member">
+        @lang('Not a member?') <a class="alert-link" href="{{ route(app()->getLocale().'::register') }}">@lang('Become a member')</a> @lang('and get access to all the content of our website.')
+    </p>
+    @endif
+
     <p class="small-container-back-to-website">
         <a class="small-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
     </p>
