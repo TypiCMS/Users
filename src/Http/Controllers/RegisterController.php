@@ -68,7 +68,7 @@ class RegisterController extends Controller
 
         return redirect()
             ->back()
-            ->with('status', __('Your account has been created, check your email for the verification link'));
+            ->with('status', __('Your account has been created, check your email for the verification link.'));
     }
 
     /**
