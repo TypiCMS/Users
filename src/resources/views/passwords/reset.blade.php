@@ -14,13 +14,13 @@
 
 @section('content')
 
-<div id="login" class="container-newpassword small-container">
+<div id="login" class="container-newpassword auth-container auth-container-sm">
 
     @include('users::_logo')
 
-    {!! BootForm::open()->action(route(app()->getLocale().'::password.request'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route(app()->getLocale().'::password.request'))->addClass('auth-container-form') !!}
 
-        <h1 class="small-container-title">{{ __('New password') }}</h1>
+        <h1 class="auth-container-title">{{ __('New password') }}</h1>
 
         @include('users::_status')
 

@@ -14,13 +14,13 @@
 
 @section('content')
 
-<div id="reset" class="container-reset small-container">
+<div id="reset" class="container-reset auth-container auth-container-sm">
 
     @include('users::_logo')
 
-    {!! BootForm::open()->action(route(app()->getLocale().'::password.email'))->addClass('small-container-form') !!}
+    {!! BootForm::open()->action(route(app()->getLocale().'::password.email'))->addClass('auth-container-form') !!}
 
-        <h1 class="small-container-title">{{ __('Reset Password') }}</h1>
+        <h1 class="auth-container-title">{{ __('Reset Password') }}</h1>
 
         @include('users::_status')
 

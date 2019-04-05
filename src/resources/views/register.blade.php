@@ -14,21 +14,33 @@
 
 @section('content')
 
-<div id="register" class="container-register small-container">
+<div id="register" class="container-register auth-container">
 
     @include('users::_logo')
 
-    {!! BootForm::open()->addClass('small-container-form') !!}
+    {!! BootForm::open()->addClass('auth-container-form') !!}
 
-        <h1 class="small-container-title">{{ __('Register') }}</h1>
+        <h1 class="auth-container-title">{{ __('Register') }}</h1>
 
         @include('users::_status')
 
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->required() !!}
-        {!! BootForm::text(__('First name'), 'first_name')->addClass('form-control-lg')->required() !!}
-        {!! BootForm::text(__('Last name'), 'last_name')->addClass('form-control-lg')->required() !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
-        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required() !!}
+        <div class="form-row">
+            <div class="col-sm-6">
+                {!! BootForm::text(__('First name'), 'first_name')->addClass('form-control-lg')->required() !!}
+            </div>
+            <div class="col-sm-6">
+                {!! BootForm::text(__('Last name'), 'last_name')->addClass('form-control-lg')->required() !!}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6">
+                {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
+            </div>
+            <div class="col-sm-6">
+                {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required() !!}
+            </div>
+        </div>
 
         <div class="form-group form-action">
             {!! BootForm::submit(__('Register'), 'btn-primary')->addClass('btn-lg btn-block') !!}

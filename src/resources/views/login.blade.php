@@ -14,13 +14,13 @@
 
 @section('content')
 
-<div id="login" class="container-login small-container">
+<div id="login" class="container-login auth-container auth-container-sm">
 
     @include('users::_logo')
 
-    {!! BootForm::open()->addClass('small-container-form') !!}
+    {!! BootForm::open()->addClass('auth-container-form') !!}
 
-        <h1 class="small-container-title">{{ __('Login') }}</h1>
+        <h1 class="auth-container-title">{{ __('Login') }}</h1>
 
         @include('users::_status')
 
@@ -49,8 +49,8 @@
     </p>
     @endif
 
-    <p class="small-container-back-to-website">
-        <a class="small-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
+    <p class="auth-container-back-to-website">
+        <a class="auth-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
     </p>
 
 </div>

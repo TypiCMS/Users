@@ -1,4 +1,4 @@
-<div class="small-container-logo">
+<div class="auth-container-logo">
     @if (TypiCMS::hasLogo())
         @include('core::public._logo')
     @else
