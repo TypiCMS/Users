@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use TypiCMS\Modules\Users\Models\User;
