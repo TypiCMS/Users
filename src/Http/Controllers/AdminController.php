@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
@@ -70,6 +71,7 @@ class AdminController extends BaseAdminController
 
         $userData = Arr::except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
         $userData['password'] = Hash::make($data['password']);
+        $userData['email_verified_at'] = Carbon::now();
 
         $user = $this->repository->create($userData);
 
