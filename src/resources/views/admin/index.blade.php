@@ -33,9 +33,15 @@
         <td>@include('core::admin._button-edit', ['module' => 'users'])</td>
         <td>@{{ model.first_name }}</td>
         <td>@{{ model.last_name }}</td>
-        <td>@{{ model.email }}</td>
-        <td>@{{ model.activated }}</td>
-        <td>@{{ model.superuser }}</td>
+        <td><a :href="'mailto:'+model.email">@{{ model.email }}</a></td>
+        <td>
+            <span class="badge badge-secondary" v-if="model.activated">@lang('Yes')</span>
+            <span class="badge badge-light" v-else>@lang('No')</span>
+        </td>
+        <td>
+            <span class="badge badge-secondary" v-if="model.superuser">@lang('Yes')</span>
+            <span class="badge badge-light" v-else>@lang('No')</span>
+        </td>
     </template>
 
 </item-list>
