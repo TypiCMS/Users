@@ -8,15 +8,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class ApiController extends BaseApiController
 {
-    public function __construct(EloquentUser $user)
-    {
-        parent::__construct($user);
-    }
-
     public function index(Request $request)
     {
         $data = QueryBuilder::for(User::class)
@@ -37,7 +31,7 @@ class ApiController extends BaseApiController
 
     public function destroy(User $user)
     {
-        $deleted = $this->repository->delete($user);
+        $deleted = $user->delete();
 
         return response()->json([
             'error' => !$deleted,

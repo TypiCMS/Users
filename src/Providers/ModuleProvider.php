@@ -6,7 +6,6 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Users\Facades\Users;
-use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -46,6 +45,6 @@ class ModuleProvider extends ServiceProvider
          */
         $app->register(RouteServiceProvider::class);
 
-        $app->bind('Users', EloquentUser::class);
+        $app->bind('Users', User::class);
     }
 }

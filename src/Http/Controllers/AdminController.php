@@ -8,15 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
-use TypiCMS\Modules\Users\Repositories\EloquentUser;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(EloquentUser $user)
-    {
-        parent::__construct($user);
-    }
-
     /**
      * List models.
      *
@@ -34,7 +28,7 @@ class AdminController extends BaseAdminController
      */
     public function create()
     {
-        $model = $this->repository->createModel();
+        $model = new;
         $model->permissions = [];
         $model->roles = [];
 
@@ -73,7 +67,7 @@ class AdminController extends BaseAdminController
         $userData['password'] = Hash::make($data['password']);
         $userData['email_verified_at'] = Carbon::now();
 
-        $user = $this->repository->create($userData);
+        $user = ::create($userData);
 
         if ($user) {
             $roles = $data['roles'] ?? [];
@@ -110,7 +104,7 @@ class AdminController extends BaseAdminController
         $user->roles()->sync($roles);
         $user->syncPermissions($permissions);
 
-        $this->repository->update($user->id, $userData);
+        ::update($user->id, $userData);
 
         return $this->redirect($request, $user);
     }
