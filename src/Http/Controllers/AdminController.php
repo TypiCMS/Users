@@ -2,33 +2,25 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
 
 class AdminController extends BaseAdminController
 {
-    /**
-     * List models.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
+    public function index(): View
     {
         return view('users::admin.index');
     }
 
-    /**
-     * Create form for a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
+    public function create(): View
     {
-        $model = new;
+        $model = new User;
         $model->permissions = [];
         $model->roles = [];
 
@@ -36,14 +28,7 @@ class AdminController extends BaseAdminController
             ->with(compact('model'));
     }
 
-    /**
-     * Edit form for the specified resource.
-     *
-     * @param \TypiCMS\Modules\Users\Models\User $user
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         $user->permissions = $user->permissions()->pluck('name')->all();
         $user->roles = $user->roles()->pluck('id')->all();
@@ -52,14 +37,7 @@ class AdminController extends BaseAdminController
             ->with(['model' => $user]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \TypiCMS\Modules\Users\Http\Requests\FormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(FormRequest $request)
+    public function store(FormRequest $request): RedirectResponse
     {
         $data = $request->all();
 
@@ -67,7 +45,7 @@ class AdminController extends BaseAdminController
         $userData['password'] = Hash::make($data['password']);
         $userData['email_verified_at'] = Carbon::now();
 
-        $user = ::create($userData);
+        $user = User::create($userData);
 
         if ($user) {
             $roles = $data['roles'] ?? [];
@@ -79,15 +57,7 @@ class AdminController extends BaseAdminController
         return $this->redirect($request, $user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \TypiCMS\Modules\Users\Models\User               $user
-     * @param \TypiCMS\Modules\Users\Http\Requests\FormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(User $user, FormRequest $request)
+    public function update(User $user, FormRequest $request): RedirectResponse
     {
         $data = $request->all();
 
@@ -104,7 +74,7 @@ class AdminController extends BaseAdminController
         $user->roles()->sync($roles);
         $user->syncPermissions($permissions);
 
-        ::update($user->id, $userData);
+        $user->update($userData);
 
         return $this->redirect($request, $user);
     }
