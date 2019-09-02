@@ -20,7 +20,7 @@ class AdminController extends BaseAdminController
 
     public function create(): View
     {
-        $model = new User;
+        $model = new User();
         $model->permissions = [];
         $model->roles = [];
 
