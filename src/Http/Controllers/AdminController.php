@@ -76,7 +76,7 @@ class AdminController extends BaseAdminController
         $permissions = $data['permissions'] ?? [];
         $user->roles()->sync($roles);
         $user->syncPermissions($permissions);
-        (new Role)->flushCache();
+        (new Role())->flushCache();
 
         $user->update($userData);
 

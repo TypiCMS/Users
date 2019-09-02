@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Traits\HasRoles;
-use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Users\Notifications\ResetPassword;
 use TypiCMS\Modules\Users\Notifications\VerifyEmail;
