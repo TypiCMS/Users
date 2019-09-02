@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Roles\Models\Role;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
 
@@ -23,18 +24,20 @@ class AdminController extends BaseAdminController
         $model = new User();
         $model->permissions = [];
         $model->roles = [];
+        $roles = Role::get();
 
         return view('users::admin.create')
-            ->with(compact('model'));
+            ->with(compact('model', 'roles'));
     }
 
     public function edit(User $user): View
     {
         $user->permissions = $user->permissions()->pluck('name')->all();
         $user->roles = $user->roles()->pluck('id')->all();
+        $roles = Role::get();
 
         return view('users::admin.edit')
-            ->with(['model' => $user]);
+            ->with(['model' => $user, 'roles' => $roles]);
     }
 
     public function store(FormRequest $request): RedirectResponse
@@ -73,6 +76,7 @@ class AdminController extends BaseAdminController
         $permissions = $data['permissions'] ?? [];
         $user->roles()->sync($roles);
         $user->syncPermissions($permissions);
+        (new Role)->flushCache();
 
         $user->update($userData);
 

@@ -9,8 +9,10 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Permission\Contracts\Permission;
@@ -21,7 +23,7 @@ use TypiCMS\Modules\Users\Notifications\ResetPassword;
 use TypiCMS\Modules\Users\Notifications\VerifyEmail;
 use TypiCMS\Modules\Users\Presenters\ModulePresenter;
 
-class User extends Base implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, MustVerifyEmailContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, MustVerifyEmailContract
 {
     use Authenticatable;
     use Authorizable;
@@ -79,6 +81,36 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function uri($locale = null)
     {
         return '/';
+    }
+
+    /**
+     * Get back office’s edit url of model.
+     *
+     * @return string|void
+     */
+    public function editUrl()
+    {
+        $route = 'admin::edit-'.Str::singular($this->getTable());
+        if (Route::has($route)) {
+            return route($route, $this->id);
+        }
+
+        return route('dashboard');
+    }
+
+    /**
+     * Get back office’s index of models url.
+     *
+     * @return string|void
+     */
+    public function indexUrl()
+    {
+        $route = 'admin::index-'.$this->getTable();
+        if (Route::has($route)) {
+            return route($route);
+        }
+
+        return route('dashboard');
     }
 
     /**
