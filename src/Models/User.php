@@ -35,11 +35,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $presenter = ModulePresenter::class;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -51,43 +46,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'preferences' => 'array',
     ];
 
-    /**
-     * Get front office uri.
-     *
-     * @param string $locale
-     *
-     * @return string
-     */
-    public function uri($locale = null)
+    public function uri($locale = null): string
     {
         return '/';
     }
 
-    /**
-     * Get back office’s edit url of model.
-     *
-     * @return string|void
-     */
-    public function editUrl()
+    public function editUrl(): string
     {
         $route = 'admin::edit-'.Str::singular($this->getTable());
         if (Route::has($route)) {
@@ -97,12 +70,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return route('dashboard');
     }
 
-    /**
-     * Get back office’s index of models url.
-     *
-     * @return string|void
-     */
-    public function indexUrl()
+    public function indexUrl(): string
     {
         $route = 'admin::index-'.$this->getTable();
         if (Route::has($route)) {
@@ -112,12 +80,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return route('dashboard');
     }
 
-    /**
-     * Boot the model.
-     *
-     * @return null
-     */
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
         static::creating(function ($user) {
@@ -125,24 +88,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         });
     }
 
-    /**
-     * Check if the user is a superuser.
-     *
-     * @return bool
-     */
-    public function isSuperUser()
+    public function isSuperUser(): bool
     {
         return (bool) $this->superuser;
     }
 
-    /**
-     * Sync permissions.
-     *
-     * @param array $permissions
-     *
-     * @return null
-     */
-    public function syncPermissions(array $permissions)
+    public function syncPermissions(array $permissions): void
     {
         $permissionIds = [];
         foreach ($permissions as $name) {
@@ -151,24 +102,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $this->permissions()->sync($permissionIds);
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param string $token
-     *
-     * @return void
-     */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPassword($token));
     }
 
-    /**
-     * Send the email verification notification.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmail());
     }
