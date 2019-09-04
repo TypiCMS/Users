@@ -18,7 +18,7 @@ class ApiController extends BaseApiController
         $data = QueryBuilder::for(User::class)
             ->allowedSorts(['first_name', 'last_name', 'email', 'activated', 'superuser'])
             ->allowedFilters([
-                AllowedFilter::custom('first_name,last_name,email', new FilterOr),
+                AllowedFilter::custom('first_name,last_name,email', new FilterOr()),
             ])
             ->paginate($request->input('per_page'));
 
