@@ -5,7 +5,7 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
@@ -16,8 +16,9 @@ class ApiController extends BaseApiController
     public function index(Request $request): LengthAwarePaginator
     {
         $data = QueryBuilder::for(User::class)
+            ->allowedSorts(['first_name', 'last_name', 'email', 'activated', 'superuser'])
             ->allowedFilters([
-                Filter::custom('first_name,last_name,email', FilterOr::class),
+                AllowedFilter::custom('first_name,last_name,email', new FilterOr),
             ])
             ->paginate($request->input('per_page'));
 
