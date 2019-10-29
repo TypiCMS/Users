@@ -50,7 +50,7 @@
     @endif
 
     <p class="auth-container-back-to-website">
-        <a class="auth-container-back-to-website-link" href="{{ url('/') }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
+        <a class="auth-container-back-to-website-link" href="{{ TypiCMS::homeUrl() }}"><span class="fa fa-angle-left fa-fw"></span>{{ __('Back to the website') }}</a>
     </p>
 
 </div>
