@@ -25,7 +25,9 @@
         <item-list-column-header name="last_name" sortable :sort-array="sortArray" :label="$t('Last name')"></item-list-column-header>
         <item-list-column-header name="email" sortable :sort-array="sortArray" :label="$t('Email')"></item-list-column-header>
         <item-list-column-header name="activated" sortable :sort-array="sortArray" :label="$t('Activated')"></item-list-column-header>
+        @if (auth()->user()->isSuperUser())
         <item-list-column-header name="superuser" sortable :sort-array="sortArray" :label="$t('Superuser')"></item-list-column-header>
+        @endif
     </template>
 
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
@@ -38,10 +40,12 @@
             <span class="badge badge-secondary" v-if="model.activated">@lang('Yes')</span>
             <span class="badge badge-light" v-else>@lang('No')</span>
         </td>
+        @if (auth()->user()->isSuperUser())
         <td>
             <span class="badge badge-secondary" v-if="model.superuser">@lang('Yes')</span>
             <span class="badge badge-light" v-else>@lang('No')</span>
         </td>
+        @endif
     </template>
 
 </item-list>

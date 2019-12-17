@@ -29,9 +29,12 @@
 
 <div class="form-group">
 {!! BootForm::hidden('activated')->value(0) !!}
-{!! BootForm::hidden('superuser')->value(0) !!}
 {!! BootForm::checkbox(__('Activated'), 'activated') !!}
+
+{!! BootForm::hidden('superuser')->value(0) !!}
+@if (auth()->user()->isSuperUser())
 {!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
+@endif
 </div>
 
 @if ($roles->count() > 0)
