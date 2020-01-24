@@ -51,4 +51,4 @@ return [
     'User does not exist'                         => 'Gebruiker bestaat niet',
     'You have already activated this account'     => 'Deze gebruiker is al geactiveerd',
     'Your Password Reset Link'                    => 'Link om uw wachtwoord opnieuw in te stellen',
- ];
+];
