@@ -54,8 +54,6 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param \TypiCMS\Modules\Users\Http\Requests\FormRequestRegister $request
-     *
      * @return \Illuminate\Http\Response
      */
     public function register(FormRequestRegister $request)
@@ -71,8 +69,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
-     * @param array $data
      *
      * @return User
      */
