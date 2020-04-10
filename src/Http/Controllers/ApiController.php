@@ -9,14 +9,13 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
-use TypiCMS\Modules\Users\Models\User;
 
 class ApiController extends BaseApiController
 {
     public function index(Request $request): LengthAwarePaginator
     {
-        $data = QueryBuilder::for(User::class)
-            ->allowedSorts(['first_name', 'last_name', 'email', 'activated', 'superuser'])
+        $data = QueryBuilder::for(config('auth.providers.users.model'))
+            ->allowedSorts(['first_name', 'last_name', 'email', 'superuser'])
             ->allowedFilters([
                 AllowedFilter::custom('first_name,last_name,email', new FilterOr()),
             ])
@@ -32,8 +31,9 @@ class ApiController extends BaseApiController
         $user->save();
     }
 
-    public function destroy(User $user): JsonResponse
+    public function destroy($userId): JsonResponse
     {
+        $user = $this->userModel->findOrFail($userId);
         $deleted = $user->delete();
 
         return response()->json([

@@ -3,17 +3,23 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Roles\Models\Role;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
-use TypiCMS\Modules\Users\Models\User;
 
 class AdminController extends BaseAdminController
 {
+    private $userModel = null;
+
+    public function __construct()
+    {
+        $this->userModel = app(config('auth.providers.users.model'));
+        parent::__construct();
+    }
+
     public function index(): View
     {
         return view('users::admin.index');
@@ -21,7 +27,7 @@ class AdminController extends BaseAdminController
 
     public function create(): View
     {
-        $model = new User();
+        $model = $this->userModel;
         $model->permissions = [];
         $model->roles = [];
         $roles = Role::get();
@@ -30,8 +36,9 @@ class AdminController extends BaseAdminController
             ->with(compact('model', 'roles'));
     }
 
-    public function edit(User $user): View
+    public function edit($userId): View
     {
+        $user = $this->userModel->findOrFail($userId);
         $user->permissions = $user->permissions()->pluck('name')->all();
         $user->roles = $user->roles()->pluck('id')->all();
         $roles = Role::get();
@@ -42,43 +49,25 @@ class AdminController extends BaseAdminController
 
     public function store(FormRequest $request): RedirectResponse
     {
-        $data = $request->all();
-
-        $userData = Arr::except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
-        $userData['password'] = Hash::make($data['password']);
-        $userData['email_verified_at'] = Carbon::now();
-
-        $user = User::create($userData);
-
-        if ($user) {
-            $roles = $data['roles'] ?? [];
-            $user->roles()->sync($roles);
-            $permissions = $data['permissions'] ?? [];
-            $user->syncPermissions($permissions);
-        }
+        $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
+        $data['password'] = Hash::make($request->input('password'));
+        $data['email_verified_at'] = Carbon::now();
+        $user = app(config('auth.providers.users.model'))->create($data);
+        $user->roles()->sync($request->input('roles', []));
 
         return $this->redirect($request, $user);
     }
 
-    public function update(User $user, FormRequest $request): RedirectResponse
+    public function update($userId, FormRequest $request): RedirectResponse
     {
-        $data = $request->all();
-
-        $userData = Arr::except($data, ['exit', 'permissions', 'roles', 'password_confirmation']);
-
-        if (!isset($userData['password']) || $userData['password'] === '') {
-            $userData = Arr::except($userData, 'password');
-        } else {
-            $userData['password'] = Hash::make($data['password']);
+        $user = $this->userModel->findOrFail($userId);
+        $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->input('password'));
         }
-
-        $roles = $data['roles'] ?? [];
-        $permissions = $data['permissions'] ?? [];
-        $user->roles()->sync($roles);
-        $user->syncPermissions($permissions);
+        $user->update($data);
+        $user->roles()->sync($request->input('roles', []));
         (new Role())->flushCache();
-
-        $user->update($userData);
 
         return $this->redirect($request, $user);
     }

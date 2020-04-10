@@ -19,6 +19,8 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
+     *
+     * @return null
      */
     public function map()
     {
@@ -69,7 +71,6 @@ class RouteServiceProvider extends ServiceProvider
                 $router->middleware('auth:api')->group(function (Router $router) {
                     $router->get('users', 'ApiController@index')->middleware('can:see-all-users');
                     $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->middleware('can:update-preferences');
-                    $router->patch('users/{user}', 'ApiController@updatePartial')->middleware('can:update-user');
                     $router->delete('users/{user}', 'ApiController@destroy')->middleware('can:delete-user');
                 });
             });
