@@ -33,7 +33,7 @@ class ApiController extends BaseApiController
 
     public function destroy($userId): JsonResponse
     {
-        $user = $this->userModel->findOrFail($userId);
+        $user = app(config('auth.providers.users.model'))->findOrFail($userId);
         $deleted = $user->delete();
 
         return response()->json([
