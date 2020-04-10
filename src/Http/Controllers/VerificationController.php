@@ -25,10 +25,13 @@ class VerificationController extends Controller
 
     /**
      * Where to redirect users after verification.
-     *
-     * @var string
      */
-    protected $redirectTo = '/';
+    public function redirectTo()
+    {
+        $homepage = Page::published()->where('is_home', 1)->firstOrFail();
+
+        return $homepage->uri();
+    }
 
     /**
      * Create a new controller instance.
