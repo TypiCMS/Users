@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Users\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use TypiCMS\Modules\Core\Http\Middleware\SetLocale;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Front office routes
              */
-            $router->middleware('web')->group(function (Router $router) {
+            $router->middleware('web', SetLocale::class)->group(function (Router $router) {
                 foreach (locales() as $lang) {
                     if (config('typicms.register')) {
                         // Registration
