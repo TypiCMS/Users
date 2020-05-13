@@ -34,7 +34,6 @@ class ApiController extends BaseApiController
     public function destroy($userId): JsonResponse
     {
         $user = app(config('auth.providers.users.model'))->findOrFail($userId);
-        
         if (is_a($user, 'TypiCMS\Modules\Subscriptions\Models\BillableUser')) {
             $hasActiveSubscription = false;
             foreach ($user->subscriptions as $subscription) {
