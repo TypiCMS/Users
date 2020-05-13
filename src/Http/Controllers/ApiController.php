@@ -37,10 +37,9 @@ class ApiController extends BaseApiController
         
         if (is_a($user, 'TypiCMS\Modules\Subscriptions\Models\BillableUser')) {
             $hasActiveSubscription = false;
-
             foreach ($user->subscriptions as $subscription) {
                 if ($subscription->status == 'active' || $subscription->status == 'onTrial' || $subscription->status == 'onGracePeriod') {
-                    $hasActiveSubscription == true;
+                    $hasActiveSubscription = true;
                 }
             }
 
@@ -51,7 +50,6 @@ class ApiController extends BaseApiController
                 ]);
             }
         }
-        
         $deleted = $user->delete();
 
         return response()->json([
