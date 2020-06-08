@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->boolean('superuser')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('locale')->nullable();
             $table->text('preferences')->nullable();
             $table->uuid('api_token')->unique();
             $table->timestamp('email_verified_at')->nullable();

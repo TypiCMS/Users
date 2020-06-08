@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +22,7 @@ use TypiCMS\Modules\Users\Notifications\ResetPassword;
 use TypiCMS\Modules\Users\Notifications\VerifyEmail;
 use TypiCMS\Modules\Users\Presenters\ModulePresenter;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, MustVerifyEmailContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, MustVerifyEmailContract, HasLocalePreference
 {
     use Authenticatable;
     use Authorizable;
@@ -53,6 +54,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $casts = [
         'preferences' => 'array',
     ];
+
+    public function preferredLocale()
+    {
+        return $this->locale;
+    }
 
     public function uri($locale = null): string
     {
