@@ -31,8 +31,8 @@
 {!! BootForm::hidden('activated')->value(0) !!}
 {!! BootForm::checkbox(__('Activated'), 'activated') !!}
 
-{!! BootForm::hidden('superuser')->value(0) !!}
 @if (auth()->user()->isSuperUser())
+{!! BootForm::hidden('superuser')->value(0) !!}
 {!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
 @endif
 </div>
