@@ -34,15 +34,8 @@ class ApiController extends BaseApiController
     public function destroy($userId): JsonResponse
     {
         $user = app(config('auth.providers.users.model'))->findOrFail($userId);
-        if (is_a($user, 'TypiCMS\Modules\Subscriptions\Models\BillableUser')) {
-            $hasActiveSubscription = false;
-            foreach ($user->subscriptions as $subscription) {
-                if ($subscription->active()) {
-                    $hasActiveSubscription = true;
-                }
-            }
-
-            if ($hasActiveSubscription) {
+        if (method_exists($user, 'mollieCustomerFields')) {
+            if ($user->hasRunningSubscription()) {
                 return response()->json([
                     'error' => true,
                     'message' => __('User can not be deleted because he has a running subscription.')
