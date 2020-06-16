@@ -9,17 +9,10 @@ use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Roles\Models\Role;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
+use TypiCMS\Modules\Users\Models\User;
 
 class AdminController extends BaseAdminController
 {
-    private $userModel = null;
-
-    public function __construct()
-    {
-        $this->userModel = app(config('auth.providers.users.model'));
-        parent::__construct();
-    }
-
     public function index(): View
     {
         return view('users::admin.index');
@@ -27,7 +20,7 @@ class AdminController extends BaseAdminController
 
     public function create(): View
     {
-        $model = $this->userModel;
+        $model = new User();
         $model->permissions = [];
         $model->roles = [];
         $roles = Role::get();
@@ -36,9 +29,8 @@ class AdminController extends BaseAdminController
             ->with(compact('model', 'roles'));
     }
 
-    public function edit($userId): View
+    public function edit(User $user): View
     {
-        $user = $this->userModel->findOrFail($userId);
         $user->permissions = $user->permissions()->pluck('name')->all();
         $user->roles = $user->roles()->pluck('id')->all();
         $roles = Role::get();
@@ -52,15 +44,14 @@ class AdminController extends BaseAdminController
         $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
         $data['password'] = Hash::make($request->input('password'));
         $data['email_verified_at'] = Carbon::now();
-        $user = app(config('auth.providers.users.model'))->create($data);
+        $user = User::create($data);
         $user->roles()->sync($request->input('roles', []));
 
         return $this->redirect($request, $user);
     }
 
-    public function update($userId, FormRequest $request): RedirectResponse
+    public function update(User $user, FormRequest $request): RedirectResponse
     {
-        $user = $this->userModel->findOrFail($userId);
         $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->input('password'));

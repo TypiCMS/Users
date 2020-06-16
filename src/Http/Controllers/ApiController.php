@@ -14,7 +14,7 @@ class ApiController extends BaseApiController
 {
     public function index(Request $request): LengthAwarePaginator
     {
-        $data = QueryBuilder::for(config('auth.providers.users.model'))
+        $data = QueryBuilder::for(User::class)
             ->allowedSorts(['first_name', 'last_name', 'email', 'superuser'])
             ->allowedFilters([
                 AllowedFilter::custom('first_name,last_name,email', new FilterOr()),
@@ -31,9 +31,8 @@ class ApiController extends BaseApiController
         $user->save();
     }
 
-    public function destroy($userId): JsonResponse
+    public function destroy(User $user): JsonResponse
     {
-        $user = app(config('auth.providers.users.model'))->findOrFail($userId);
         if (method_exists($user, 'mollieCustomerFields')) {
             if ($user->hasRunningSubscription()) {
                 return response()->json([
