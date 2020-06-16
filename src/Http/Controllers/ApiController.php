@@ -37,7 +37,7 @@ class ApiController extends BaseApiController
         if (auth()->user()->id === $user->id) {
             return response()->json([
                 'error' => true,
-                'message' => __('You can not delete yourself.'),
+                'message' => __('The current logged in user cannot be deleted.'),
             ], 403);
         }
         if (method_exists($user, 'mollieCustomerFields')) {
