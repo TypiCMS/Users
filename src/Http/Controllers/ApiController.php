@@ -39,7 +39,7 @@ class ApiController extends BaseApiController
                 return response()->json([
                     'error' => true,
                     'message' => __('User can not be deleted because he has a running subscription.')
-                ]);
+                ], 403);
             }
         }
         $deleted = $user->delete();
