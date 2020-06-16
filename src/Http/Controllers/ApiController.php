@@ -34,6 +34,12 @@ class ApiController extends BaseApiController
 
     public function destroy(User $user): JsonResponse
     {
+        if (auth()->user()->id === $user->id) {
+            return response()->json([
+                'error' => true,
+                'message' => __('You can not delete yourself.'),
+            ], 403);
+        }
         if (method_exists($user, 'mollieCustomerFields')) {
             if ($user->hasRunningSubscription()) {
                 return response()->json([
