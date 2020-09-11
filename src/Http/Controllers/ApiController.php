@@ -48,10 +48,6 @@ class ApiController extends BaseApiController
                 ], 403);
             }
         }
-        $deleted = $user->delete();
-
-        return response()->json([
-            'error' => !$deleted,
-        ]);
+        $user->delete();
     }
 }
