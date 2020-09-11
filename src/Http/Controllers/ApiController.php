@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -32,7 +31,7 @@ class ApiController extends BaseApiController
         $user->save();
     }
 
-    public function destroy(User $user): JsonResponse
+    public function destroy(User $user)
     {
         if (auth()->user()->id === $user->id) {
             return response()->json([
