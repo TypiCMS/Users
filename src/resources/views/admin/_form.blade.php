@@ -1,8 +1,6 @@
 @component('core::admin._buttons-form', ['model' => $model])
 @endcomponent
 
-{!! BootForm::hidden('id') !!}
-
 <div class="row">
     <div class="col-sm-6">
         {!! BootForm::email(__('Email'), 'email')->autocomplete('off')->required() !!}
