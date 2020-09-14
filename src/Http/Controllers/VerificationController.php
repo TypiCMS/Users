@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use TypiCMS\Modules\Pages\Models\Page;
 use TypiCMS\Modules\Users\Models\User;
 
 class VerificationController extends Controller
