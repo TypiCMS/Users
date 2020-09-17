@@ -11,7 +11,7 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        if (Gate::denies('see-all-users')) {
+        if (Gate::denies('read users')) {
             return;
         }
         $view->sidebar->group(__('Users and roles'), function (SidebarGroup $group) {

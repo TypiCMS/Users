@@ -2,9 +2,9 @@
 
 return [
     'users' => [
-        'see-all-users' => 'View list',
-        'create-user' => 'Create',
-        'update-user' => 'Edit',
-        'delete-user' => 'Delete',
+        'read users' => 'Read',
+        'create users' => 'Create',
+        'update users' => 'Edit',
+        'delete users' => 'Delete',
     ],
 ];
