@@ -6,18 +6,16 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use TypiCMS\Modules\Core\Http\Middleware\SetLocale;
+use TypiCMS\Modules\Users\Http\Controllers\AdminController;
+use TypiCMS\Modules\Users\Http\Controllers\ApiController;
+use TypiCMS\Modules\Users\Http\Controllers\ForgotPasswordController;
+use TypiCMS\Modules\Users\Http\Controllers\LoginController;
+use TypiCMS\Modules\Users\Http\Controllers\RegisterController;
+use TypiCMS\Modules\Users\Http\Controllers\ResetPasswordController;
+use TypiCMS\Modules\Users\Http\Controllers\VerificationController;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to the controller routes in your routes file.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'TypiCMS\Modules\Users\Http\Controllers';
-
     /**
      * Define the routes for the application.
      */
@@ -31,24 +29,24 @@ class RouteServiceProvider extends ServiceProvider
                 foreach (locales() as $lang) {
                     if (config('typicms.register')) {
                         // Registration
-                        $router->get($lang.'/register', 'RegisterController@showRegistrationForm')->name($lang.'::register');
-                        $router->post($lang.'/register', 'RegisterController@register');
+                        $router->get($lang.'/register', [RegisterController::class, 'showRegistrationForm'])->name($lang.'::register');
+                        $router->post($lang.'/register', [RegisterController::class, 'register']);
                         // Verify
-                        $router->get($lang.'/email/verify', 'VerificationController@show')->name($lang.'::verification.notice');
-                        $router->get($lang.'/email/verify/{id}', 'VerificationController@verify')->name($lang.'::verification.verify');
-                        $router->get($lang.'/email/resend', 'VerificationController@resend')->name($lang.'::verification.resend');
+                        $router->get($lang.'/email/verify', [VerificationController::class, 'show'])->name($lang.'::verification.notice');
+                        $router->get($lang.'/email/verify/{id}', [VerificationController::class, 'verify'])->name($lang.'::verification.verify');
+                        $router->get($lang.'/email/resend', [VerificationController::class, 'resend'])->name($lang.'::verification.resend');
                     }
                     // Login
-                    $router->get($lang.'/login', 'LoginController@showLoginForm')->name($lang.'::login');
-                    $router->post($lang.'/login', 'LoginController@login');
+                    $router->get($lang.'/login', [LoginController::class, 'showLoginForm'])->name($lang.'::login');
+                    $router->post($lang.'/login', [LoginController::class, 'login']);
                     // Request new password
-                    $router->get($lang.'/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name($lang.'::password.request');
-                    $router->post($lang.'/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name($lang.'::password.email');
+                    $router->get($lang.'/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name($lang.'::password.request');
+                    $router->post($lang.'/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name($lang.'::password.email');
                     // Set new password
-                    $router->get($lang.'/password/reset/{token}', 'ResetPasswordController@showResetForm')->name($lang.'::password.reset');
-                    $router->post($lang.'/password/reset', 'ResetPasswordController@reset');
+                    $router->get($lang.'/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name($lang.'::password.reset');
+                    $router->post($lang.'/password/reset', [ResetPasswordController::class, 'reset']);
                     // Logout
-                    $router->post($lang.'/logout', 'LoginController@logout')->name($lang.'::logout');
+                    $router->post($lang.'/logout', [LoginController::class, 'logout'])->name($lang.'::logout');
                 }
             });
 
@@ -56,11 +54,11 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
-                $router->get('users', 'AdminController@index')->name('admin::index-users')->middleware('can:read users');
-                $router->get('users/create', 'AdminController@create')->name('admin::create-user')->middleware('can:create users');
-                $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update users');
-                $router->post('users', 'AdminController@store')->name('admin::store-user')->middleware('can:create users');
-                $router->put('users/{user}', 'AdminController@update')->name('admin::update-user')->middleware('can:update users');
+                $router->get('users', [AdminController::class, 'index'])->name('admin::index-users')->middleware('can:read users');
+                $router->get('users/create', [AdminController::class, 'create'])->name('admin::create-user')->middleware('can:create users');
+                $router->get('users/{user}/edit', [AdminController::class, 'edit'])->name('admin::edit-user')->middleware('can:update users');
+                $router->post('users', [AdminController::class, 'store'])->name('admin::store-user')->middleware('can:create users');
+                $router->put('users/{user}', [AdminController::class, 'update'])->name('admin::update-user')->middleware('can:update users');
             });
 
             /*
@@ -68,9 +66,9 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('users', 'ApiController@index')->middleware('can:read users');
-                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->middleware('can:update users');
-                    $router->delete('users/{user}', 'ApiController@destroy')->middleware('can:delete users');
+                    $router->get('users', [ApiController::class, 'index'])->middleware('can:read users');
+                    $router->post('users/current/updatepreferences', [ApiController::class, 'updatePreferences'])->middleware('can:update users');
+                    $router->delete('users/{user}', [ApiController::class, 'destroy'])->middleware('can:delete users');
                 });
             });
         });
