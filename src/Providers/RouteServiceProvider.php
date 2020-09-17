@@ -20,8 +20,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
-     *
-     * @return null
      */
     public function map()
     {
@@ -58,11 +56,11 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
-                $router->get('users', 'AdminController@index')->name('admin::index-users')->middleware('can:see-all-users');
-                $router->get('users/create', 'AdminController@create')->name('admin::create-user')->middleware('can:create-user');
-                $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update-user');
-                $router->post('users', 'AdminController@store')->name('admin::store-user')->middleware('can:create-user');
-                $router->put('users/{user}', 'AdminController@update')->name('admin::update-user')->middleware('can:update-user');
+                $router->get('users', 'AdminController@index')->name('admin::index-users')->middleware('can:read users');
+                $router->get('users/create', 'AdminController@create')->name('admin::create-user')->middleware('can:create users');
+                $router->get('users/{user}/edit', 'AdminController@edit')->name('admin::edit-user')->middleware('can:update users');
+                $router->post('users', 'AdminController@store')->name('admin::store-user')->middleware('can:create users');
+                $router->put('users/{user}', 'AdminController@update')->name('admin::update-user')->middleware('can:update users');
             });
 
             /*
@@ -70,9 +68,9 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('users', 'ApiController@index')->middleware('can:see-all-users');
-                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->middleware('can:update-preferences');
-                    $router->delete('users/{user}', 'ApiController@destroy')->middleware('can:delete-user');
+                    $router->get('users', 'ApiController@index')->middleware('can:read users');
+                    $router->post('users/current/updatepreferences', 'ApiController@updatePreferences')->middleware('can:update users');
+                    $router->delete('users/{user}', 'ApiController@destroy')->middleware('can:delete users');
                 });
             });
         });
