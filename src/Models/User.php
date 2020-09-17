@@ -16,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Users\Notifications\ResetPassword;
@@ -96,6 +97,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function isSuperUser(): bool
     {
         return (bool) $this->superuser;
+    }
+
+    public function getAllPermissionsAttribute(): array
+    {
+        $user = auth()->user();
+        if ($user->isSuperUser()) {
+            return ['all'];
+        }
+        $permissions = [];
+        foreach (Permission::all() as $permission) {
+            if ($user->can($permission->name)) {
+                $permissions[] = $permission->name;
+            }
+        }
+
+        return $permissions;
     }
 
     public function sendPasswordResetNotification($token): void
