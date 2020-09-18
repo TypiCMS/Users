@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Users\Facades\Users;
 
-class ModuleProvider extends ServiceProvider
+class ModuleServiceProvider extends ServiceProvider
 {
     public function boot()
     {
