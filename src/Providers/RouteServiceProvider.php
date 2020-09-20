@@ -21,56 +21,52 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::namespace($this->namespace)->group(function (Router $router) {
-            /*
-             * Front office routes
-             */
-            $router->middleware('web', SetLocale::class)->group(function (Router $router) {
-                foreach (locales() as $lang) {
-                    if (config('typicms.register')) {
-                        // Registration
-                        $router->get($lang.'/register', [RegisterController::class, 'showRegistrationForm'])->name($lang.'::register');
-                        $router->post($lang.'/register', [RegisterController::class, 'register']);
-                        // Verify
-                        $router->get($lang.'/email/verify', [VerificationController::class, 'show'])->name($lang.'::verification.notice');
-                        $router->get($lang.'/email/verify/{id}', [VerificationController::class, 'verify'])->name($lang.'::verification.verify');
-                        $router->get($lang.'/email/resend', [VerificationController::class, 'resend'])->name($lang.'::verification.resend');
-                    }
-                    // Login
-                    $router->get($lang.'/login', [LoginController::class, 'showLoginForm'])->name($lang.'::login');
-                    $router->post($lang.'/login', [LoginController::class, 'login']);
-                    // Request new password
-                    $router->get($lang.'/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name($lang.'::password.request');
-                    $router->post($lang.'/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name($lang.'::password.email');
-                    // Set new password
-                    $router->get($lang.'/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name($lang.'::password.reset');
-                    $router->post($lang.'/password/reset', [ResetPasswordController::class, 'reset']);
-                    // Logout
-                    $router->post($lang.'/logout', [LoginController::class, 'logout'])->name($lang.'::logout');
+        /*
+         * Front office routes
+         */
+        foreach (locales() as $lang) {
+            Route::middleware('web', SetLocale::class)->prefix($lang)->name($lang.'::')->group(function (Router $router) {
+                if (config('typicms.register')) {
+                    // Registration
+                    $router->get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+                    $router->post('register', [RegisterController::class, 'register']);
+                    // Verify
+                    $router->get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+                    $router->get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+                    $router->get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
                 }
+                // Login
+                $router->get('login', [LoginController::class, 'showLoginForm'])->name('login');
+                $router->post('login', [LoginController::class, 'login']);
+                // Request new password
+                $router->get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+                $router->post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+                // Set new password
+                $router->get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+                $router->post('password/reset', [ResetPasswordController::class, 'reset']);
+                // Logout
+                $router->post('logout', [LoginController::class, 'logout'])->name('logout');
             });
+        }
 
-            /*
-             * Admin routes
-             */
-            $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
-                $router->get('users', [AdminController::class, 'index'])->name('admin::index-users')->middleware('can:read users');
-                $router->get('users/create', [AdminController::class, 'create'])->name('admin::create-user')->middleware('can:create users');
-                $router->get('users/{user}/edit', [AdminController::class, 'edit'])->name('admin::edit-user')->middleware('can:read users');
-                $router->post('users', [AdminController::class, 'store'])->name('admin::store-user')->middleware('can:create users');
-                $router->put('users/{user}', [AdminController::class, 'update'])->name('admin::update-user')->middleware('can:update users');
-            });
+        /*
+         * Admin routes
+         */
+        Route::middleware('admin')->prefix('admin')->name('admin::')->group(function (Router $router) {
+            $router->get('users', [AdminController::class, 'index'])->name('index-users')->middleware('can:read users');
+            $router->get('users/create', [AdminController::class, 'create'])->name('create-user')->middleware('can:create users');
+            $router->get('users/{user}/edit', [AdminController::class, 'edit'])->name('edit-user')->middleware('can:read users');
+            $router->post('users', [AdminController::class, 'store'])->name('store-user')->middleware('can:create users');
+            $router->put('users/{user}', [AdminController::class, 'update'])->name('update-user')->middleware('can:update users');
+        });
 
-            /*
-             * API routes
-             */
-            $router->middleware('api')->prefix('api')->group(function (Router $router) {
-                $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('users', [ApiController::class, 'index'])->middleware('can:read users');
-                    $router->post('users/current/updatepreferences', [ApiController::class, 'updatePreferences'])->middleware('can:update users');
-                    $router->delete('users/{user}', [ApiController::class, 'destroy'])->middleware('can:delete users');
-                });
-            });
+        /*
+         * API routes
+         */
+        Route::middleware(['api', 'auth:api'])->prefix('api')->group(function (Router $router) {
+            $router->get('users', [ApiController::class, 'index'])->middleware('can:read users');
+            $router->post('users/current/updatepreferences', [ApiController::class, 'updatePreferences'])->middleware('can:update users');
+            $router->delete('users/{user}', [ApiController::class, 'destroy'])->middleware('can:delete users');
         });
     }
 }
