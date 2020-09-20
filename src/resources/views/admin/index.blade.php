@@ -10,6 +10,7 @@
     fields="id,first_name,last_name,email,activated,superuser"
     table="users"
     title="users"
+    :multilingual="false"
     :publishable="false"
     :searchable="['first_name,last_name,email']"
     :sorting="['first_name']">
