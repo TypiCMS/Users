@@ -15,7 +15,7 @@ class ApiController extends BaseApiController
     public function index(Request $request): LengthAwarePaginator
     {
         $data = QueryBuilder::for(User::class)
-            ->allowedSorts(['first_name', 'last_name', 'email', 'superuser'])
+            ->allowedSorts(['first_name', 'last_name', 'email', 'superuser', 'activated'])
             ->allowedFilters([
                 AllowedFilter::custom('first_name,last_name,email', new FilterOr()),
             ])
