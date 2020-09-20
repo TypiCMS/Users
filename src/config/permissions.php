@@ -4,7 +4,7 @@ return [
     'users' => [
         'read users' => 'Read',
         'create users' => 'Create',
-        'update users' => 'Edit',
+        'update users' => 'Update',
         'delete users' => 'Delete',
     ],
 ];

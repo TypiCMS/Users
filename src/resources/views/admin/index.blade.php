@@ -14,13 +14,13 @@
     :searchable="['first_name,last_name,email']"
     :sorting="['first_name']">
 
-    <template slot="add-button">
+    <template slot="add-button" v-if="$can('create users')">
         @include('core::admin._button-create', ['module' => 'users'])
     </template>
 
     <template slot="columns" slot-scope="{ sortArray }">
-        <item-list-column-header name="checkbox"></item-list-column-header>
-        <item-list-column-header name="edit"></item-list-column-header>
+        <item-list-column-header name="checkbox" v-if="$can('update users')||$can('delete users')"></item-list-column-header>
+        <item-list-column-header name="edit" v-if="$can('update users')"></item-list-column-header>
         <item-list-column-header name="first_name" sortable :sort-array="sortArray" :label="$t('First name')"></item-list-column-header>
         <item-list-column-header name="last_name" sortable :sort-array="sortArray" :label="$t('Last name')"></item-list-column-header>
         <item-list-column-header name="email" sortable :sort-array="sortArray" :label="$t('Email')"></item-list-column-header>
@@ -31,8 +31,8 @@
     </template>
 
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
-        <td class="checkbox"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
-        <td>@include('core::admin._button-edit', ['module' => 'users'])</td>
+        <td class="checkbox" v-if="$can('update users')||$can('delete users')"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
+        <td v-if="$can('update users')">@include('core::admin._button-edit', ['module' => 'users'])</td>
         <td>@{{ model.first_name }}</td>
         <td>@{{ model.last_name }}</td>
         <td><a :href="'mailto:'+model.email">@{{ model.email }}</a></td>
