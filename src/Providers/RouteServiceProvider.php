@@ -16,9 +16,6 @@ use TypiCMS\Modules\Users\Http\Controllers\VerificationController;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * Define the routes for the application.
-     */
     public function map()
     {
         /*
