@@ -41,7 +41,7 @@ class AdminController extends BaseAdminController
 
     public function store(FormRequest $request): RedirectResponse
     {
-        $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
+        $data = $request->validated();
         $data['password'] = Hash::make($request->input('password'));
         $data['email_verified_at'] = Carbon::now();
         $user = User::create($data);
@@ -52,9 +52,11 @@ class AdminController extends BaseAdminController
 
     public function update(User $user, FormRequest $request): RedirectResponse
     {
-        $data = $request->except(['exit', 'permissions', 'roles', 'password', 'password_confirmation']);
+        $data = $request->validated();
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->input('password'));
+        } else {
+            unset($data['password']);
         }
         $user->update($data);
         $user->roles()->sync($request->input('roles', []));

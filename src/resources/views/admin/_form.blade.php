@@ -3,22 +3,7 @@
 
 {!! BootForm::hidden('id') !!}
 
-<div class="row">
-    <div class="col-sm-6">
-        {!! BootForm::email(__('Email'), 'email')->autocomplete('off')->required() !!}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6">
-        {!! BootForm::password(__('Password'), 'password') !!}
-    </div>
-    <div class="col-sm-6">
-        {!! BootForm::password(__('Password confirmation'), 'password_confirmation') !!}
-    </div>
-</div>
-
-<div class="row">
+<div class="form-row">
     <div class="col-sm-6">
         {!! BootForm::text(__('First name'), 'first_name')->required() !!}
     </div>
@@ -27,19 +12,67 @@
     </div>
 </div>
 
+<div class="form-row">
+    <div class="col">
+        {!! BootForm::email(__('Email'), 'email') !!}
+    </div>
+    <div class="col">
+        {!! BootForm::text(__('Phone'), 'phone') !!}
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-sm-6">
+        {!! BootForm::password(__('Password'), 'password') !!}
+    </div>
+    <div class="col-sm-6">
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation') !!}
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col">
+        {!! BootForm::text(__('Street'), 'street') !!}
+    </div>
+    <div class="col-md-2">
+        {!! BootForm::text(__('Number'), 'number') !!}
+    </div>
+    <div class="col-md-2">
+        {!! BootForm::text(__('Box'), 'box') !!}
+    </div>
+</div>
+
+
+<div class="form-row">
+    <div class="col">
+        {!! BootForm::text(__('Postal code'), 'postal_code') !!}
+    </div>
+    <div class="col">
+        {!! BootForm::text(__('City'), 'city') !!}
+    </div>
+    <div class="col">
+        {!! BootForm::text(__('Country'), 'country') !!}
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-sm-6">
+        {!! BootForm::text(__('Language'), 'locale') !!}
+    </div>
+</div>
+
 <div class="form-group">
 {!! BootForm::hidden('activated')->value(0) !!}
 {!! BootForm::checkbox(__('Activated'), 'activated') !!}
-
-@if (auth()->user()->isSuperUser())
-{!! BootForm::hidden('superuser')->value(0) !!}
-{!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
-@endif
 </div>
 
 @if ($roles->count() > 0)
 <div class="form-group">
     <label>{{ __('Roles') }}</label>
+    @if (auth()->user()->isSuperUser())
+    {!! BootForm::hidden('superuser')->value(0) !!}
+    {!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
+    @endif
     @foreach ($roles as $role)
     <div class="form-check">
         {!! Form::checkbox('roles[]', $role->id)->addClass('form-check-input')->id('role-'.$role->name) !!}

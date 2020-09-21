@@ -36,16 +36,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $presenter = ModulePresenter::class;
 
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'activated',
-        'superuser',
-        'api_token',
-        'email_verified_at',
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',
