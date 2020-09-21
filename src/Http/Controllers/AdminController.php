@@ -3,11 +3,14 @@
 namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Roles\Models\Role;
+use TypiCMS\Modules\Users\Exports\UsersExport;
 use TypiCMS\Modules\Users\Http\Requests\FormRequest;
 use TypiCMS\Modules\Users\Models\User;
 
@@ -16,6 +19,13 @@ class AdminController extends BaseAdminController
     public function index(): View
     {
         return view('users::admin.index');
+    }
+
+    public function export(Request $request)
+    {
+        $filename = date('Y-m-d').' '.config('app.name').' users.xlsx';
+
+        return Excel::download(new UsersExport($request), $filename);
     }
 
     public function create(): View
