@@ -4,14 +4,17 @@ namespace TypiCMS\Modules\Users\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Users\Models\User;
 
-class UsersExport implements ShouldAutoSize, FromCollection, WithHeadings, WithMapping
+class UsersExport implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
 {
     protected $collection;
 
@@ -25,22 +28,23 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithHeadings, WithM
             ->get();
     }
 
-    public function map($user): array
+    public function map($model): array
     {
         return [
-            $user->created_at,
-            $user->last_name,
-            $user->first_name,
-            $user->email,
-            $user->phone,
-            $user->street,
-            $user->number,
-            $user->box,
-            $user->postal_code,
-            $user->city,
-            $user->country,
-            $user->locale,
-            $user->privacy_policy_accepted,
+            Date::dateTimeToExcel($model->created_at),
+            Date::dateTimeToExcel($model->updated_at),
+            $model->last_name,
+            $model->first_name,
+            $model->email,
+            $model->phone,
+            $model->street,
+            $model->number,
+            $model->box,
+            $model->postal_code,
+            $model->city,
+            $model->country,
+            $model->locale,
+            $model->privacy_policy_accepted,
         ];
     }
 
@@ -48,6 +52,7 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithHeadings, WithM
     {
         return [
             'created_at',
+            'updated_at',
             'last_name',
             'first_name',
             'email',
@@ -60,6 +65,14 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithHeadings, WithM
             'country',
             'locale',
             'privacy_policy_accepted',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_DATE_DATETIME,
+            'B' => NumberFormat::FORMAT_DATE_DATETIME,
         ];
     }
 
