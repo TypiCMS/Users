@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Users\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use TypiCMS\Modules\Core\Http\Middleware\JavaScriptData;
 use TypiCMS\Modules\Core\Http\Middleware\SetLocale;
 use TypiCMS\Modules\Users\Http\Controllers\AdminController;
 use TypiCMS\Modules\Users\Http\Controllers\ApiController;
@@ -22,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
          * Front office routes
          */
         foreach (locales() as $lang) {
-            Route::middleware('web', SetLocale::class)->prefix($lang)->name($lang.'::')->group(function (Router $router) {
+            Route::middleware('web', SetLocale::class, JavaScriptData::class)->prefix($lang)->name($lang.'::')->group(function (Router $router) {
                 if (config('typicms.register')) {
                     // Registration
                     $router->get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
