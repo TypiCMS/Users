@@ -31,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
                     // Verify
                     $router->get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
                     $router->get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+                    $router->get('email/verified', [VerificationController::class, 'verified'])->name('verification.verified');
                     $router->get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
                 }
                 // Login

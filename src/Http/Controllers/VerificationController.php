@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
-use TypiCMS\Modules\Pages\Models\Page;
 use TypiCMS\Modules\Users\Models\User;
 
 class VerificationController extends Controller
@@ -29,9 +28,7 @@ class VerificationController extends Controller
      */
     public function redirectTo()
     {
-        $homepage = Page::published()->where('is_home', 1)->firstOrFail();
-
-        return $homepage->uri();
+        return route(app()->getLocale().'::verification.verified');
     }
 
     /**
@@ -71,5 +68,14 @@ class VerificationController extends Controller
         }
 
         return redirect($this->redirectPath())->with('verified', true);
+    }
+
+    public function verified()
+    {
+        if (session('verified')) {
+            return view('users::verified');
+        }
+
+        return redirect('/');
     }
 }
