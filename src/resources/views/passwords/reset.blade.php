@@ -24,9 +24,9 @@
 
         @include('users::_status')
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required() !!}
-        {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
-        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required()->autocomplete('username') !!}
+        {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required()->autocomplete('new-password') !!}
+        {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required()->autocomplete('new-password') !!}
         {!! BootForm::hidden('token')->value($token) !!}
 
         <div class="form-group form-action">

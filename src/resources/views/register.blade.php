@@ -24,7 +24,7 @@
 
         @include('users::_status')
 
-        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->required() !!}
+        {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->required()->autocomplete('username') !!}
         <div class="form-row">
             <div class="col-sm-6">
                 {!! BootForm::text(__('First name'), 'first_name')->addClass('form-control-lg')->required() !!}
@@ -35,10 +35,10 @@
         </div>
         <div class="form-row">
             <div class="col-sm-6">
-                {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required() !!}
+                {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required()->autocomplete('new-password') !!}
             </div>
             <div class="col-sm-6">
-                {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required() !!}
+                {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required()->autocomplete('new-password') !!}
             </div>
         </div>
 
