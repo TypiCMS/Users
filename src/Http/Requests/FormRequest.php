@@ -21,6 +21,9 @@ class FormRequest extends AbstractFormRequest
             'country' => 'nullable|max:255',
             'phone' => 'nullable|max:100',
             'locale' => 'nullable|size:2',
+            'activated' => 'boolean',
+            'superuser' => 'boolean',
+            'privacy_policy_accepted' => 'boolean',
         ];
     }
 }
