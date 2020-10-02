@@ -14,7 +14,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Users\Models\User;
 
-class UsersExport implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
+class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
 {
     protected $collection;
 
