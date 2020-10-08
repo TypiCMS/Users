@@ -48,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
             });
         }
 
+        Route::redirect('/.well-known/change-password', '/'.app()->getLocale().'/password/reset');
+
         /*
          * Admin routes
          */
