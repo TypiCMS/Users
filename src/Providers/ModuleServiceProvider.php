@@ -6,6 +6,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Users\Facades\Users;
+use TypiCMS\Modules\Users\Models\User;
 
 class ModuleServiceProvider extends ServiceProvider
 {
