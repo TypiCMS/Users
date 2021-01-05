@@ -27,15 +27,15 @@
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control-lg')->autofocus(true)->required()->autocomplete('username') !!}
         {!! BootForm::password(__('Password'), 'password')->addClass('form-control-lg')->required()->autocomplete('current-password') !!}
 
-        <div class="form-group">
+        <div class="mb-3">
             {!! BootForm::checkbox(__('Remember Me'), 'remember') !!}
         </div>
 
-        <div class="form-group">
-            {!! BootForm::submit(__('Login'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+        <div class="mb-3 d-grid">
+            {!! BootForm::submit(__('Login'), 'btn-primary')->addClass('btn-lg') !!}
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <span class="form-text">
                 <a href="{{ route(app()->getLocale().'::password.request') }}">{{ __('Forgot Your Password?') }}</a>
             </span>

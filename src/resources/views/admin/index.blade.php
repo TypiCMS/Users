@@ -45,7 +45,7 @@
             @if (auth()->user()->isSuperUser())
             <span class="badge badge-secondary" v-if="model.superuser">Superuser</span>
             @endif
-            <span class="badge badge-light mr-1" v-for="role in model.roles">@{{ role.name }}</span>
+            <span class="badge badge-light me-1" v-for="role in model.roles">@{{ role.name }}</span>
         </td>
     </template>
 

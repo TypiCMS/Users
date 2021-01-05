@@ -3,7 +3,7 @@
 
 {!! BootForm::hidden('id') !!}
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col-sm-6">
         {!! BootForm::text(__('First name'), 'first_name')->required() !!}
     </div>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col">
         {!! BootForm::email(__('Email'), 'email') !!}
     </div>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col-sm-6">
         {!! BootForm::password(__('Password'), 'password') !!}
     </div>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col">
         {!! BootForm::text(__('Street'), 'street') !!}
     </div>
@@ -43,7 +43,7 @@
 </div>
 
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col">
         {!! BootForm::text(__('Postal code'), 'postal_code') !!}
     </div>
@@ -55,19 +55,19 @@
     </div>
 </div>
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col-sm-6">
         {!! BootForm::text(__('Language'), 'locale') !!}
     </div>
 </div>
 
-<div class="form-group">
+<div class="mb-3">
 {!! BootForm::hidden('activated')->value(0) !!}
 {!! BootForm::checkbox(__('Activated'), 'activated') !!}
 </div>
 
 @if ($roles->count() > 0)
-<div class="form-group">
+<div class="mb-3">
     <label>{{ __('Roles') }}</label>
     @if (auth()->user()->isSuperUser())
     {!! BootForm::hidden('superuser')->value(0) !!}

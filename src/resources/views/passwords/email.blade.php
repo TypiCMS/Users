@@ -26,8 +26,8 @@
 
         {!! BootForm::email(__('Email'), 'email')->addClass('form-control form-control-lg')->autofocus(true)->required()->autocomplete('username') !!}
 
-        <div class="form-group form-action">
-            {!! BootForm::submit(__('Send Password Reset Link'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+        <div class="mb-3 mt-3 d-grid">
+            {!! BootForm::submit(__('Send Password Reset Link'), 'btn-primary')->addClass('btn-lg') !!}
         </div>
 
     {!! BootForm::close() !!}

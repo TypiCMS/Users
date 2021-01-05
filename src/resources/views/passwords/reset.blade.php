@@ -29,8 +29,8 @@
         {!! BootForm::password(__('Password confirmation'), 'password_confirmation')->addClass('form-control-lg')->required()->autocomplete('new-password') !!}
         {!! BootForm::hidden('token')->value($token) !!}
 
-        <div class="form-group form-action">
-            {!! BootForm::submit(__('Change Password'), 'btn-primary')->addClass('btn-lg btn-block') !!}
+        <div class="mb-3 mt-3 d-grid">
+            {!! BootForm::submit(__('Change Password'), 'btn-primary')->addClass('btn-lg') !!}
         </div>
 
     {!! BootForm::close() !!}
