@@ -68,7 +68,7 @@
 
 @if ($roles->count() > 0)
 <div class="mb-3">
-    <label>{{ __('Roles') }}</label>
+    <label class="form-label">{{ __('Roles') }}</label>
     @if (auth()->user()->isSuperUser())
     {!! BootForm::hidden('superuser')->value(0) !!}
     {!! BootForm::checkbox(__('Superuser'), 'superuser') !!}
@@ -84,6 +84,6 @@
 
 <!-- Per user permissions -->
 {{--
-<label>{{ __('User permissions') }}</label>
+<label class="form-label">{{ __('User permissions') }}</label>
 @include('core::admin._permissions-form')
 --}}
