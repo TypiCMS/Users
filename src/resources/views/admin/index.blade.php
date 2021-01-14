@@ -38,8 +38,8 @@
         <td>@{{ model.last_name }}</td>
         <td><a :href="'mailto:'+model.email">@{{ model.email }}</a></td>
         <td>
-            <span class="badge badge-secondary" v-if="model.activated">@lang('Yes')</span>
-            <span class="badge badge-light" v-else>@lang('No')</span>
+            <span class="badge bg-secondary" v-if="model.activated">@lang('Yes')</span>
+            <span class="badge bg-light" v-else>@lang('No')</span>
         </td>
         <td>
             @if (auth()->user()->isSuperUser())
