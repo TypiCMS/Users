@@ -64,7 +64,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             return route($route, $this->id);
         }
 
-        return route('dashboard');
+        return route('admin::dashboard');
     }
 
     public function indexUrl(): string
@@ -74,7 +74,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             return route($route);
         }
 
-        return route('dashboard');
+        return route('admin::dashboard');
     }
 
     public static function boot(): void
