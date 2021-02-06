@@ -8,10 +8,8 @@ class ModulePresenter extends Presenter
 {
     /**
      * Get title by concatenating first_name and last_name.
-     *
-     * @return string
      */
-    public function title()
+    public function title(): string
     {
         return $this->entity->first_name.' '.$this->entity->last_name;
     }
