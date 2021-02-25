@@ -51,20 +51,20 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
     public function headings(): array
     {
         return [
-            'Created at',
-            'Updated at',
-            'Last name',
-            'First name',
-            'Email',
-            'Phone',
-            'Street',
-            'Number',
-            'Box',
-            'Postal code',
-            'City',
-            'Country',
-            'Locale',
-            'Privacy policy accepted',
+            __('Created at'),
+            __('Updated at'),
+            __('Last name'),
+            __('First name'),
+            __('Email'),
+            __('Phone'),
+            __('Street'),
+            __('Number'),
+            __('Box'),
+            __('Postal code'),
+            __('City'),
+            __('Country'),
+            __('Locale'),
+            __('Privacy policy accepted'),
         ];
     }
 
