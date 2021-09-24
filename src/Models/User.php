@@ -47,6 +47,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'preferences' => 'array',
     ];
 
+    protected function getDefaultGuardName(): string // https://github.com/spatie/laravel-permission/issues/1156#issue-466659658
+    {
+        return 'web';
+    }
+
     public function preferredLocale()
     {
         return $this->locale;
