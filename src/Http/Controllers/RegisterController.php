@@ -56,27 +56,21 @@ class RegisterController extends Controller
      */
     public function register(FormRequestRegister $request)
     {
-        $user = $this->create($request->validated());
+        $data = $request->validated();
+
+        if (User::where('email', $data['email'])->exists()) {
+            return redirect()
+                ->route(app()->getLocale().'::login')
+                ->withStatus(__('An account already exists for this email address. Log in or request a new password.'));
+        }
+
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
 
         event(new Registered($user));
 
         return redirect()
             ->back()
             ->with('status', __('Your account has been created, check your email for the verification link.'));
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
     }
 }
