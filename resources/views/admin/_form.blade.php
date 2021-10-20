@@ -56,8 +56,8 @@
 </div>
 
 <div class="row gx-3">
-    <div class="col-sm-6">
-        {!! BootForm::text(__('Language'), 'locale') !!}
+    <div class="col-6 col-lg-2">
+        {!! BootForm::select(__('Language'), 'locale', ['' => '', 'en' => 'en', 'fr' => 'fr', 'nl' => 'nl', 'es' => 'es']) !!}
     </div>
 </div>
 
