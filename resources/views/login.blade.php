@@ -35,11 +35,7 @@
             {!! BootForm::submit(__('Login'), 'btn-primary')->addClass('btn-lg') !!}
         </div>
 
-        <div class="mb-3">
-            <span class="form-text">
-                <a href="{{ route(app()->getLocale().'::password.request') }}">{{ __('Forgot Your Password?') }}</a>
-            </span>
-        </div>
+        <a class="form-text mt-0 d-block" href="{{ route(app()->getLocale().'::password.request') }}">{{ __('Forgot Your Password?') }}</a>
 
     {!! BootForm::close() !!}
 
