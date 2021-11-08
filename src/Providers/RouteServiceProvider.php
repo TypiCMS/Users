@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
          * Front office routes
          */
         foreach (locales() as $lang) {
-            Route::middleware('public', JavaScriptData::class)->prefix($lang)->name($lang.'::')->group(function (Router $router) {
+            Route::middleware(['public', JavaScriptData::class])->prefix($lang)->name($lang.'::')->group(function (Router $router) {
                 if (config('typicms.register')) {
                     // Registration
                     $router->get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
