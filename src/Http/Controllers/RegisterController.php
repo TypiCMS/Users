@@ -5,7 +5,9 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use TypiCMS\Modules\Users\Http\Requests\FormRequestRegister;
 use TypiCMS\Modules\Users\Models\User;
 
@@ -41,20 +43,16 @@ class RegisterController extends Controller
 
     /**
      * Show the application registration form.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(): View
     {
         return view('users::register');
     }
 
     /**
      * Handle a registration request for the application.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function register(FormRequestRegister $request)
+    public function register(FormRequestRegister $request): RedirectResponse
     {
         $data = $request->validated();
 

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class ResetPasswordController extends Controller
 {
@@ -41,12 +42,8 @@ class ResetPasswordController extends Controller
      * Display the password reset view for the given token.
      *
      * If no token is present, display the link request form.
-     *
-     * @param string|null $token
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function showResetForm(Request $request, $token = null)
+    public function showResetForm(Request $request, $token = null): View
     {
         return view('users::passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]

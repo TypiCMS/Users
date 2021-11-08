@@ -4,7 +4,9 @@ namespace TypiCMS\Modules\Users\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use TypiCMS\Modules\Users\Models\User;
 
 class LoginController extends Controller
@@ -39,18 +41,14 @@ class LoginController extends Controller
 
     /**
      * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('users::login');
     }
 
     /**
      * Get the failed login response instance.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -78,10 +76,8 @@ class LoginController extends Controller
 
     /**
      * Get the needed authorization credentials from the request.
-     *
-     * @return array
      */
-    protected function credentials(Request $request)
+    protected function credentials(Request $request): array
     {
         $credentials = $request->only($this->username(), 'password');
         $credentials['activated'] = 1;
