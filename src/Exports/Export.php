@@ -16,11 +16,9 @@ use TypiCMS\Modules\Users\Models\User;
 
 class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
 {
-    protected $collection;
-
-    public function __construct($request)
+    public function collection()
     {
-        $this->collection = QueryBuilder::for(User::class)
+        return QueryBuilder::for(User::class)
             ->allowedSorts(['first_name', 'last_name', 'email', 'subscription_plan', 'subscription_ends_at', 'last_payment_at', 'superuser'])
             ->allowedFilters([
                 AllowedFilter::custom('first_name,last_name,email', new FilterOr()),
@@ -74,10 +72,5 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
             'A' => NumberFormat::FORMAT_DATE_DATETIME,
             'B' => NumberFormat::FORMAT_DATE_DATETIME,
         ];
-    }
-
-    public function collection()
-    {
-        return $this->collection;
     }
 }

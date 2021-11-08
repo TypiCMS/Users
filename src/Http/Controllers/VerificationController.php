@@ -43,8 +43,6 @@ class VerificationController extends Controller
 
     /**
      * Show the email verification notice.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
     {
@@ -55,10 +53,6 @@ class VerificationController extends Controller
 
     /**
      * Mark the authenticated user's email address as verified.
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     *
-     * @return \Illuminate\Http\Response
      */
     public function verify(Request $request)
     {
