@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Users\Providers;
 
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Users\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Users\Facades\Users;
@@ -10,13 +11,10 @@ use TypiCMS\Modules\Users\Models\User;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'typicms.users');
         $this->mergeConfigFrom(__DIR__.'/../config/permissions.php', 'typicms.permissions');
-
-        $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['users' => []], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'users');
 
@@ -31,21 +29,13 @@ class ModuleServiceProvider extends ServiceProvider
 
         AliasLoader::getInstance()->alias('Users', Users::class);
 
-        /*
-         * Sidebar view composer
-         */
-        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
+        View::composer('core::admin._sidebar', SidebarViewComposer::class);
     }
 
-    public function register()
+    public function register(): void
     {
-        $app = $this->app;
+        $this->app->register(RouteServiceProvider::class);
 
-        /*
-         * Register route service provider
-         */
-        $app->register(RouteServiceProvider::class);
-
-        $app->bind('Users', User::class);
+        $this->app->bind('Users', User::class);
     }
 }
